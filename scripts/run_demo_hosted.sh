@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Hosted framework endpoints provided by the user.
-export CDCT_API_URL="https://cdct-framework.vercel.app"
-export DDFT_API_URL="https://ddft-framework.vercel.app"
-export EECT_API_URL="https://eect-framework.vercel.app"
+# Framework API endpoints — override via env vars if needed.
+export CDCT_API_URL="${CDCT_API_URL:-http://localhost:8001}"
+export DDFT_API_URL="${DDFT_API_URL:-http://localhost:8002}"
+export EECT_API_URL="${EECT_API_URL:-http://localhost:8003}"
 
 if [[ "${1:-}" == "--live" ]]; then
-  exec python3 -m simulation.live_runner --live
+  exec python3 -m server.live_runner --live
 fi
 
 ROUNDS="${1:-10}"
-exec python3 -m simulation.live_runner --rounds "${ROUNDS}"
+exec python3 -m server.live_runner --rounds "${ROUNDS}"

@@ -277,6 +277,18 @@ class LiveSimulationRunner:
             eect_api_url=self.config.eect_api_url,
         )
 
+        # On-chain client (optional — skipped if solana keypair not available)
+        self.chain: Optional[Any] = None
+        try:
+            from cgae_engine.solana_client import CGAEOnChain
+            self.chain = CGAEOnChain()
+            self.chain.initialize()
+            logger.info("[on-chain] Solana client initialized")
+        except Exception as e:
+            logger.warning("[on-chain] Solana client unavailable: %s — running off-chain only", e)
+        # on-chain contract_id -> python contract_id mapping
+        self._onchain_contract_map: dict[str, int] = {}  # python_contract_id -> onchain_id
+
         # LLM agents (populated in setup)
         self.llm_agents: dict[str, LLMAgent] = {}
         self.agent_model_map: dict[str, str] = {}
@@ -418,10 +430,16 @@ class LiveSimulationRunner:
             cache_dir = self.config.live_audit_cache_dir or str(
                 Path(self.config.output_dir) / "audit_cache"
             )
-            _pin_audit_to_storage(
+            cid, cid_real = _pin_audit_to_storage(
                 model_name, agent_id, Path(cache_dir), pre,
                 defaults_used=set(), errors=[],
             )
+            if cid:
+                self._initial_audit_details[model_name] = {
+                    "audit_storage_cid": cid,
+                    "audit_storage_cid_real": cid_real,
+                    "source": "pre_computed",
+                }
             return pre
 
         # --- Step 3: DEFAULT_ROBUSTNESS per model (last resort) -------------
@@ -506,10 +524,8 @@ class LiveSimulationRunner:
                 get_model_config(n) for n in self.config.model_names
                 if get_model_config(n).get("tier_assignment") != "jury"
             ]
-            jury_configs = [
-                get_model_config(n) for n in self.config.model_names
-                if get_model_config(n).get("tier_assignment") == "jury"
-            ]
+            # Always include the global jury models regardless of model_names filter
+            jury_configs = JURY_MODELS
         else:
             contestant_configs = CONTESTANT_MODELS
             jury_configs = JURY_MODELS
@@ -564,6 +580,17 @@ class LiveSimulationRunner:
                 f"Registered {model_name} -> {record.agent_id} "
                 f"at tier {record.current_tier.name}"
             )
+
+            # On-chain: register agent + certify with audit scores
+            if self.chain:
+                try:
+                    self.chain.register_agent(model_name)
+                    cid = record.audit_cid or ""
+                    self.chain.certify_agent(
+                        model_name, robustness.cc, robustness.er, robustness.as_, robustness.ih, cid
+                    )
+                except Exception as e:
+                    logger.warning("[on-chain] register/certify failed for %s: %s", model_name, e)
 
             # Create AutonomousAgent wrapper for this contestant
             strategy_name = strategy_cfg.get(model_name, "growth")
@@ -675,85 +702,74 @@ class LiveSimulationRunner:
 
     def _demo_forced_upgrade(self):
         """
-        Video demo: Force a visible tier upgrade to demonstrate Theorem 2.
-        Shows agent investing in robustness → re-audit → tier promotion → higher contracts.
+        Demonstrate Theorem 2: agent invests in robustness → real re-audit → tier promotion.
+        Runs live CDCT/DDFT/EECT against the target model and re-certifies on-chain.
         """
-        # Find gpt-5.4 (growth strategy agent)
         target_model = "gpt-5.4"
-        target_id = None
-        for aid, model in self.agent_model_map.items():
-            if model == target_model:
-                target_id = aid
-                break
-        
+        target_id = next(
+            (aid for aid, m in self.agent_model_map.items() if m == target_model), None
+        )
         if not target_id:
             return
-        
+
         record = self.economy.registry.get_agent(target_id)
         if not record or record.current_tier.value >= 2:
             return  # Already at T2+
-        
-        logger.info("")
-        logger.info("⚙️  %s investing in robustness to reach Tier 2...", target_model)
-        logger.info("")
-        
-        old_r = record.current_robustness
-        old_tier = record.current_tier
-        
-        # Simulate robustness improvement
-        new_r = RobustnessVector(
-            cc=min(0.67, old_r.cc + 0.20),
-            er=min(0.72, old_r.er + 0.22),
-            as_=min(0.70, old_r.as_ + 0.15),
-            ih=old_r.ih
-        )
-        
-        logger.info("Running re-audit...")
-        logger.info("  CDCT improved: %.3f → %.3f", old_r.cc, new_r.cc)
-        logger.info("  DDFT improved: %.3f → %.3f", old_r.er, new_r.er)
-        logger.info("  EECT improved: %.3f → %.3f", old_r.as_, new_r.as_)
-        logger.info("")
-        
-        # Upload to Arweave (simulated)
-        logger.info("Uploading new audit certificate to Arweave...")
-        time.sleep(0.5)
-        simulated_cid = f"solana_audit_{hashlib.sha256(f'{target_id}:upgrade:{self.economy.current_time}'.encode()).hexdigest()[:32]}"
 
-        # Update on-chain
+        llm_agent = self.llm_agents.get(target_model)
+        if not llm_agent:
+            return
+
+        logger.info("⚙️  %s investing in robustness — running live re-audit...", target_model)
+        old_tier = record.current_tier
+
+        cache_dir = self.config.live_audit_cache_dir or str(
+            Path(self.config.output_dir) / "audit_cache"
+        )
+        # Delete cached scores so the live audit runs fresh
+        for suffix in ("_cdct_live.json", "_ddft_live.json", "_eect_live.json", "_audit_cert.json"):
+            p = Path(cache_dir) / f"{target_model}{suffix}"
+            if p.exists():
+                p.unlink()
+
+        try:
+            audit_result = self.audit.audit_live(
+                agent_id=target_id,
+                model_name=target_model,
+                llm_agent=llm_agent,
+                model_config={"model": target_model, "provider": llm_agent.provider},
+                cache_dir=cache_dir,
+            )
+            new_r = audit_result.robustness
+            cid = audit_result.audit_storage_cid
+            cid_real = audit_result.audit_storage_cid_real
+        except Exception as e:
+            logger.warning("Live re-audit failed for %s: %s — skipping upgrade", target_model, e)
+            return
+
         self.economy.registry.certify(
             target_id,
             new_r,
             audit_type="upgrade_investment",
             timestamp=self.economy.current_time,
             audit_details={
-                "source": "simulated_upgrade",
-                "audit_storage_cid": simulated_cid,
-                "audit_storage_cid_real": False,
+                "source": "live_reaudit",
+                "audit_storage_cid": cid,
+                "audit_storage_cid_real": cid_real,
             },
         )
 
         new_tier = self.economy.registry.get_agent(target_id).current_tier
-        new_cid = self.economy.registry.get_agent(target_id).audit_cid
-        
-        logger.info("  CID: %s", new_cid)
-        logger.info("")
-        logger.info("On-chain certification updated.")
-        logger.info("")
-        
+        logger.info("  CC=%.3f ER=%.3f AS=%.3f IH=%.3f → %s (CID: %s)",
+                    new_r.cc, new_r.er, new_r.as_, new_r.ih, new_tier.name, cid)
+
         if new_tier > old_tier:
-            logger.info("✅ UPGRADE: %s promoted from %s → %s", 
-                       target_model, old_tier.name, new_tier.name)
-            logger.info("")
-            logger.info("%s now eligible for Tier %d contracts", target_model, new_tier.value)
-            logger.info("")
-            
+            logger.info("✅ UPGRADE: %s promoted %s → %s", target_model, old_tier.name, new_tier.name)
             self._emit_protocol_event(
-                "UPGRADE",
-                target_model,
+                "UPGRADE", target_model,
                 f"{target_model} promoted from {old_tier.name} → {new_tier.name} via robustness investment",
-                old_tier=old_tier.name,
-                new_tier=new_tier.name,
-                investment_type="forced_demo"
+                old_tier=old_tier.name, new_tier=new_tier.name,
+                investment_type="live_reaudit",
             )
 
     def _emit_protocol_event(self, event_type: str, agent: str, message: str, **extra):
@@ -1198,6 +1214,26 @@ class LiveSimulationRunner:
                 verification_override=verification.overall_pass,
                 liability_agent_id=liability_agent_id,
             )
+
+            # On-chain: create + accept + complete/fail contract
+            if self.chain:
+                try:
+                    reward_lam = max(1, int(settlement.get("reward", 0) * 1e9))
+                    penalty_lam = max(1, int(settlement.get("penalty", 0) * 1e9))
+                    sig, onchain_id = self.chain.create_contract(
+                        min_tier=task.tier.value,
+                        reward_lamports=reward_lam,
+                        penalty_lamports=penalty_lam,
+                        domain=task.domain,
+                    )
+                    if sig:
+                        self.chain.accept_contract(onchain_id, execution_model_name)
+                        if verification.overall_pass:
+                            self.chain.complete_contract(onchain_id, execution_model_name)
+                        else:
+                            self.chain.fail_contract(onchain_id, execution_model_name)
+                except Exception as e:
+                    logger.warning("[on-chain] contract settlement failed: %s", e)
 
             # Log result
             cid = f"solana_audit_{hashlib.sha256(str(task.task_id).encode()).hexdigest()[:32]}"
