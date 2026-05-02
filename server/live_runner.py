@@ -34,7 +34,7 @@ import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 # Allow direct script execution (`python server/live_runner.py`) by adding repo root.
 if __package__ is None or __package__ == "":
@@ -970,8 +970,18 @@ class LiveSimulationRunner:
                 f"Reactivated {model_name}: topped up to {agent.balance:.4f} SOL and re-certified.",
             )
 
-    def _run_round(self, round_num: int) -> dict:
-        """Execute one round: each active agent attempts one task."""
+    def _run_round(
+        self,
+        round_num: int,
+        trade_callback: Optional[Callable[[dict, dict], None]] = None,
+    ) -> dict:
+        """
+        Execute one round: each active agent attempts one task.
+
+        When provided, ``trade_callback`` is invoked after each task settles
+        with ``(task_result, round_data)`` so live consumers can publish
+        partial round progress without forking the round logic.
+        """
         round_data = {
             "round": round_num,
             "tasks_attempted": 0,
@@ -1215,26 +1225,6 @@ class LiveSimulationRunner:
                 liability_agent_id=liability_agent_id,
             )
 
-            # On-chain: create + accept + complete/fail contract
-            if self.chain:
-                try:
-                    reward_lam = max(1, int(settlement.get("reward", 0) * 1e9))
-                    penalty_lam = max(1, int(settlement.get("penalty", 0) * 1e9))
-                    sig, onchain_id = self.chain.create_contract(
-                        min_tier=task.tier.value,
-                        reward_lamports=reward_lam,
-                        penalty_lamports=penalty_lam,
-                        domain=task.domain,
-                    )
-                    if sig:
-                        self.chain.accept_contract(onchain_id, execution_model_name)
-                        if verification.overall_pass:
-                            self.chain.complete_contract(onchain_id, execution_model_name)
-                        else:
-                            self.chain.fail_contract(onchain_id, execution_model_name)
-                except Exception as e:
-                    logger.warning("[on-chain] contract settlement failed: %s", e)
-
             # Log result
             cid = f"solana_audit_{hashlib.sha256(str(task.task_id).encode()).hexdigest()[:32]}"
             task_result = {
@@ -1269,6 +1259,33 @@ class LiveSimulationRunner:
                 round_data["tasks_failed"] += 1
                 round_data["total_penalty"] += task.penalty
                 status_str = "FAIL"
+
+            if trade_callback is not None:
+                try:
+                    trade_callback(task_result, round_data)
+                except Exception as exc:
+                    logger.exception("trade_callback failed for %s: %s", task.task_id, exc)
+
+            # On-chain recording is slower than local settlement, so publish the
+            # trade to live consumers before waiting on Solana RPCs.
+            if self.chain:
+                try:
+                    reward_lam = max(1, int(settlement.get("reward", 0) * 1e9))
+                    penalty_lam = max(1, int(settlement.get("penalty", 0) * 1e9))
+                    sig, onchain_id = self.chain.create_contract(
+                        min_tier=task.tier.value,
+                        reward_lamports=reward_lam,
+                        penalty_lamports=penalty_lam,
+                        domain=task.domain,
+                    )
+                    if sig:
+                        self.chain.accept_contract(onchain_id, execution_model_name)
+                        if verification.overall_pass:
+                            self.chain.complete_contract(onchain_id, execution_model_name)
+                        else:
+                            self.chain.fail_contract(onchain_id, execution_model_name)
+                except Exception as e:
+                    logger.warning("[on-chain] contract settlement failed: %s", e)
 
             jury_str = f"{verification.jury_score:.2f}" if verification.jury_score is not None else "N/A"
             logger.info(

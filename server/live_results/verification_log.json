@@ -1,121 +1,44 @@
 [
   {
-    "task_id": "t4_system_design",
-    "agent_model": "gpt-5.4",
+    "task_id": "t3_risk_assessment",
+    "agent_model": "Phi-4",
     "algorithmic_pass": false,
     "constraints_passed": [
-      "required_sections",
+      "number_range_risk_score",
       "required_keywords",
       "ethical_caveat",
-      "min_sentences_20"
-    ],
-    "constraints_failed": [
-      "word_count_400_900"
-    ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": false,
-    "output_length": 7285,
-    "latency_ms": 45041.2859916687
-  },
-  {
-    "task_id": "t2_analyze_dataset",
-    "agent_model": "DeepSeek-V3.2",
-    "algorithmic_pass": false,
-    "constraints_passed": [
-      "required_keywords",
-      "word_count_150_500",
-      "min_sentences_8"
+      "word_count_200_600"
     ],
     "constraints_failed": [
       "required_sections"
     ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
+    "jury_pass": true,
+    "jury_score": 0.85,
+    "jury_reasoning": "claude-sonnet-4.6: 0.85 - The assessment meets all four rubric criteria well. (1) The risk score of 7/10 is justified by the analysis - the agent identifies burn rate/runway concerns, competitive pressure, regulatory risk, and key person dependency as major risks, balanced against strong growth metrics and IP. (2) The burn rate/runway math is correctly acknowledged - $800K/month burn with 14 months runway is explicitly addressed and flagged as a significant risk. (3) The competitive landscape is addressed with mention of 12 well-funded competitors and market saturation risks. (4) Appropriate uncertainty and caveats are included in a dedicated section noting data limitations, market dynamics, and regulatory shifts. Minor gaps include: the analysis could more explicitly calculate the implied valuation step-up for Series B (from $60M pre-money Series A), and the recommendation section is somewhat generic. The burn rate analysis could also note that at $800K/month over 14 months, the company has approximately $11.2M remaining, which would help contextualize the urgency. Overall, this is a solid, well-structured assessment.",
+    "jury_model": "claude-sonnet-4.6",
     "overall_pass": false,
-    "output_length": 2011,
-    "latency_ms": 12068.334341049194
-  },
-  {
-    "task_id": "t1_summarize_climate",
-    "agent_model": "grok-4-20-reasoning",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "word_count_30_100",
-      "required_keywords",
-      "min_sentences_2"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 318,
-    "latency_ms": 8902.957916259766
-  },
-  {
-    "task_id": "t3_ethical_policy",
-    "agent_model": "Phi-4",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "required_keywords",
-      "ethical_caveat",
-      "forbidden_content",
-      "word_count_250_700",
-      "min_sentences_12"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 3948,
-    "latency_ms": 15254.261493682861
-  },
-  {
-    "task_id": "t3_ethical_policy",
-    "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "required_keywords",
-      "ethical_caveat",
-      "forbidden_content",
-      "word_count_250_700",
-      "min_sentences_12"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 3829,
-    "latency_ms": 4193.888902664185
+    "output_length": 3991,
+    "latency_ms": 24121.334314346313
   },
   {
     "task_id": "t4_multi_step_analysis",
-    "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "algorithmic_pass": true,
+    "agent_model": "gpt-5.4",
+    "algorithmic_pass": false,
     "constraints_passed": [
       "valid_json",
-      "number_range_market_2030_approx",
+      "number_range_market_2030_approx"
+    ],
+    "constraints_failed": [
       "required_sections",
       "word_count_300_800"
     ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 2838,
-    "latency_ms": 5880.443334579468
+    "jury_pass": true,
+    "jury_score": 0.9,
+    "jury_reasoning": "claude-sonnet-4.6: 0.90 - The agent's calculations are accurate and within acceptable range of the reference answer. Market 2030: $5.55B (reference ~$5.6B, slight rounding difference in (1.142)^6). Market share grows correctly from 3.2% to 6.2%. Revenue 2030: $344.1M (reference ~$347M, small difference due to slightly lower market size estimate). Valuation: $4.13B (reference ~$4.16B). Risk-adjusted: $2.685B (reference ~$2.71B). All methodology is correct: CAGR formula applied properly, linear share growth calculated correctly, 12x multiple applied, 35% discount applied as 65% retention. The final JSON keys match requirements. Minor numerical differences are due to rounding in intermediate steps.",
+    "jury_model": "claude-sonnet-4.6",
+    "overall_pass": false,
+    "output_length": 1607,
+    "latency_ms": 12876.590728759766
   },
   {
     "task_id": "t1_extract_entities",
@@ -133,85 +56,47 @@
     "jury_model": null,
     "overall_pass": true,
     "output_length": 200,
-    "latency_ms": 4363.934278488159
+    "latency_ms": 9962.148427963257
   },
   {
-    "task_id": "t1_extract_entities",
-    "agent_model": "Phi-4",
+    "task_id": "t4_multi_step_analysis",
+    "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
     "algorithmic_pass": true,
     "constraints_passed": [
       "valid_json",
-      "json_fields_people_organizations_locations",
-      "required_keywords"
+      "number_range_market_2030_approx",
+      "required_sections",
+      "word_count_300_800"
     ],
     "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
+    "jury_pass": true,
+    "jury_score": 0.82,
+    "jury_reasoning": "claude-sonnet-4.6: 0.82 - The agent correctly follows all 4 steps with proper methodology. Step 1: Market size calculated as $5.485B (rounded to $5.5B) vs reference $5.6B - slight difference due to rounding (1.142^6 \u2248 2.194 vs more precise 2.253, actually the agent's calculation has an error: 1.142^6 should be closer to 2.253, giving ~$5.63B, but agent got 2.194 giving $5.485B - minor arithmetic imprecision). Step 2: Market share correctly projected to 6.2% by 2030. Revenue = 5.5 \u00d7 6.2% = $0.341B vs reference $347M (difference stems from using $5.5B rounded market vs $5.63B). Step 3: Valuation = 0.341 \u00d7 12 = $4.092B vs reference $4.16B - consistent with prior rounding. Step 4: Risk-adjusted = 4.092 \u00d7 0.65 = $2.66B vs reference $2.71B - consistent. The methodology is correct throughout, the small numerical differences are due to intermediate rounding of the market size figure. JSON output is properly formatted with all required keys.",
+    "jury_model": "claude-sonnet-4.6",
     "overall_pass": true,
-    "output_length": 222,
-    "latency_ms": 2083.566427230835
+    "output_length": 3072,
+    "latency_ms": 5722.87392616272
   },
   {
-    "task_id": "t3_ethical_policy",
-    "agent_model": "Phi-4",
-    "algorithmic_pass": true,
+    "task_id": "t2_comparative_analysis",
+    "agent_model": "DeepSeek-V3.2",
+    "algorithmic_pass": false,
     "constraints_passed": [
       "required_keywords",
-      "ethical_caveat",
-      "forbidden_content",
-      "word_count_250_700",
-      "min_sentences_12"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 3970,
-    "latency_ms": 15462.603092193604
-  },
-  {
-    "task_id": "t4_multi_step_analysis",
-    "agent_model": "gpt-5.4",
-    "algorithmic_pass": false,
-    "constraints_passed": [
-      "valid_json",
-      "number_range_market_2030_approx"
+      "word_count_200_500",
+      "min_sentences_10",
+      "ethical_caveat"
     ],
     "constraints_failed": [
-      "required_sections",
-      "word_count_300_800"
+      "required_sections"
     ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
+    "jury_pass": true,
+    "jury_score": 0.9,
+    "jury_reasoning": "claude-sonnet-4.6: 0.90 - The output covers all required sections (Overview, Pros/Cons, Performance, Team Impact, Recommendation) and addresses all four specific requirements: mobile bandwidth constraints, complex nested catalog, real-time inventory, and team composition. Both technologies are fairly represented with honest trade-offs. The recommendation is clear (GraphQL) with specific reasoning tied to the requirements. Team experience is explicitly factored in with mitigation strategies. Minor gaps: real-time inventory updates could be explored more deeply (subscriptions vs WebSockets specifics), and the hybrid approach suggestion adds nuance but could be more concrete. The ethical note at the end is somewhat unusual but not harmful. Overall a strong, well-structured response.",
+    "jury_model": "claude-sonnet-4.6",
     "overall_pass": false,
-    "output_length": 1806,
-    "latency_ms": 13820.142030715942
-  },
-  {
-    "task_id": "t4_multi_step_analysis",
-    "agent_model": "gpt-5.4",
-    "algorithmic_pass": false,
-    "constraints_passed": [
-      "valid_json",
-      "number_range_market_2030_approx"
-    ],
-    "constraints_failed": [
-      "required_sections",
-      "word_count_300_800"
-    ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": false,
-    "output_length": 1666,
-    "latency_ms": 13961.515665054321
+    "output_length": 2571,
+    "latency_ms": 6232.664585113525
   },
   {
     "task_id": "t1_extract_entities",
@@ -229,201 +114,66 @@
     "jury_model": null,
     "overall_pass": true,
     "output_length": 228,
-    "latency_ms": 29489.57085609436
+    "latency_ms": 2501.2402534484863
   },
   {
-    "task_id": "t1_fact_check",
-    "agent_model": "grok-4-20-reasoning",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "valid_json",
-      "json_fields_claims",
-      "required_keywords"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 772,
-    "latency_ms": 7986.842155456543
-  },
-  {
-    "task_id": "t1_classify_sentiment",
-    "agent_model": "Phi-4",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "valid_json",
-      "json_fields_reviews",
-      "required_keywords"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 507,
-    "latency_ms": 3478.1265258789062
-  },
-  {
-    "task_id": "t4_system_design",
+    "task_id": "t4_multi_step_analysis",
     "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
     "algorithmic_pass": true,
     "constraints_passed": [
+      "valid_json",
+      "number_range_market_2030_approx",
       "required_sections",
-      "required_keywords",
-      "ethical_caveat",
-      "word_count_400_900",
-      "min_sentences_20"
+      "word_count_300_800"
     ],
     "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
+    "jury_pass": true,
+    "jury_score": 0.82,
+    "jury_reasoning": "claude-sonnet-4.6: 0.82 - The agent correctly follows all 4 steps with proper methodology. Step 1: Market size calculated as $5.485B (rounded to $5.5B) vs reference $5.6B - slight difference due to rounding (1.142^6 \u2248 2.194 vs more precise 2.2497, giving ~$5.624B). The agent used 2.194 instead of the more accurate ~2.2497, leading to a small underestimate. Step 2: Market share correctly projected to 6.2% by 2030, revenue = 5.5 \u00d7 6.2% = $0.341B vs reference $347M (difference due to using $5.5B instead of $5.624B for market size). Step 3: Valuation = 0.341 \u00d7 12 = $4.092B vs reference $4.16B - consistent with the earlier rounding. Step 4: Risk-adjusted = 4.092 \u00d7 0.65 = $2.66B vs reference $2.71B - again consistent. All calculations are internally consistent and methodologically correct. The small numerical discrepancies stem from rounding the market size to $5.5B early in the calculation rather than carrying more decimal places. The approach and formulas are all correct.",
+    "jury_model": "claude-sonnet-4.6",
     "overall_pass": true,
-    "output_length": 4588,
-    "latency_ms": 5117.149591445923
+    "output_length": 3072,
+    "latency_ms": 6236.661672592163
   },
   {
-    "task_id": "t5_policy_rewrite",
+    "task_id": "t3_risk_assessment",
+    "agent_model": "Phi-4",
+    "algorithmic_pass": false,
+    "constraints_passed": [
+      "number_range_risk_score",
+      "required_keywords",
+      "ethical_caveat",
+      "word_count_200_600"
+    ],
+    "constraints_failed": [
+      "required_sections"
+    ],
+    "jury_pass": true,
+    "jury_score": 0.85,
+    "jury_reasoning": "claude-sonnet-4.6: 0.85 - The assessment meets all four rubric criteria well. (1) The risk score of 7/10 is justified by the analysis - the agent identifies burn rate concerns, competitive pressure, regulatory risk, and key person dependency while acknowledging strong mitigating factors like 180% YoY growth and IP portfolio. (2) The burn rate/runway math is correctly acknowledged - $800K/month burn with 14 months runway is explicitly addressed as a key risk, and the math checks out ($800K \u00d7 14 \u2248 $11.2M remaining cash). (3) The competitive landscape is addressed with specific mention of 12 well-funded competitors and market saturation risks. (4) Appropriate uncertainty and caveats are included in a dedicated section noting data limitations, key personnel risks, and dynamic competitive conditions. Minor gaps include: the assessment could have been more specific about the burn multiple (burn rate vs. ARR ratio of ~4.6x is quite high), could have noted the valuation implications for Series B, and the recommendation section is somewhat generic. Overall a solid, well-structured assessment.",
+    "jury_model": "claude-sonnet-4.6",
+    "overall_pass": false,
+    "output_length": 3967,
+    "latency_ms": 19857.614278793335
+  },
+  {
+    "task_id": "t4_multi_step_analysis",
     "agent_model": "gpt-5.4",
     "algorithmic_pass": false,
     "constraints_passed": [
-      "required_sections",
-      "required_keywords",
-      "forbidden_content",
-      "min_sentences_30",
-      "ethical_caveat"
-    ],
-    "constraints_failed": [
-      "word_count_500_1200"
-    ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": false,
-    "output_length": 9349,
-    "latency_ms": 43905.32612800598
-  },
-  {
-    "task_id": "t1_extract_entities",
-    "agent_model": "DeepSeek-V3.2",
-    "algorithmic_pass": true,
-    "constraints_passed": [
       "valid_json",
-      "json_fields_people_organizations_locations",
-      "required_keywords"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 228,
-    "latency_ms": 3783.888578414917
-  },
-  {
-    "task_id": "t4_system_design",
-    "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "required_sections",
-      "required_keywords",
-      "ethical_caveat",
-      "word_count_400_900",
-      "min_sentences_20"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 4883,
-    "latency_ms": 5153.73969078064
-  },
-  {
-    "task_id": "t5_policy_rewrite",
-    "agent_model": "gpt-5.4",
-    "algorithmic_pass": false,
-    "constraints_passed": [
-      "required_sections",
-      "required_keywords",
-      "forbidden_content",
-      "min_sentences_30",
-      "ethical_caveat"
+      "number_range_market_2030_approx"
     ],
     "constraints_failed": [
-      "word_count_500_1200"
+      "required_sections",
+      "word_count_300_800"
     ],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
+    "jury_pass": true,
+    "jury_score": 0.9,
+    "jury_reasoning": "claude-sonnet-4.6: 0.90 - The agent's calculations are accurate and within acceptable range of the reference answer. Market 2030: $5.55B (reference ~$5.6B, within range). Market share grows from 3.2% to 6.2% correctly. Revenue 2030: $0.344B ($344M vs reference $347M - minor rounding difference due to using 5.546 vs slightly higher market value). Valuation: $4.13B (reference $4.16B - small rounding difference). Risk-adjusted: $2.68B (reference $2.71B - consistent with prior rounding). All steps are shown clearly, methodology is correct, and the final JSON output contains all required keys. Minor discrepancies are due to intermediate rounding (using 5.546 vs ~5.60 for market size), not methodological errors.",
+    "jury_model": "claude-sonnet-4.6",
     "overall_pass": false,
-    "output_length": 9886,
-    "latency_ms": 47634.07874107361
-  },
-  {
-    "task_id": "t1_translate_technical",
-    "agent_model": "DeepSeek-V3.2",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "word_count_40_120",
-      "required_keywords",
-      "forbidden_content",
-      "min_sentences_2"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 261,
-    "latency_ms": 8493.231296539307
-  },
-  {
-    "task_id": "t1_summarize_climate",
-    "agent_model": "Phi-4",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "word_count_30_100",
-      "required_keywords",
-      "min_sentences_2"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 397,
-    "latency_ms": 2046.3967323303223
-  },
-  {
-    "task_id": "t3_ethical_policy",
-    "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "algorithmic_pass": true,
-    "constraints_passed": [
-      "required_keywords",
-      "ethical_caveat",
-      "forbidden_content",
-      "word_count_250_700",
-      "min_sentences_12"
-    ],
-    "constraints_failed": [],
-    "jury_pass": null,
-    "jury_score": null,
-    "jury_reasoning": null,
-    "jury_model": null,
-    "overall_pass": true,
-    "output_length": 4178,
-    "latency_ms": 3787.27650642395
+    "output_length": 1840,
+    "latency_ms": 16207.234382629395
   }
 ]

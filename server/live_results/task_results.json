@@ -1,252 +1,55 @@
 [
   {
-    "agent": "gpt-5.4",
-    "agent_id": "agent_a5c15e89b988",
-    "executed_by_agent_id": "agent_a5c15e89b988",
-    "executed_by_model": "gpt-5.4",
-    "task_id": "t4_system_design",
-    "task_prompt": "Design a real-time fraud detection system for a payment processor handling:\n- 50,000 transactions per second peak\n- 99.99% availability requirement\n- < 100ms latency for fraud decisions\n- Must support both rule-based and ML-based detection\n- Must handle 10x traffic spikes during events (Black Friday)\n\nProvide your design in phases:\nPhase 1: High-level architecture (components, data flow)\nPhase 2: Capacity planning (compute, storage, network estimates)\nPhase 3: ML pipeline (feature engineering, model serving, retraining)\nPhase 4: Failure modes and mitigations\n\nInclude specific technology choices with justification.",
-    "tier": "T4",
-    "domain": "system_design",
-    "proof_cid": "solana_audit_21a86ffb7c9e23aba3d6303257a56a24",
-    "verification": {
-      "task_id": "t4_system_design",
-      "agent_model": "gpt-5.4",
-      "algorithmic_pass": false,
-      "constraints_passed": [
-        "required_sections",
-        "required_keywords",
-        "ethical_caveat",
-        "min_sentences_20"
-      ],
-      "constraints_failed": [
-        "word_count_400_900"
-      ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 7285,
-      "latency_ms": 45041.2859916687
-    },
-    "settlement": {
-      "contract_id": "contract_cc3a2b406713",
-      "agent_id": "agent_a5c15e89b988",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.06,
-      "failures": [
-        "word_count_400_900"
-      ],
-      "liable_agent_id": "agent_a5c15e89b988"
-    },
-    "latency_ms": 45041.2859916687,
-    "token_cost_sol": 0.000309339,
-    "tokens_used": {
-      "input": 279,
-      "output": 1446
-    },
-    "output_preview": "## Phase 1: High-level architecture\n\nI would design this as a multi-region, active-active real-time decisioning platform with strict separation between the payment path and offline analytics. The core request path is: payment gateway \u2192 API ingress/load balancer \u2192 transaction normalizer and idempotency service \u2192 feature lookup layer \u2192 rule engine and ML inference service running in parallel \u2192 decision aggregator \u2192 payment authorization response. This keeps end-to-end latency under the 100ms targe",
-    "agent_strategy": "GrowthStrategy"
-  },
-  {
-    "agent": "DeepSeek-V3.2",
-    "agent_id": "agent_89e55f115153",
-    "executed_by_agent_id": "agent_89e55f115153",
-    "executed_by_model": "DeepSeek-V3.2",
-    "task_id": "t2_analyze_dataset",
-    "task_prompt": "A clinical trial tested Drug X on 200 patients vs 200 placebo. Results:\n- Drug X group: 156 improved, 30 no change, 14 worsened\n- Placebo group: 98 improved, 62 no change, 40 worsened\n- Side effects in Drug X: 45 mild, 12 moderate, 3 severe\n- Side effects in placebo: 22 mild, 5 moderate, 0 severe\n\nProvide analysis with these sections: Summary, Efficacy Analysis, Safety Profile, Recommendation. Include the response rate percentages for both groups.",
-    "tier": "T2",
-    "domain": "analysis",
-    "proof_cid": "solana_audit_2b321375112cd281095780bb0188341f",
-    "verification": {
-      "task_id": "t2_analyze_dataset",
-      "agent_model": "DeepSeek-V3.2",
-      "algorithmic_pass": false,
-      "constraints_passed": [
-        "required_keywords",
-        "word_count_150_500",
-        "min_sentences_8"
-      ],
-      "constraints_failed": [
-        "required_sections"
-      ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 2011,
-      "latency_ms": 12068.334341049194
-    },
-    "settlement": {
-      "contract_id": "contract_c5dad33ce562",
-      "agent_id": "agent_89e55f115153",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.0008,
-      "failures": [
-        "required_sections"
-      ],
-      "liable_agent_id": "agent_89e55f115153"
-    },
-    "latency_ms": 12068.334341049194,
-    "token_cost_sol": 6.961300000000001e-06,
-    "tokens_used": {
-      "input": 225,
-      "output": 407
-    },
-    "output_preview": "**Summary**\nThis analysis reviews a clinical trial comparing Drug X to a placebo, each administered to 200 patients. The primary outcomes measured were patient improvement and the incidence of side effects. The data indicates that Drug X demonstrates a substantially higher response rate for patient improvement compared to the placebo, though it is also associated with a higher frequency and severity of adverse events.\n\n**Efficacy Analysis**\nThe efficacy of Drug X is clearly superior to the place",
-    "agent_strategy": "ConservativeStrategy"
-  },
-  {
-    "agent": "grok-4-20-reasoning",
-    "agent_id": "agent_19b2cfebea69",
-    "executed_by_agent_id": "agent_19b2cfebea69",
-    "executed_by_model": "grok-4-20-reasoning",
-    "task_id": "t1_summarize_climate",
-    "task_prompt": "Summarize the following topic in exactly 3 bullet points, each between 10 and 25 words:\n\nTopic: The impact of rising global temperatures on Arctic sea ice extent, including feedback loops, albedo effects, and implications for global weather patterns.",
-    "tier": "T1",
-    "domain": "summarization",
-    "proof_cid": "solana_audit_732ef58f4d72bd1a4d7342b6d244e629",
-    "verification": {
-      "task_id": "t1_summarize_climate",
-      "agent_model": "grok-4-20-reasoning",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "word_count_30_100",
-        "required_keywords",
-        "min_sentences_2"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 318,
-      "latency_ms": 8902.957916259766
-    },
-    "settlement": {
-      "contract_id": "contract_4f1caa99798f",
-      "agent_id": "agent_19b2cfebea69",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_19b2cfebea69"
-    },
-    "latency_ms": 8902.957916259766,
-    "token_cost_sol": 7.939499999999999e-06,
-    "tokens_used": {
-      "input": 125,
-      "output": 54
-    },
-    "output_preview": "- Rising global temperature is causing a significant reduction in Arctic sea ice extent every year. \n- This melting ice triggers feedback loops where lower albedo effects allow more heat absorption by the ocean. \n- Consequently, these changes influence global weather patterns leading to more extreme events worldwide.",
-    "agent_strategy": "OpportunisticStrategy"
-  },
-  {
     "agent": "Phi-4",
-    "agent_id": "agent_7105d828f711",
-    "executed_by_agent_id": "agent_7105d828f711",
-    "executed_by_model": "Phi-4",
-    "task_id": "t3_ethical_policy",
-    "task_prompt": "A hospital wants to deploy an AI triage system in its emergency department. The system would prioritize patients based on predicted severity, potentially reducing wait times by 30% but introducing algorithmic bias risk.\n\nDraft a policy recommendation that addresses:\n1. Patient safety considerations\n2. Algorithmic bias and fairness\n3. Liability and accountability\n4. Human oversight requirements\n5. Monitoring and evaluation framework\n\nThe recommendation must balance efficiency gains against ethical risks.",
+    "agent_id": "agent_409cc12e9a43",
+    "task_id": "t3_risk_assessment",
+    "task_prompt": "Assess the investment risk of a Series B startup with these characteristics:\n- Sector: AI-powered drug discovery\n- Revenue: $2.1M ARR, growing 180% YoY\n- Burn rate: $800K/month\n- Runway: 14 months at current burn\n- Team: 45 employees, 3 PhD founders from Stanford\n- IP: 7 patents filed, 2 granted\n- Competition: 12 well-funded competitors\n- Previous round: $15M Series A at $60M pre-money\n\nProvide: Risk Score (1-10), Key Risks, Mitigating Factors, and Recommendation. The risk score must account for burn rate vs runway.",
     "tier": "T3",
-    "domain": "policy_analysis",
-    "proof_cid": "solana_audit_ce3f5bcd7ee0e7ee60f00057f210ca20",
+    "domain": "financial_analysis",
+    "proof_cid": "solana_audit_bb5bb4b8521b5fb65eedbe5aa533d47e",
     "verification": {
-      "task_id": "t3_ethical_policy",
+      "task_id": "t3_risk_assessment",
       "agent_model": "Phi-4",
-      "algorithmic_pass": true,
+      "algorithmic_pass": false,
       "constraints_passed": [
+        "number_range_risk_score",
         "required_keywords",
         "ethical_caveat",
-        "forbidden_content",
-        "word_count_250_700",
-        "min_sentences_12"
+        "word_count_200_600"
       ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 3948,
-      "latency_ms": 15254.261493682861
+      "constraints_failed": [
+        "required_sections"
+      ],
+      "jury_pass": true,
+      "jury_score": 0.85,
+      "jury_reasoning": "claude-sonnet-4.6: 0.85 - The assessment meets all four rubric criteria well. (1) The risk score of 7/10 is justified by the analysis - the agent identifies burn rate/runway concerns, competitive pressure, regulatory risk, and key person dependency as major risks, balanced against strong growth metrics and IP. (2) The burn rate/runway math is correctly acknowledged - $800K/month burn with 14 months runway is explicitly addressed and flagged as a significant risk. (3) The competitive landscape is addressed with mention of 12 well-funded competitors and market saturation risks. (4) Appropriate uncertainty and caveats are included in a dedicated section noting data limitations, market dynamics, and regulatory shifts. Minor gaps include: the analysis could more explicitly calculate the implied valuation step-up for Series B (from $60M pre-money Series A), and the recommendation section is somewhat generic. The burn rate analysis could also note that at $800K/month over 14 months, the company has approximately $11.2M remaining, which would help contextualize the urgency. Overall, this is a solid, well-structured assessment.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": false,
+      "output_length": 3991,
+      "latency_ms": 24121.334314346313
     },
     "settlement": {
-      "contract_id": "contract_6e28015b2c33",
-      "agent_id": "agent_7105d828f711",
-      "outcome": "success",
-      "reward": 0.01,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_7105d828f711"
-    },
-    "latency_ms": 15254.261493682861,
-    "token_cost_sol": 5.17575e-06,
-    "tokens_used": {
-      "input": 231,
-      "output": 657
-    },
-    "output_preview": "**Policy Recommendation for AI Triage System Deployment in Emergency Departments**\n\n**1. Patient Safety Considerations**\n\nThe deployment of an AI triage system in the emergency department aims to enhance efficiency by reducing wait times by an estimated 30%. However, patient safety remains paramount. The system must be rigorously tested in simulated environments to ensure it accurately assesses patient severity without compromising care quality. Ethical caveats include the potential for misclass",
-    "agent_strategy": "AdversarialStrategy"
-  },
-  {
-    "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "agent_id": "agent_e1e418e8fb13",
-    "executed_by_agent_id": "agent_e1e418e8fb13",
-    "executed_by_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "task_id": "t3_ethical_policy",
-    "task_prompt": "A hospital wants to deploy an AI triage system in its emergency department. The system would prioritize patients based on predicted severity, potentially reducing wait times by 30% but introducing algorithmic bias risk.\n\nDraft a policy recommendation that addresses:\n1. Patient safety considerations\n2. Algorithmic bias and fairness\n3. Liability and accountability\n4. Human oversight requirements\n5. Monitoring and evaluation framework\n\nThe recommendation must balance efficiency gains against ethical risks.",
-    "tier": "T3",
-    "domain": "policy_analysis",
-    "proof_cid": "solana_audit_ce3f5bcd7ee0e7ee60f00057f210ca20",
-    "verification": {
-      "task_id": "t3_ethical_policy",
-      "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "required_keywords",
-        "ethical_caveat",
-        "forbidden_content",
-        "word_count_250_700",
-        "min_sentences_12"
+      "contract_id": "contract_7d7f1d636f8b",
+      "agent_id": "agent_409cc12e9a43",
+      "outcome": "failure",
+      "reward": 0.0,
+      "penalty": 0.0063,
+      "failures": [
+        "required_sections"
       ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 3829,
-      "latency_ms": 4193.888902664185
+      "liable_agent_id": "agent_409cc12e9a43"
     },
-    "settlement": {
-      "contract_id": "contract_cc79647892e0",
-      "agent_id": "agent_e1e418e8fb13",
-      "outcome": "success",
-      "reward": 0.01,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_e1e418e8fb13"
-    },
-    "latency_ms": 4193.888902664185,
-    "token_cost_sol": 5.8625e-06,
+    "latency_ms": 24121.334314346313,
+    "token_cost_sol": 5.825650000000001e-06,
     "tokens_used": {
-      "input": 235,
-      "output": 640
+      "input": 275,
+      "output": 732
     },
-    "output_preview": "The deployment of an AI triage system in the hospital's emergency department presents both opportunities and challenges. On one hand, the system could significantly reduce wait times, enhancing the overall patient experience and potentially improving health outcomes. On the other hand, it introduces risks related to algorithmic bias, patient safety, and accountability. To balance these competing considerations, we recommend a multi-faceted policy approach.\n\n**Patient Safety Considerations**: To ",
-    "agent_strategy": "SpecialistStrategy"
+    "output_preview": "### Investment Risk Assessment\n\n#### Risk Score: 7/10\n\n**Key Risks:**\n\n1. **Burn Rate vs. Runway:**\n   - The startup's burn rate of $800K/month with a runway of 14 months indicates a significant cash burn. This limited runway poses a substantial risk, especially if the company fails to secure additional funding or achieve profitability within this period. The high burn rate could lead to liquidity issues, potentially forcing the company to make drastic operational changes or even face insolvency"
   },
   {
     "agent": "gpt-5.4",
-    "agent_id": "agent_a5c15e89b988",
-    "executed_by_agent_id": "agent_e1e418e8fb13",
-    "executed_by_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+    "agent_id": "agent_de87fc9e712d",
     "task_id": "t4_multi_step_analysis",
     "task_prompt": "Perform a 4-step due diligence analysis:\n\nSTEP 1: Market sizing - The global carbon capture market was $2.5B in 2024, growing at 14.2% CAGR. Project the 2030 market size.\n\nSTEP 2: Competitive position - Company Z has 3.2% market share and is growing at 25% annually. Project their 2030 revenue if market share grows linearly by 0.5% per year.\n\nSTEP 3: Valuation - Apply a 12x revenue multiple to the 2030 projected revenue.\n\nSTEP 4: Risk-adjusted return - Apply a 35% probability-weighted discount for execution risk and report the risk-adjusted valuation.\n\nShow all calculations. Return final answer as JSON with keys: \"market_2030\", \"revenue_2030\", \"valuation\", \"risk_adjusted_valuation\"",
     "tier": "T4",
@@ -254,58 +57,47 @@
     "proof_cid": "solana_audit_f3faea618e4aa6eda4d1ca714296e860",
     "verification": {
       "task_id": "t4_multi_step_analysis",
-      "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "algorithmic_pass": true,
+      "agent_model": "gpt-5.4",
+      "algorithmic_pass": false,
       "constraints_passed": [
         "valid_json",
-        "number_range_market_2030_approx",
+        "number_range_market_2030_approx"
+      ],
+      "constraints_failed": [
         "required_sections",
         "word_count_300_800"
       ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 2838,
-      "latency_ms": 5880.443334579468
+      "jury_pass": true,
+      "jury_score": 0.9,
+      "jury_reasoning": "claude-sonnet-4.6: 0.90 - The agent's calculations are accurate and within acceptable range of the reference answer. Market 2030: $5.55B (reference ~$5.6B, slight rounding difference in (1.142)^6). Market share grows correctly from 3.2% to 6.2%. Revenue 2030: $344.1M (reference ~$347M, small difference due to slightly lower market size estimate). Valuation: $4.13B (reference ~$4.16B). Risk-adjusted: $2.685B (reference ~$2.71B). All methodology is correct: CAGR formula applied properly, linear share growth calculated correctly, 12x multiple applied, 35% discount applied as 65% retention. The final JSON keys match requirements. Minor numerical differences are due to rounding in intermediate steps.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": false,
+      "output_length": 1607,
+      "latency_ms": 12876.590728759766
     },
     "settlement": {
-      "contract_id": "contract_bb96ac0dc62a",
-      "agent_id": "agent_a5c15e89b988",
-      "outcome": "success",
-      "reward": 0.1,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_a5c15e89b988"
+      "contract_id": "contract_29640761f880",
+      "agent_id": "agent_de87fc9e712d",
+      "outcome": "failure",
+      "reward": 0.0,
+      "penalty": 0.06,
+      "failures": [
+        "required_sections",
+        "word_count_300_800"
+      ],
+      "liable_agent_id": "agent_de87fc9e712d"
     },
-    "latency_ms": 5880.443334579468,
-    "token_cost_sol": 8.5224e-06,
+    "latency_ms": 12876.590728759766,
+    "token_cost_sol": 0.000138288,
     "tokens_used": {
-      "input": 328,
-      "output": 944
+      "input": 327,
+      "output": 579
     },
-    "output_preview": "## Step 1: Market Sizing\nTo project the 2030 market size, we first need to understand the growth pattern of the global carbon capture market. Given that the market was $2.5B in 2024 and is growing at a Compound Annual Growth Rate (CAGR) of 14.2%, we can calculate the 2030 market size using the formula for compound annual growth: \\(A = P(1 + r)^n\\), where \\(A\\) is the amount after \\(n\\) years, \\(P\\) is the principal amount (initial amount, $2.5B in this case), \\(r\\) is the annual growth rate (14.",
-    "agent_strategy": "GrowthStrategy",
-    "delegation": {
-      "principal_agent_id": "agent_a5c15e89b988",
-      "principal_model": "gpt-5.4",
-      "delegate_agent_id": "agent_e1e418e8fb13",
-      "delegate_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "allowed": true,
-      "reason": "ok",
-      "principal_tier": "T4",
-      "delegate_tier": "T4",
-      "chain_tier": "T4",
-      "required_tier": "T4"
-    }
+    "output_preview": "{\n  \"Step 1\": {\n    \"title\": \"Market sizing\",\n    \"reasoning\": \"Use the CAGR formula: Future Market = Present Market \u00d7 (1 + CAGR)^n, where Present Market = 2.5, CAGR = 14.2% = 0.142, and n = 6 years from 2024 to 2030.\",\n    \"calculation\": \"2.5 \u00d7 (1.142)^6 \u2248 2.5 \u00d7 2.219 \u2248 5.55\",\n    \"market_2030\": 5.55,\n    \"units\": \"USD billions\"\n  },\n  \"Step 2\": {\n    \"title\": \"Competitive position\",\n    \"reasoning\": \"Starting market share is 3.2% in 2024. If share grows linearly by 0.5 percentage points per ye"
   },
   {
-    "agent": "DeepSeek-V3.2",
-    "agent_id": "agent_89e55f115153",
-    "executed_by_agent_id": "agent_19b2cfebea69",
-    "executed_by_model": "grok-4-20-reasoning",
+    "agent": "grok-4-20-reasoning",
+    "agent_id": "agent_c661cd32d532",
     "task_id": "t1_extract_entities",
     "task_prompt": "Extract all named entities from this text and return as JSON with keys \"people\", \"organizations\", \"locations\":\n\n\"Dr. Sarah Chen from MIT and Prof. James Wright at Oxford University published a joint study on carbon capture technology in the journal Nature. The research was funded by the European Commission and conducted at facilities in Geneva, Switzerland and Cambridge, Massachusetts.\"",
     "tier": "T1",
@@ -327,161 +119,28 @@
       "jury_model": null,
       "overall_pass": true,
       "output_length": 200,
-      "latency_ms": 4363.934278488159
+      "latency_ms": 9962.148427963257
     },
     "settlement": {
-      "contract_id": "contract_afef815a364e",
-      "agent_id": "agent_89e55f115153",
+      "contract_id": "contract_3737822e47ea",
+      "agent_id": "agent_c661cd32d532",
       "outcome": "success",
       "reward": 0.00015,
       "penalty": 0.0,
       "failures": [],
-      "liable_agent_id": "agent_89e55f115153"
+      "liable_agent_id": "agent_c661cd32d532"
     },
-    "latency_ms": 4363.934278488159,
+    "latency_ms": 9962.148427963257,
     "token_cost_sol": 7.8591e-06,
     "tokens_used": {
       "input": 146,
       "output": 49
     },
-    "output_preview": "{\n  \"people\": [\"Sarah Chen\", \"James Wright\"],\n  \"organizations\": [\"MIT\", \"Oxford University\", \"European Commission\", \"Nature\"],\n  \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}",
-    "agent_strategy": "ConservativeStrategy",
-    "delegation": {
-      "principal_agent_id": "agent_89e55f115153",
-      "principal_model": "DeepSeek-V3.2",
-      "delegate_agent_id": "agent_19b2cfebea69",
-      "delegate_model": "grok-4-20-reasoning",
-      "allowed": true,
-      "reason": "ok",
-      "principal_tier": "T1",
-      "delegate_tier": "T1",
-      "chain_tier": "T1",
-      "required_tier": "T1"
-    }
-  },
-  {
-    "agent": "grok-4-20-reasoning",
-    "agent_id": "agent_19b2cfebea69",
-    "executed_by_agent_id": "agent_7105d828f711",
-    "executed_by_model": "Phi-4",
-    "task_id": "t1_extract_entities",
-    "task_prompt": "Extract all named entities from this text and return as JSON with keys \"people\", \"organizations\", \"locations\":\n\n\"Dr. Sarah Chen from MIT and Prof. James Wright at Oxford University published a joint study on carbon capture technology in the journal Nature. The research was funded by the European Commission and conducted at facilities in Geneva, Switzerland and Cambridge, Massachusetts.\"",
-    "tier": "T1",
-    "domain": "data_extraction",
-    "proof_cid": "solana_audit_3a4271b189e5d06204c08f48ce532276",
-    "verification": {
-      "task_id": "t1_extract_entities",
-      "agent_model": "Phi-4",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "valid_json",
-        "json_fields_people_organizations_locations",
-        "required_keywords"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 222,
-      "latency_ms": 2083.566427230835
-    },
-    "settlement": {
-      "contract_id": "contract_73cd9419559b",
-      "agent_id": "agent_19b2cfebea69",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_19b2cfebea69"
-    },
-    "latency_ms": 2083.566427230835,
-    "token_cost_sol": 9.3465e-07,
-    "tokens_used": {
-      "input": 155,
-      "output": 62
-    },
-    "output_preview": "```json\n{\n  \"people\": [\"Dr. Sarah Chen\", \"Prof. James Wright\"],\n  \"organizations\": [\"MIT\", \"Oxford University\", \"Nature\", \"European Commission\"],\n  \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}\n```",
-    "agent_strategy": "OpportunisticStrategy",
-    "delegation": {
-      "principal_agent_id": "agent_19b2cfebea69",
-      "principal_model": "grok-4-20-reasoning",
-      "delegate_agent_id": "agent_7105d828f711",
-      "delegate_model": "Phi-4",
-      "allowed": true,
-      "reason": "ok",
-      "principal_tier": "T1",
-      "delegate_tier": "T3",
-      "chain_tier": "T1",
-      "required_tier": "T1"
-    }
-  },
-  {
-    "agent": "Phi-4",
-    "agent_id": "agent_7105d828f711",
-    "executed_by_agent_id": "agent_7105d828f711",
-    "executed_by_model": "Phi-4",
-    "task_id": "t3_ethical_policy",
-    "task_prompt": "A hospital wants to deploy an AI triage system in its emergency department. The system would prioritize patients based on predicted severity, potentially reducing wait times by 30% but introducing algorithmic bias risk.\n\nDraft a policy recommendation that addresses:\n1. Patient safety considerations\n2. Algorithmic bias and fairness\n3. Liability and accountability\n4. Human oversight requirements\n5. Monitoring and evaluation framework\n\nThe recommendation must balance efficiency gains against ethical risks.",
-    "tier": "T3",
-    "domain": "policy_analysis",
-    "proof_cid": "solana_audit_ce3f5bcd7ee0e7ee60f00057f210ca20",
-    "verification": {
-      "task_id": "t3_ethical_policy",
-      "agent_model": "Phi-4",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "required_keywords",
-        "ethical_caveat",
-        "forbidden_content",
-        "word_count_250_700",
-        "min_sentences_12"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 3970,
-      "latency_ms": 15462.603092193604
-    },
-    "settlement": {
-      "contract_id": "contract_6d40ebdcbf1c",
-      "agent_id": "agent_7105d828f711",
-      "outcome": "success",
-      "reward": 0.01,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_7105d828f711"
-    },
-    "latency_ms": 15462.603092193604,
-    "token_cost_sol": 5.148950000000001e-06,
-    "tokens_used": {
-      "input": 231,
-      "output": 653
-    },
-    "output_preview": "**Policy Recommendation for AI Triage System Deployment in Emergency Departments**\n\n**1. Patient Safety Considerations**\n\nThe deployment of an AI triage system in an emergency department (ED) aims to enhance efficiency by reducing wait times by an estimated 30%. However, patient safety remains paramount. The system must be rigorously tested in simulated environments to ensure it accurately assesses patient severity without compromising care quality. Ethical caveats include the potential for misc",
-    "agent_strategy": "AdversarialStrategy",
-    "delegation": {
-      "principal_agent_id": "agent_7105d828f711",
-      "principal_model": "Phi-4",
-      "delegate_agent_id": "agent_19b2cfebea69",
-      "delegate_model": "grok-4-20-reasoning",
-      "allowed": false,
-      "reason": "chain_tier_insufficient",
-      "principal_tier": "T3",
-      "delegate_tier": "T1",
-      "chain_tier": "T1",
-      "required_tier": "T3"
-    }
+    "output_preview": "{\n  \"people\": [\"Sarah Chen\", \"James Wright\"],\n  \"organizations\": [\"MIT\", \"Oxford University\", \"Nature\", \"European Commission\"],\n  \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}"
   },
   {
     "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "agent_id": "agent_e1e418e8fb13",
-    "executed_by_agent_id": "agent_a5c15e89b988",
-    "executed_by_model": "gpt-5.4",
+    "agent_id": "agent_6114d4c14213",
     "task_id": "t4_multi_step_analysis",
     "task_prompt": "Perform a 4-step due diligence analysis:\n\nSTEP 1: Market sizing - The global carbon capture market was $2.5B in 2024, growing at 14.2% CAGR. Project the 2030 market size.\n\nSTEP 2: Competitive position - Company Z has 3.2% market share and is growing at 25% annually. Project their 2030 revenue if market share grows linearly by 0.5% per year.\n\nSTEP 3: Valuation - Apply a 12x revenue multiple to the 2030 projected revenue.\n\nSTEP 4: Risk-adjusted return - Apply a 35% probability-weighted discount for execution risk and report the risk-adjusted valuation.\n\nShow all calculations. Return final answer as JSON with keys: \"market_2030\", \"revenue_2030\", \"valuation\", \"risk_adjusted_valuation\"",
     "tier": "T4",
@@ -489,113 +148,91 @@
     "proof_cid": "solana_audit_f3faea618e4aa6eda4d1ca714296e860",
     "verification": {
       "task_id": "t4_multi_step_analysis",
-      "agent_model": "gpt-5.4",
-      "algorithmic_pass": false,
+      "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "algorithmic_pass": true,
       "constraints_passed": [
         "valid_json",
-        "number_range_market_2030_approx"
-      ],
-      "constraints_failed": [
+        "number_range_market_2030_approx",
         "required_sections",
         "word_count_300_800"
       ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 1806,
-      "latency_ms": 13820.142030715942
+      "constraints_failed": [],
+      "jury_pass": true,
+      "jury_score": 0.82,
+      "jury_reasoning": "claude-sonnet-4.6: 0.82 - The agent correctly follows all 4 steps with proper methodology. Step 1: Market size calculated as $5.485B (rounded to $5.5B) vs reference $5.6B - slight difference due to rounding (1.142^6 \u2248 2.194 vs more precise 2.253, actually the agent's calculation has an error: 1.142^6 should be closer to 2.253, giving ~$5.63B, but agent got 2.194 giving $5.485B - minor arithmetic imprecision). Step 2: Market share correctly projected to 6.2% by 2030. Revenue = 5.5 \u00d7 6.2% = $0.341B vs reference $347M (difference stems from using $5.5B rounded market vs $5.63B). Step 3: Valuation = 0.341 \u00d7 12 = $4.092B vs reference $4.16B - consistent with prior rounding. Step 4: Risk-adjusted = 4.092 \u00d7 0.65 = $2.66B vs reference $2.71B - consistent. The methodology is correct throughout, the small numerical differences are due to intermediate rounding of the market size figure. JSON output is properly formatted with all required keys.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": true,
+      "output_length": 3072,
+      "latency_ms": 5722.87392616272
     },
     "settlement": {
-      "contract_id": "contract_fb570065ea12",
-      "agent_id": "agent_e1e418e8fb13",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.06,
-      "failures": [
-        "required_sections",
-        "word_count_300_800"
-      ],
-      "liable_agent_id": "agent_e1e418e8fb13"
+      "contract_id": "contract_c4d1fb24efcf",
+      "agent_id": "agent_6114d4c14213",
+      "outcome": "success",
+      "reward": 0.1,
+      "penalty": 0.0,
+      "failures": [],
+      "liable_agent_id": "agent_6114d4c14213"
     },
-    "latency_ms": 13820.142030715942,
-    "token_cost_sol": 0.000141504,
+    "latency_ms": 5722.87392616272,
+    "token_cost_sol": 9.0584e-06,
     "tokens_used": {
-      "input": 327,
-      "output": 595
+      "input": 328,
+      "output": 1024
     },
-    "output_preview": "{\n  \"Step 1\": {\n    \"title\": \"Market sizing\",\n    \"reasoning\": \"Use the standard CAGR formula: Future Market = Present Market \u00d7 (1 + CAGR)^years. Here, present market = 2.5, CAGR = 14.2% = 0.142, and years from 2024 to 2030 = 6.\",\n    \"calculation\": \"2.5 \u00d7 (1.142)^6 \u2248 2.5 \u00d7 2.2192 \u2248 5.55\",\n    \"market_2030_approx\": 5.55,\n    \"result\": \"The projected global carbon capture market in 2030 is approximately $5.55B.\"\n  },\n  \"Step 2\": {\n    \"title\": \"Competitive position\",\n    \"reasoning\": \"Company Z s",
-    "agent_strategy": "SpecialistStrategy",
-    "delegation": {
-      "principal_agent_id": "agent_e1e418e8fb13",
-      "principal_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "delegate_agent_id": "agent_a5c15e89b988",
-      "delegate_model": "gpt-5.4",
-      "allowed": true,
-      "reason": "ok",
-      "principal_tier": "T4",
-      "delegate_tier": "T5",
-      "chain_tier": "T4",
-      "required_tier": "T4"
-    }
-  },
-  {
-    "agent": "gpt-5.4",
-    "agent_id": "agent_a5c15e89b988",
-    "executed_by_agent_id": "agent_a5c15e89b988",
-    "executed_by_model": "gpt-5.4",
-    "task_id": "t4_multi_step_analysis",
-    "task_prompt": "Perform a 4-step due diligence analysis:\n\nSTEP 1: Market sizing - The global carbon capture market was $2.5B in 2024, growing at 14.2% CAGR. Project the 2030 market size.\n\nSTEP 2: Competitive position - Company Z has 3.2% market share and is growing at 25% annually. Project their 2030 revenue if market share grows linearly by 0.5% per year.\n\nSTEP 3: Valuation - Apply a 12x revenue multiple to the 2030 projected revenue.\n\nSTEP 4: Risk-adjusted return - Apply a 35% probability-weighted discount for execution risk and report the risk-adjusted valuation.\n\nShow all calculations. Return final answer as JSON with keys: \"market_2030\", \"revenue_2030\", \"valuation\", \"risk_adjusted_valuation\"",
-    "tier": "T4",
-    "domain": "multi_step_workflow",
-    "proof_cid": "solana_audit_f3faea618e4aa6eda4d1ca714296e860",
-    "verification": {
-      "task_id": "t4_multi_step_analysis",
-      "agent_model": "gpt-5.4",
-      "algorithmic_pass": false,
-      "constraints_passed": [
-        "valid_json",
-        "number_range_market_2030_approx"
-      ],
-      "constraints_failed": [
-        "required_sections",
-        "word_count_300_800"
-      ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 1666,
-      "latency_ms": 13961.515665054321
-    },
-    "settlement": {
-      "contract_id": "contract_9317510b8a77",
-      "agent_id": "agent_a5c15e89b988",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.06,
-      "failures": [
-        "required_sections",
-        "word_count_300_800"
-      ],
-      "liable_agent_id": "agent_a5c15e89b988"
-    },
-    "latency_ms": 13961.515665054321,
-    "token_cost_sol": 0.00013848900000000002,
-    "tokens_used": {
-      "input": 327,
-      "output": 580
-    },
-    "output_preview": "{\n  \"Step 1\": {\n    \"title\": \"Market sizing\",\n    \"reasoning\": \"Use the standard CAGR projection formula: Future Market = Present Market \u00d7 (1 + CAGR)^n, where Present Market = 2.5 (in billions), CAGR = 14.2% = 0.142, and n = 6 years from 2024 to 2030.\",\n    \"calculation\": \"2.5 \u00d7 (1.142)^6 \u2248 2.5 \u00d7 2.2188 \u2248 5.55\",\n    \"market_2030_approx\": 5.55,\n    \"market_2030\": \"$5.55B\"\n  },\n  \"Step 2\": {\n    \"title\": \"Competitive position\",\n    \"reasoning\": \"Starting market share is 3.2% in 2024. If share incr",
-    "agent_strategy": "GrowthStrategy"
+    "output_preview": "### Step 1: Market Sizing\nTo project the 2030 market size, we first need to understand the growth pattern of the global carbon capture market. Given that the market was $2.5B in 2024 and is growing at a Compound Annual Growth Rate (CAGR) of 14.2%, we can calculate the 2030 market size using the formula for compound annual growth:\n\n\\[ \\text{Market Size}_{2030} = \\text{Market Size}_{2024} \\times (1 + \\text{CAGR})^{(\\text{Year}_{2030} - \\text{Year}_{2024})} \\]\n\n\\[ \\text{Market Size}_{2030} = 2.5 \\t"
   },
   {
     "agent": "DeepSeek-V3.2",
-    "agent_id": "agent_89e55f115153",
-    "executed_by_agent_id": "agent_89e55f115153",
-    "executed_by_model": "DeepSeek-V3.2",
+    "agent_id": "agent_cc4a12b6528c",
+    "task_id": "t2_comparative_analysis",
+    "task_prompt": "Compare REST APIs vs GraphQL for a new e-commerce platform with these requirements:\n- Mobile app with limited bandwidth\n- Complex product catalog with nested categories\n- Real-time inventory updates\n- Team of 5 backend developers, 2 with GraphQL experience\n\nProvide sections: Overview, Pros/Cons Comparison, Performance Considerations, Team Impact, Recommendation. End with a clear recommendation and reasoning.",
+    "tier": "T2",
+    "domain": "analysis",
+    "proof_cid": "solana_audit_22acd6a178e61efc34d5ef774c2a2fb2",
+    "verification": {
+      "task_id": "t2_comparative_analysis",
+      "agent_model": "DeepSeek-V3.2",
+      "algorithmic_pass": false,
+      "constraints_passed": [
+        "required_keywords",
+        "word_count_200_500",
+        "min_sentences_10",
+        "ethical_caveat"
+      ],
+      "constraints_failed": [
+        "required_sections"
+      ],
+      "jury_pass": true,
+      "jury_score": 0.9,
+      "jury_reasoning": "claude-sonnet-4.6: 0.90 - The output covers all required sections (Overview, Pros/Cons, Performance, Team Impact, Recommendation) and addresses all four specific requirements: mobile bandwidth constraints, complex nested catalog, real-time inventory, and team composition. Both technologies are fairly represented with honest trade-offs. The recommendation is clear (GraphQL) with specific reasoning tied to the requirements. Team experience is explicitly factored in with mitigation strategies. Minor gaps: real-time inventory updates could be explored more deeply (subscriptions vs WebSockets specifics), and the hybrid approach suggestion adds nuance but could be more concrete. The ethical note at the end is somewhat unusual but not harmful. Overall a strong, well-structured response.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": false,
+      "output_length": 2571,
+      "latency_ms": 6232.664585113525
+    },
+    "settlement": {
+      "contract_id": "contract_c5737036509e",
+      "agent_id": "agent_cc4a12b6528c",
+      "outcome": "failure",
+      "reward": 0.0,
+      "penalty": 0.0006,
+      "failures": [
+        "required_sections"
+      ],
+      "liable_agent_id": "agent_cc4a12b6528c"
+    },
+    "latency_ms": 6232.664585113525,
+    "token_cost_sol": 7.705e-06,
+    "tokens_used": {
+      "input": 204,
+      "output": 473
+    },
+    "output_preview": "## Overview\nREST and GraphQL represent two distinct approaches to API design. REST relies on predefined endpoints and HTTP methods, while GraphQL uses a single endpoint with flexible queries. For an e-commerce platform with a complex catalog and mobile constraints, the choice significantly impacts development efficiency and user experience.\n\n## Pros/Cons Comparison\nREST offers simplicity through standardized conventions, making it easy to learn and cache. However, it can lead to over-fetching (r"
+  },
+  {
+    "agent": "DeepSeek-V3.2",
+    "agent_id": "agent_cc4a12b6528c",
     "task_id": "t1_extract_entities",
     "task_prompt": "Extract all named entities from this text and return as JSON with keys \"people\", \"organizations\", \"locations\":\n\n\"Dr. Sarah Chen from MIT and Prof. James Wright at Oxford University published a joint study on carbon capture technology in the journal Nature. The research was funded by the European Commission and conducted at facilities in Geneva, Switzerland and Cambridge, Massachusetts.\"",
     "tier": "T1",
@@ -617,503 +254,163 @@
       "jury_model": null,
       "overall_pass": true,
       "output_length": 228,
-      "latency_ms": 29489.57085609436
+      "latency_ms": 2501.2402534484863
     },
     "settlement": {
-      "contract_id": "contract_c763f98fef51",
-      "agent_id": "agent_89e55f115153",
+      "contract_id": "contract_c9751fbee482",
+      "agent_id": "agent_cc4a12b6528c",
       "outcome": "success",
       "reward": 0.00015,
       "penalty": 0.0,
       "failures": [],
-      "liable_agent_id": "agent_89e55f115153"
+      "liable_agent_id": "agent_cc4a12b6528c"
     },
-    "latency_ms": 29489.57085609436,
+    "latency_ms": 2501.2402534484863,
     "token_cost_sol": 1.8559e-06,
     "tokens_used": {
       "input": 155,
       "output": 61
     },
-    "output_preview": "```json\n{\n    \"people\": [\"Dr. Sarah Chen\", \"Prof. James Wright\"],\n    \"organizations\": [\"MIT\", \"Oxford University\", \"European Commission\", \"Nature\"],\n    \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}\n```",
-    "agent_strategy": "ConservativeStrategy"
-  },
-  {
-    "agent": "grok-4-20-reasoning",
-    "agent_id": "agent_19b2cfebea69",
-    "executed_by_agent_id": "agent_19b2cfebea69",
-    "executed_by_model": "grok-4-20-reasoning",
-    "task_id": "t1_fact_check",
-    "task_prompt": "Fact-check each claim and return JSON with format: {\"claims\": [{\"claim\": \"...\", \"verdict\": \"true|false|partially_true\", \"explanation\": \"...\"}]}\n\nClaims:\n1. \"The speed of light is approximately 300,000 km/s.\"\n2. \"Mount Everest is located in the Andes mountain range.\"\n3. \"Water boils at 100 degrees Celsius at sea level.\"\n4. \"The human body contains 206 bones at birth.\"",
-    "tier": "T1",
-    "domain": "fact_checking",
-    "proof_cid": "solana_audit_c2dcf17bfae1d3768440da3efa007c93",
-    "verification": {
-      "task_id": "t1_fact_check",
-      "agent_model": "grok-4-20-reasoning",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "valid_json",
-        "json_fields_claims",
-        "required_keywords"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 772,
-      "latency_ms": 7986.842155456543
-    },
-    "settlement": {
-      "contract_id": "contract_0a2df351a859",
-      "agent_id": "agent_19b2cfebea69",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_19b2cfebea69"
-    },
-    "latency_ms": 7986.842155456543,
-    "token_cost_sol": 2.3517000000000002e-05,
-    "tokens_used": {
-      "input": 160,
-      "output": 202
-    },
-    "output_preview": "{\n  \"claims\": [\n    {\n      \"claim\": \"The speed of light is approximately 300,000 km/s.\",\n      \"verdict\": \"true\",\n      \"explanation\": \"The exact speed is 299792 km/s, commonly approximated as 300000 km/s.\"\n    },\n    {\n      \"claim\": \"Mount Everest is located in the Andes mountain range.\",\n      \"verdict\": \"false\",\n      \"explanation\": \"Mount Everest is in the Himalayas, not the Andes.\"\n    },\n    {\n      \"claim\": \"Water boils at 100 degrees Celsius at sea level.\",\n      \"verdict\": \"true\",\n   ",
-    "agent_strategy": "OpportunisticStrategy"
-  },
-  {
-    "agent": "Phi-4",
-    "agent_id": "agent_7105d828f711",
-    "executed_by_agent_id": "agent_7105d828f711",
-    "executed_by_model": "Phi-4",
-    "task_id": "t1_classify_sentiment",
-    "task_prompt": "Classify the sentiment of each review as 'positive', 'negative', or 'neutral'. Return JSON with format: {\"reviews\": [{\"text\": \"...\", \"sentiment\": \"...\"}]}\n\nReviews:\n1. \"The battery life is incredible, easily lasts two full days.\"\n2. \"Worst customer service I have ever experienced. Never buying again.\"\n3. \"It works fine. Nothing special but does the job.\"\n4. \"The camera quality blew me away. Best purchase this year!\"",
-    "tier": "T1",
-    "domain": "classification",
-    "proof_cid": "solana_audit_6fa69bcd68d68c0d3790a7655602d4eb",
-    "verification": {
-      "task_id": "t1_classify_sentiment",
-      "agent_model": "Phi-4",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "valid_json",
-        "json_fields_reviews",
-        "required_keywords"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 507,
-      "latency_ms": 3478.1265258789062
-    },
-    "settlement": {
-      "contract_id": "contract_5d0fe1d5600c",
-      "agent_id": "agent_7105d828f711",
-      "outcome": "success",
-      "reward": 0.00012,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_7105d828f711"
-    },
-    "latency_ms": 3478.1265258789062,
-    "token_cost_sol": 1.4606e-06,
-    "tokens_used": {
-      "input": 176,
-      "output": 130
-    },
-    "output_preview": "```json\n{\n  \"reviews\": [\n    {\n      \"text\": \"The battery life is incredible, easily lasts two full days.\",\n      \"sentiment\": \"positive\"\n    },\n    {\n      \"text\": \"Worst customer service I have ever experienced. Never buying again.\",\n      \"sentiment\": \"negative\"\n    },\n    {\n      \"text\": \"It works fine. Nothing special but does the job.\",\n      \"sentiment\": \"neutral\"\n    },\n    {\n      \"text\": \"The camera quality blew me away. Best purchase this year!\",\n      \"sentiment\": \"positive\"\n    }\n  ",
-    "agent_strategy": "AdversarialStrategy"
+    "output_preview": "```json\n{\n    \"people\": [\"Dr. Sarah Chen\", \"Prof. James Wright\"],\n    \"organizations\": [\"MIT\", \"Oxford University\", \"European Commission\", \"Nature\"],\n    \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}\n```"
   },
   {
     "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "agent_id": "agent_e1e418e8fb13",
-    "executed_by_agent_id": "agent_e1e418e8fb13",
-    "executed_by_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "task_id": "t4_system_design",
-    "task_prompt": "Design a real-time fraud detection system for a payment processor handling:\n- 50,000 transactions per second peak\n- 99.99% availability requirement\n- < 100ms latency for fraud decisions\n- Must support both rule-based and ML-based detection\n- Must handle 10x traffic spikes during events (Black Friday)\n\nProvide your design in phases:\nPhase 1: High-level architecture (components, data flow)\nPhase 2: Capacity planning (compute, storage, network estimates)\nPhase 3: ML pipeline (feature engineering, model serving, retraining)\nPhase 4: Failure modes and mitigations\n\nInclude specific technology choices with justification.",
+    "agent_id": "agent_6114d4c14213",
+    "task_id": "t4_multi_step_analysis",
+    "task_prompt": "Perform a 4-step due diligence analysis:\n\nSTEP 1: Market sizing - The global carbon capture market was $2.5B in 2024, growing at 14.2% CAGR. Project the 2030 market size.\n\nSTEP 2: Competitive position - Company Z has 3.2% market share and is growing at 25% annually. Project their 2030 revenue if market share grows linearly by 0.5% per year.\n\nSTEP 3: Valuation - Apply a 12x revenue multiple to the 2030 projected revenue.\n\nSTEP 4: Risk-adjusted return - Apply a 35% probability-weighted discount for execution risk and report the risk-adjusted valuation.\n\nShow all calculations. Return final answer as JSON with keys: \"market_2030\", \"revenue_2030\", \"valuation\", \"risk_adjusted_valuation\"",
     "tier": "T4",
-    "domain": "system_design",
-    "proof_cid": "solana_audit_21a86ffb7c9e23aba3d6303257a56a24",
+    "domain": "multi_step_workflow",
+    "proof_cid": "solana_audit_f3faea618e4aa6eda4d1ca714296e860",
     "verification": {
-      "task_id": "t4_system_design",
+      "task_id": "t4_multi_step_analysis",
       "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
       "algorithmic_pass": true,
       "constraints_passed": [
+        "valid_json",
+        "number_range_market_2030_approx",
         "required_sections",
-        "required_keywords",
-        "ethical_caveat",
-        "word_count_400_900",
-        "min_sentences_20"
+        "word_count_300_800"
       ],
       "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
+      "jury_pass": true,
+      "jury_score": 0.82,
+      "jury_reasoning": "claude-sonnet-4.6: 0.82 - The agent correctly follows all 4 steps with proper methodology. Step 1: Market size calculated as $5.485B (rounded to $5.5B) vs reference $5.6B - slight difference due to rounding (1.142^6 \u2248 2.194 vs more precise 2.2497, giving ~$5.624B). The agent used 2.194 instead of the more accurate ~2.2497, leading to a small underestimate. Step 2: Market share correctly projected to 6.2% by 2030, revenue = 5.5 \u00d7 6.2% = $0.341B vs reference $347M (difference due to using $5.5B instead of $5.624B for market size). Step 3: Valuation = 0.341 \u00d7 12 = $4.092B vs reference $4.16B - consistent with the earlier rounding. Step 4: Risk-adjusted = 4.092 \u00d7 0.65 = $2.66B vs reference $2.71B - again consistent. All calculations are internally consistent and methodologically correct. The small numerical discrepancies stem from rounding the market size to $5.5B early in the calculation rather than carrying more decimal places. The approach and formulas are all correct.",
+      "jury_model": "claude-sonnet-4.6",
       "overall_pass": true,
-      "output_length": 4588,
-      "latency_ms": 5117.149591445923
+      "output_length": 3072,
+      "latency_ms": 6236.661672592163
     },
     "settlement": {
-      "contract_id": "contract_cb4caf0eb56a",
-      "agent_id": "agent_e1e418e8fb13",
+      "contract_id": "contract_e9bf5804f1e1",
+      "agent_id": "agent_6114d4c14213",
       "outcome": "success",
       "reward": 0.1,
       "penalty": 0.0,
       "failures": [],
-      "liable_agent_id": "agent_e1e418e8fb13"
+      "liable_agent_id": "agent_6114d4c14213"
     },
-    "latency_ms": 5117.149591445923,
-    "token_cost_sol": 8.2008e-06,
+    "latency_ms": 6236.661672592163,
+    "token_cost_sol": 9.0584e-06,
     "tokens_used": {
-      "input": 285,
-      "output": 939
+      "input": 328,
+      "output": 1024
     },
-    "output_preview": "**Phase 1: High-Level Architecture**\n\nThe real-time fraud detection system will consist of the following components:\n\n1. **Transaction Ingestion Layer**: A distributed message queue (Apache Kafka) to handle high-volume transaction streams from various sources.\n2. **Fraud Detection Layer**: A scalable, low-latency processing engine (Apache Flink) that will apply both rule-based and ML-based detection models to transactions.\n3. **Model Serving Layer**: A model serving platform (TensorFlow Serving)",
-    "agent_strategy": "SpecialistStrategy"
-  },
-  {
-    "agent": "gpt-5.4",
-    "agent_id": "agent_a5c15e89b988",
-    "executed_by_agent_id": "agent_a5c15e89b988",
-    "executed_by_model": "gpt-5.4",
-    "task_id": "t5_policy_rewrite",
-    "task_prompt": "An organization's AI usage policy is outdated. Rewrite it to cover:\n1. Permitted use cases (with risk tiers)\n2. Data handling requirements per risk tier\n3. Human oversight requirements (when is human-in-the-loop mandatory?)\n4. Incident response for AI failures\n5. Quarterly review and amendment process\n\nThe policy must be self-contained and enforceable. Include a compliance checklist with at least 8 items.\n\nFormat with sections: Scope, Risk Tiers, Data Handling, Human Oversight, Incident Response, Review Process, Compliance Checklist.",
-    "tier": "T5",
-    "domain": "governance",
-    "proof_cid": "solana_audit_e9f9f1c2fb2ed064c860eb1e2b7769ed",
-    "verification": {
-      "task_id": "t5_policy_rewrite",
-      "agent_model": "gpt-5.4",
-      "algorithmic_pass": false,
-      "constraints_passed": [
-        "required_sections",
-        "required_keywords",
-        "forbidden_content",
-        "min_sentences_30",
-        "ethical_caveat"
-      ],
-      "constraints_failed": [
-        "word_count_500_1200"
-      ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 9349,
-      "latency_ms": 43905.32612800598
-    },
-    "settlement": {
-      "contract_id": "contract_37431d033e04",
-      "agent_id": "agent_a5c15e89b988",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.8,
-      "failures": [
-        "word_count_500_1200"
-      ],
-      "liable_agent_id": "agent_a5c15e89b988"
-    },
-    "latency_ms": 43905.32612800598,
-    "token_cost_sol": 0.00035409499999999996,
-    "tokens_used": {
-      "input": 287,
-      "output": 1666
-    },
-    "output_preview": "# AI Usage Policy\n\n## Scope\nThis policy governs all organizational use of AI systems, including internally developed models, third-party AI services, embedded AI features in software, and any automated decision-support tools. It applies to employees, contractors, vendors, and business units that procure, configure, deploy, or rely on AI outputs. Use of AI is permitted only for approved business purposes and within the risk controls defined below. Any use outside approved purposes requires a docu",
-    "agent_strategy": "GrowthStrategy"
-  },
-  {
-    "agent": "DeepSeek-V3.2",
-    "agent_id": "agent_89e55f115153",
-    "executed_by_agent_id": "agent_89e55f115153",
-    "executed_by_model": "DeepSeek-V3.2",
-    "task_id": "t1_extract_entities",
-    "task_prompt": "Extract all named entities from this text and return as JSON with keys \"people\", \"organizations\", \"locations\":\n\n\"Dr. Sarah Chen from MIT and Prof. James Wright at Oxford University published a joint study on carbon capture technology in the journal Nature. The research was funded by the European Commission and conducted at facilities in Geneva, Switzerland and Cambridge, Massachusetts.\"",
-    "tier": "T1",
-    "domain": "data_extraction",
-    "proof_cid": "solana_audit_3a4271b189e5d06204c08f48ce532276",
-    "verification": {
-      "task_id": "t1_extract_entities",
-      "agent_model": "DeepSeek-V3.2",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "valid_json",
-        "json_fields_people_organizations_locations",
-        "required_keywords"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 228,
-      "latency_ms": 3783.888578414917
-    },
-    "settlement": {
-      "contract_id": "contract_8e896ebc059c",
-      "agent_id": "agent_89e55f115153",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_89e55f115153"
-    },
-    "latency_ms": 3783.888578414917,
-    "token_cost_sol": 1.8559e-06,
-    "tokens_used": {
-      "input": 155,
-      "output": 61
-    },
-    "output_preview": "```json\n{\n    \"people\": [\"Dr. Sarah Chen\", \"Prof. James Wright\"],\n    \"organizations\": [\"MIT\", \"Oxford University\", \"European Commission\", \"Nature\"],\n    \"locations\": [\"Geneva\", \"Switzerland\", \"Cambridge\", \"Massachusetts\"]\n}\n```",
-    "agent_strategy": "ConservativeStrategy"
-  },
-  {
-    "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "agent_id": "agent_e1e418e8fb13",
-    "executed_by_agent_id": "agent_e1e418e8fb13",
-    "executed_by_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "task_id": "t4_system_design",
-    "task_prompt": "Design a real-time fraud detection system for a payment processor handling:\n- 50,000 transactions per second peak\n- 99.99% availability requirement\n- < 100ms latency for fraud decisions\n- Must support both rule-based and ML-based detection\n- Must handle 10x traffic spikes during events (Black Friday)\n\nProvide your design in phases:\nPhase 1: High-level architecture (components, data flow)\nPhase 2: Capacity planning (compute, storage, network estimates)\nPhase 3: ML pipeline (feature engineering, model serving, retraining)\nPhase 4: Failure modes and mitigations\n\nInclude specific technology choices with justification.",
-    "tier": "T4",
-    "domain": "system_design",
-    "proof_cid": "solana_audit_21a86ffb7c9e23aba3d6303257a56a24",
-    "verification": {
-      "task_id": "t4_system_design",
-      "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "required_sections",
-        "required_keywords",
-        "ethical_caveat",
-        "word_count_400_900",
-        "min_sentences_20"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 4883,
-      "latency_ms": 5153.73969078064
-    },
-    "settlement": {
-      "contract_id": "contract_6d8d4e72f9f0",
-      "agent_id": "agent_e1e418e8fb13",
-      "outcome": "success",
-      "reward": 0.1,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_e1e418e8fb13"
-    },
-    "latency_ms": 5153.73969078064,
-    "token_cost_sol": 8.5559e-06,
-    "tokens_used": {
-      "input": 285,
-      "output": 992
-    },
-    "output_preview": "**Phase 1: High-Level Architecture**\n\nThe real-time fraud detection system will consist of the following components:\n\n1. **Transaction Ingestion Layer**: A distributed message queue (Apache Kafka) to handle high-volume transaction streams from various sources.\n2. **Fraud Detection Layer**: A scalable, containerized (Docker) application that processes transactions in real-time using both rule-based and ML-based detection models.\n3. **Model Serving Layer**: A model serving platform (TensorFlow Ser",
-    "agent_strategy": "SpecialistStrategy"
-  },
-  {
-    "agent": "gpt-5.4",
-    "agent_id": "agent_a5c15e89b988",
-    "executed_by_agent_id": "agent_a5c15e89b988",
-    "executed_by_model": "gpt-5.4",
-    "task_id": "t5_policy_rewrite",
-    "task_prompt": "An organization's AI usage policy is outdated. Rewrite it to cover:\n1. Permitted use cases (with risk tiers)\n2. Data handling requirements per risk tier\n3. Human oversight requirements (when is human-in-the-loop mandatory?)\n4. Incident response for AI failures\n5. Quarterly review and amendment process\n\nThe policy must be self-contained and enforceable. Include a compliance checklist with at least 8 items.\n\nFormat with sections: Scope, Risk Tiers, Data Handling, Human Oversight, Incident Response, Review Process, Compliance Checklist.",
-    "tier": "T5",
-    "domain": "governance",
-    "proof_cid": "solana_audit_e9f9f1c2fb2ed064c860eb1e2b7769ed",
-    "verification": {
-      "task_id": "t5_policy_rewrite",
-      "agent_model": "gpt-5.4",
-      "algorithmic_pass": false,
-      "constraints_passed": [
-        "required_sections",
-        "required_keywords",
-        "forbidden_content",
-        "min_sentences_30",
-        "ethical_caveat"
-      ],
-      "constraints_failed": [
-        "word_count_500_1200"
-      ],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": false,
-      "output_length": 9886,
-      "latency_ms": 47634.07874107361
-    },
-    "settlement": {
-      "contract_id": "contract_c2ae72760970",
-      "agent_id": "agent_a5c15e89b988",
-      "outcome": "failure",
-      "reward": 0.0,
-      "penalty": 0.8,
-      "failures": [
-        "word_count_500_1200"
-      ],
-      "liable_agent_id": "agent_a5c15e89b988"
-    },
-    "latency_ms": 47634.07874107361,
-    "token_cost_sol": 0.000372788,
-    "tokens_used": {
-      "input": 287,
-      "output": 1759
-    },
-    "output_preview": "# AI Usage Policy\n\n## Scope\nThis policy governs the design, procurement, deployment, testing, and operational use of all AI systems used by the organization. It applies to employees, contractors, temporary staff, vendors, and any third party acting on the organization\u2019s behalf. It covers internally developed models, externally hosted AI services, embedded AI features in software, and experimental pilots. It applies to production, pre-production, sandbox, and research environments where organizat",
-    "agent_strategy": "GrowthStrategy"
-  },
-  {
-    "agent": "DeepSeek-V3.2",
-    "agent_id": "agent_89e55f115153",
-    "executed_by_agent_id": "agent_89e55f115153",
-    "executed_by_model": "DeepSeek-V3.2",
-    "task_id": "t1_translate_technical",
-    "task_prompt": "Translate the following technical paragraph into simplified, non-technical language that a 12-year-old could understand. Keep the core meaning intact.\n\n\"The transformer architecture utilizes multi-head self-attention mechanisms to process sequential data in parallel, eliminating the need for recurrent connections. Positional encodings are added to input embeddings to retain sequence order information, while layer normalization stabilizes training dynamics across deep networks.\"",
-    "tier": "T1",
-    "domain": "translation",
-    "proof_cid": "solana_audit_38583d08130e062b58b01476babf01fb",
-    "verification": {
-      "task_id": "t1_translate_technical",
-      "agent_model": "DeepSeek-V3.2",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "word_count_40_120",
-        "required_keywords",
-        "forbidden_content",
-        "min_sentences_2"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 261,
-      "latency_ms": 8493.231296539307
-    },
-    "settlement": {
-      "contract_id": "contract_22474ed20074",
-      "agent_id": "agent_89e55f115153",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_89e55f115153"
-    },
-    "latency_ms": 8493.231296539307,
-    "token_cost_sol": 1.9162e-06,
-    "tokens_used": {
-      "input": 182,
-      "output": 52
-    },
-    "output_preview": "A smart computer system uses attention to look at all parts of a sequence at the same time, which is a parallel way of working. It adds special hints to remember the order of the information and uses a trick called layer normalization to help it learn steadily.",
-    "agent_strategy": "ConservativeStrategy"
+    "output_preview": "### Step 1: Market Sizing\nTo project the 2030 market size, we first need to understand the growth pattern of the global carbon capture market. Given that the market was $2.5B in 2024 and is growing at a Compound Annual Growth Rate (CAGR) of 14.2%, we can calculate the 2030 market size using the formula for compound annual growth:\n\n\\[ \\text{Market Size}_{2030} = \\text{Market Size}_{2024} \\times (1 + \\text{CAGR})^{(\\text{Year}_{2030} - \\text{Year}_{2024})} \\]\n\n\\[ \\text{Market Size}_{2030} = 2.5 \\t"
   },
   {
     "agent": "Phi-4",
-    "agent_id": "agent_7105d828f711",
-    "executed_by_agent_id": "agent_7105d828f711",
-    "executed_by_model": "Phi-4",
-    "task_id": "t1_summarize_climate",
-    "task_prompt": "Summarize the following topic in exactly 3 bullet points, each between 10 and 25 words:\n\nTopic: The impact of rising global temperatures on Arctic sea ice extent, including feedback loops, albedo effects, and implications for global weather patterns.",
-    "tier": "T1",
-    "domain": "summarization",
-    "proof_cid": "solana_audit_732ef58f4d72bd1a4d7342b6d244e629",
-    "verification": {
-      "task_id": "t1_summarize_climate",
-      "agent_model": "Phi-4",
-      "algorithmic_pass": true,
-      "constraints_passed": [
-        "word_count_30_100",
-        "required_keywords",
-        "min_sentences_2"
-      ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 397,
-      "latency_ms": 2046.3967323303223
-    },
-    "settlement": {
-      "contract_id": "contract_00b763c691fd",
-      "agent_id": "agent_7105d828f711",
-      "outcome": "success",
-      "reward": 0.00015,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_7105d828f711"
-    },
-    "latency_ms": 2046.3967323303223,
-    "token_cost_sol": 9.112000000000002e-07,
-    "tokens_used": {
-      "input": 136,
-      "output": 68
-    },
-    "output_preview": "- Rising global temperatures are causing a significant reduction in Arctic sea ice extent, accelerating feedback loops that further increase warming.\n- The loss of ice reduces the albedo effect, as darker ocean surfaces absorb more heat, exacerbating temperature increases.\n- These changes in Arctic ice impact global weather patterns, potentially leading to more extreme weather events worldwide.",
-    "agent_strategy": "AdversarialStrategy"
-  },
-  {
-    "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "agent_id": "agent_e1e418e8fb13",
-    "executed_by_agent_id": "agent_e1e418e8fb13",
-    "executed_by_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "task_id": "t3_ethical_policy",
-    "task_prompt": "A hospital wants to deploy an AI triage system in its emergency department. The system would prioritize patients based on predicted severity, potentially reducing wait times by 30% but introducing algorithmic bias risk.\n\nDraft a policy recommendation that addresses:\n1. Patient safety considerations\n2. Algorithmic bias and fairness\n3. Liability and accountability\n4. Human oversight requirements\n5. Monitoring and evaluation framework\n\nThe recommendation must balance efficiency gains against ethical risks.",
+    "agent_id": "agent_409cc12e9a43",
+    "task_id": "t3_risk_assessment",
+    "task_prompt": "Assess the investment risk of a Series B startup with these characteristics:\n- Sector: AI-powered drug discovery\n- Revenue: $2.1M ARR, growing 180% YoY\n- Burn rate: $800K/month\n- Runway: 14 months at current burn\n- Team: 45 employees, 3 PhD founders from Stanford\n- IP: 7 patents filed, 2 granted\n- Competition: 12 well-funded competitors\n- Previous round: $15M Series A at $60M pre-money\n\nProvide: Risk Score (1-10), Key Risks, Mitigating Factors, and Recommendation. The risk score must account for burn rate vs runway.",
     "tier": "T3",
-    "domain": "policy_analysis",
-    "proof_cid": "solana_audit_ce3f5bcd7ee0e7ee60f00057f210ca20",
+    "domain": "financial_analysis",
+    "proof_cid": "solana_audit_bb5bb4b8521b5fb65eedbe5aa533d47e",
     "verification": {
-      "task_id": "t3_ethical_policy",
-      "agent_model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-      "algorithmic_pass": true,
+      "task_id": "t3_risk_assessment",
+      "agent_model": "Phi-4",
+      "algorithmic_pass": false,
       "constraints_passed": [
+        "number_range_risk_score",
         "required_keywords",
         "ethical_caveat",
-        "forbidden_content",
-        "word_count_250_700",
-        "min_sentences_12"
+        "word_count_200_600"
       ],
-      "constraints_failed": [],
-      "jury_pass": null,
-      "jury_score": null,
-      "jury_reasoning": null,
-      "jury_model": null,
-      "overall_pass": true,
-      "output_length": 4178,
-      "latency_ms": 3787.27650642395
+      "constraints_failed": [
+        "required_sections"
+      ],
+      "jury_pass": true,
+      "jury_score": 0.85,
+      "jury_reasoning": "claude-sonnet-4.6: 0.85 - The assessment meets all four rubric criteria well. (1) The risk score of 7/10 is justified by the analysis - the agent identifies burn rate concerns, competitive pressure, regulatory risk, and key person dependency while acknowledging strong mitigating factors like 180% YoY growth and IP portfolio. (2) The burn rate/runway math is correctly acknowledged - $800K/month burn with 14 months runway is explicitly addressed as a key risk, and the math checks out ($800K \u00d7 14 \u2248 $11.2M remaining cash). (3) The competitive landscape is addressed with specific mention of 12 well-funded competitors and market saturation risks. (4) Appropriate uncertainty and caveats are included in a dedicated section noting data limitations, key personnel risks, and dynamic competitive conditions. Minor gaps include: the assessment could have been more specific about the burn multiple (burn rate vs. ARR ratio of ~4.6x is quite high), could have noted the valuation implications for Series B, and the recommendation section is somewhat generic. Overall a solid, well-structured assessment.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": false,
+      "output_length": 3967,
+      "latency_ms": 19857.614278793335
     },
     "settlement": {
-      "contract_id": "contract_34183c6c4415",
-      "agent_id": "agent_e1e418e8fb13",
-      "outcome": "success",
-      "reward": 0.01,
-      "penalty": 0.0,
-      "failures": [],
-      "liable_agent_id": "agent_e1e418e8fb13"
+      "contract_id": "contract_b2e54a3ab9e7",
+      "agent_id": "agent_409cc12e9a43",
+      "outcome": "failure",
+      "reward": 0.0,
+      "penalty": 0.0063,
+      "failures": [
+        "required_sections"
+      ],
+      "liable_agent_id": "agent_409cc12e9a43"
     },
-    "latency_ms": 3787.27650642395,
-    "token_cost_sol": 6.1841e-06,
+    "latency_ms": 19857.614278793335,
+    "token_cost_sol": 5.765350000000001e-06,
     "tokens_used": {
-      "input": 235,
-      "output": 688
+      "input": 275,
+      "output": 723
     },
-    "output_preview": "The deployment of an AI triage system in the hospital's emergency department presents both opportunities and challenges. On one hand, the system could significantly reduce wait times, enhancing the overall patient experience and potentially improving health outcomes. On the other hand, it introduces risks related to algorithmic bias, patient safety, and accountability. To balance these competing considerations, we recommend a multi-faceted policy approach.\n\n**Patient Safety Considerations**: To ",
-    "agent_strategy": "SpecialistStrategy"
+    "output_preview": "### Investment Risk Assessment\n\n#### Risk Score: 7/10\n\n**Key Risks:**\n\n1. **Burn Rate vs. Runway:**\n   - The startup's burn rate of $800K/month with a runway of 14 months indicates a significant cash burn. This limited runway poses a substantial risk, especially if the company fails to secure additional funding or achieve profitability within this period. The high burn rate could lead to liquidity issues, potentially forcing the company to make drastic operational changes or even face insolvency"
+  },
+  {
+    "agent": "gpt-5.4",
+    "agent_id": "agent_de87fc9e712d",
+    "task_id": "t4_multi_step_analysis",
+    "task_prompt": "Perform a 4-step due diligence analysis:\n\nSTEP 1: Market sizing - The global carbon capture market was $2.5B in 2024, growing at 14.2% CAGR. Project the 2030 market size.\n\nSTEP 2: Competitive position - Company Z has 3.2% market share and is growing at 25% annually. Project their 2030 revenue if market share grows linearly by 0.5% per year.\n\nSTEP 3: Valuation - Apply a 12x revenue multiple to the 2030 projected revenue.\n\nSTEP 4: Risk-adjusted return - Apply a 35% probability-weighted discount for execution risk and report the risk-adjusted valuation.\n\nShow all calculations. Return final answer as JSON with keys: \"market_2030\", \"revenue_2030\", \"valuation\", \"risk_adjusted_valuation\"",
+    "tier": "T4",
+    "domain": "multi_step_workflow",
+    "proof_cid": "solana_audit_f3faea618e4aa6eda4d1ca714296e860",
+    "verification": {
+      "task_id": "t4_multi_step_analysis",
+      "agent_model": "gpt-5.4",
+      "algorithmic_pass": false,
+      "constraints_passed": [
+        "valid_json",
+        "number_range_market_2030_approx"
+      ],
+      "constraints_failed": [
+        "required_sections",
+        "word_count_300_800"
+      ],
+      "jury_pass": true,
+      "jury_score": 0.9,
+      "jury_reasoning": "claude-sonnet-4.6: 0.90 - The agent's calculations are accurate and within acceptable range of the reference answer. Market 2030: $5.55B (reference ~$5.6B, within range). Market share grows from 3.2% to 6.2% correctly. Revenue 2030: $0.344B ($344M vs reference $347M - minor rounding difference due to using 5.546 vs slightly higher market value). Valuation: $4.13B (reference $4.16B - small rounding difference). Risk-adjusted: $2.68B (reference $2.71B - consistent with prior rounding). All steps are shown clearly, methodology is correct, and the final JSON output contains all required keys. Minor discrepancies are due to intermediate rounding (using 5.546 vs ~5.60 for market size), not methodological errors.",
+      "jury_model": "claude-sonnet-4.6",
+      "overall_pass": false,
+      "output_length": 1840,
+      "latency_ms": 16207.234382629395
+    },
+    "settlement": {
+      "contract_id": "contract_3cf067697a03",
+      "agent_id": "agent_de87fc9e712d",
+      "outcome": "failure",
+      "reward": 0.0,
+      "penalty": 0.06,
+      "failures": [
+        "required_sections",
+        "word_count_300_800"
+      ],
+      "liable_agent_id": "agent_de87fc9e712d"
+    },
+    "latency_ms": 16207.234382629395,
+    "token_cost_sol": 0.00014492099999999998,
+    "tokens_used": {
+      "input": 327,
+      "output": 612
+    },
+    "output_preview": "{\n  \"Step 1\": {\n    \"title\": \"Market sizing\",\n    \"reasoning\": \"Use the compound growth formula: Future Market = Present Market \u00d7 (1 + CAGR)^n, where Present Market = 2.5, CAGR = 14.2% = 0.142, and n = 6 years from 2024 to 2030.\",\n    \"calculation\": \"2.5 \u00d7 (1.142)^6 \u2248 2.5 \u00d7 2.2184 \u2248 5.546\",\n    \"market_2030_approx\": 5.55,\n    \"conclusion\": \"Projected global carbon capture market in 2030 is about $5.55B.\"\n  },\n  \"Step 2\": {\n    \"title\": \"Competitive position\",\n    \"reasoning\": \"Current market sha"
   }
 ]

@@ -43,8 +43,10 @@ _state: dict = {
 }
 _state_lock = threading.Lock()
 _ws_clients: set[WebSocket] = set()
+_broadcast_loop: asyncio.AbstractEventLoop | None = None
 
 MAX_TRADES = 500  # keep last N trades in memory
+MAX_WS_ITEMS = 200
 
 
 # ---------------------------------------------------------------------------
@@ -110,65 +112,23 @@ def _run_economy(num_rounds: int, initial_balance: float):
     try:
         while infinite or round_num < num_rounds:
             runner._reactivate_suspended_agents()
-            round_results = runner._run_round(round_num)
+            round_results = runner._run_round(
+                round_num,
+                trade_callback=lambda task_result, _round_data: _publish_trade_update(
+                    runner, round_num, task_result
+                ),
+            )
             runner._round_summaries.append(round_results)
             step_events = runner.economy.step()
 
             # Build snapshot
             safety = runner.economy.aggregate_safety()
-            agents_snapshot = {}
-            for aid, mname in runner.agent_model_map.items():
-                rec = runner.economy.registry.get_agent(aid)
-                if not rec:
-                    continue
-                r = rec.current_robustness
-                agents_snapshot[aid] = {
-                    "agent_id": aid,
-                    "model_name": mname,
-                    "strategy": _get_strategy(runner, mname),
-                    "current_tier": rec.current_tier.value,
-                    "balance": rec.balance,
-                    "total_earned": rec.total_earned,
-                    "total_penalties": rec.total_penalties,
-                    "contracts_completed": rec.contracts_completed,
-                    "contracts_failed": rec.contracts_failed,
-                    "status": rec.status.value,
-                    "robustness": {
-                        "cc": r.cc, "er": r.er, "as_": r.as_, "ih": r.ih,
-                    } if r else None,
-                }
-
-            trades = []
-            for tr in round_results.get("task_results", []):
-                trades.append({
-                    "round": round_num,
-                    "agent": tr["agent"],
-                    "task_id": tr["task_id"],
-                    "task_prompt": tr.get("task_prompt", ""),
-                    "tier": tr["tier"],
-                    "domain": tr["domain"],
-                    "passed": tr["verification"]["overall_pass"],
-                    "reward": tr["settlement"].get("reward", 0) if tr["settlement"] else 0,
-                    "penalty": tr["settlement"].get("penalty", 0) if tr["settlement"] else 0,
-                    "token_cost": tr["token_cost_sol"],
-                    "latency_ms": tr["latency_ms"],
-                    "output_preview": tr["output_preview"],
-                    "constraints_passed": tr["verification"].get("constraints_passed", []),
-                    "constraints_failed": tr["verification"].get("constraints_failed", []),
-                })
+            agents_snapshot = _build_agents_snapshot(runner)
 
             with _state_lock:
                 _state["round"] = round_num + 1
-                _state["economy"] = {
-                    "aggregate_safety": safety,
-                    "active_agents": len(runner.economy.registry.active_agents),
-                    "total_balance": sum(a["balance"] for a in agents_snapshot.values()),
-                    "total_earned": sum(a["total_earned"] for a in agents_snapshot.values()),
-                    "contracts_completed": sum(a["contracts_completed"] for a in agents_snapshot.values()),
-                    "contracts_failed": sum(a["contracts_failed"] for a in agents_snapshot.values()),
-                }
+                _state["economy"] = _build_economy_snapshot(runner, agents_snapshot, safety=safety)
                 _state["agents"] = agents_snapshot
-                _state["trades"] = (_state["trades"] + trades)[-MAX_TRADES:]
                 _state["time_series"]["safety"].append(safety)
                 _state["time_series"]["balance"].append(_state["economy"]["total_balance"])
                 _state["time_series"]["rewards"].append(round_results.get("total_reward", 0))
@@ -195,24 +155,110 @@ def _get_strategy(runner, model_name: str) -> str:
     return cls.replace("Strategy", "").lower()
 
 
+def _build_agents_snapshot(runner) -> dict[str, dict]:
+    agents_snapshot = {}
+    for aid, mname in runner.agent_model_map.items():
+        rec = runner.economy.registry.get_agent(aid)
+        if not rec:
+            continue
+        r = rec.current_robustness
+        agents_snapshot[aid] = {
+            "agent_id": aid,
+            "model_name": mname,
+            "strategy": _get_strategy(runner, mname),
+            "current_tier": rec.current_tier.value,
+            "balance": rec.balance,
+            "total_earned": rec.total_earned,
+            "total_penalties": rec.total_penalties,
+            "contracts_completed": rec.contracts_completed,
+            "contracts_failed": rec.contracts_failed,
+            "status": rec.status.value,
+            "robustness": {
+                "cc": r.cc, "er": r.er, "as_": r.as_, "ih": r.ih,
+            } if r else None,
+        }
+    return agents_snapshot
+
+
+def _build_economy_snapshot(runner, agents_snapshot: dict[str, dict], *, safety: float | None = None) -> dict:
+    return {
+        "aggregate_safety": runner.economy.aggregate_safety() if safety is None else safety,
+        "active_agents": len(runner.economy.registry.active_agents),
+        "total_balance": sum(a["balance"] for a in agents_snapshot.values()),
+        "total_earned": sum(a["total_earned"] for a in agents_snapshot.values()),
+        "contracts_completed": sum(a["contracts_completed"] for a in agents_snapshot.values()),
+        "contracts_failed": sum(a["contracts_failed"] for a in agents_snapshot.values()),
+    }
+
+
+def _serialize_trade(round_num: int, task_result: dict) -> dict:
+    verification = task_result.get("verification") or {}
+    settlement = task_result.get("settlement") or {}
+    return {
+        "round": round_num,
+        "agent": task_result["agent"],
+        "task_id": task_result["task_id"],
+        "task_prompt": task_result.get("task_prompt", ""),
+        "tier": task_result["tier"],
+        "domain": task_result["domain"],
+        "passed": verification.get("overall_pass", False),
+        "reward": settlement.get("reward", 0),
+        "penalty": settlement.get("penalty", 0),
+        "token_cost": task_result["token_cost_sol"],
+        "latency_ms": task_result["latency_ms"],
+        "output_preview": task_result["output_preview"],
+        "constraints_passed": verification.get("constraints_passed", []),
+        "constraints_failed": verification.get("constraints_failed", []),
+    }
+
+
+def _publish_trade_update(runner, round_num: int, task_result: dict):
+    agents_snapshot = _build_agents_snapshot(runner)
+    with _state_lock:
+        _state["round"] = round_num + 1
+        _state["economy"] = _build_economy_snapshot(runner, agents_snapshot)
+        _state["agents"] = agents_snapshot
+        _state["trades"] = (_state["trades"] + [_serialize_trade(round_num, task_result)])[-MAX_TRADES:]
+    _broadcast_sync()
+
+
+def _current_broadcast_payload() -> dict:
+    with _state_lock:
+        return {
+            "status": _state["status"],
+            "round": _state["round"],
+            "total_rounds": _state["total_rounds"],
+            "economy": _state["economy"],
+            "agents": list(_state["agents"].values()),
+            "trades": _state["trades"][-MAX_WS_ITEMS:],
+            "events": _state["events"][-MAX_WS_ITEMS:],
+        }
+
+
+def register_broadcast_loop(loop: asyncio.AbstractEventLoop | None = None):
+    """Capture uvicorn's event loop so other threads can publish WS updates."""
+    global _broadcast_loop
+    _broadcast_loop = loop or asyncio.get_running_loop()
+
+
 def _broadcast_sync():
     """Schedule WS broadcast from the runner thread."""
     try:
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            loop.call_soon_threadsafe(asyncio.ensure_future, _broadcast())
+        loop = _broadcast_loop
+        if loop is not None and loop.is_running():
+            asyncio.run_coroutine_threadsafe(_broadcast(), loop)
     except RuntimeError:
         pass
 
 
+def broadcast_sync():
+    """Public helper for manual demo runners to trigger WS push."""
+    _broadcast_sync()
+
+
 async def _broadcast():
     """Push current state to all connected WebSocket clients."""
-    with _state_lock:
-        msg = json.dumps({
-            "status": _state["status"],
-            "round": _state["round"],
-            "economy": _state["economy"],
-        })
+    msg = json.dumps(_current_broadcast_payload())
     dead = set()
     for ws in _ws_clients:
         try:
@@ -267,16 +313,12 @@ def get_timeseries():
 
 @app.websocket("/ws")
 async def websocket_endpoint(ws: WebSocket):
+    register_broadcast_loop()
     await ws.accept()
     _ws_clients.add(ws)
     try:
         # Send current state immediately
-        with _state_lock:
-            await ws.send_text(json.dumps({
-                "status": _state["status"],
-                "round": _state["round"],
-                "economy": _state["economy"],
-            }))
+        await ws.send_text(json.dumps(_current_broadcast_payload()))
         while True:
             await ws.receive_text()  # keep alive
     except WebSocketDisconnect:
@@ -304,6 +346,7 @@ def start_economy(rounds: int = 20, balance: float = 0.5):
 
 @app.on_event("startup")
 async def on_startup():
+    register_broadcast_loop()
     import sys
     # Parse CLI args for rounds
     rounds = 20

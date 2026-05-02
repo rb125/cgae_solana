@@ -1,8 +1,998 @@
 [
   {
-    "timestamp": 328.0,
-    "type": "UPGRADE",
-    "agent": "adaptive_3",
-    "message": "Agent adaptive_3 UPGRADED to T2 via robustness investment!"
+    "timestamp": 369.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 370.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 371.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 372.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 373.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 374.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 375.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 376.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 377.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 378.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 379.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 380.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 381.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 382.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 383.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 384.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 385.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 386.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 387.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 388.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 389.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 390.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 391.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 392.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 393.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 394.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 395.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 396.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 397.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 398.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 399.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 400.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 401.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 402.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 403.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 404.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 405.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 406.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 407.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 408.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 409.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 410.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 411.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 412.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 413.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 414.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 415.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 416.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 417.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 418.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 419.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 420.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 421.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 422.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 423.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 424.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 425.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 426.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 427.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 428.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 429.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 430.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 431.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 432.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 433.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 434.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 435.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 436.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 437.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 438.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 439.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 440.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 441.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 442.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 443.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 444.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 445.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 446.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 447.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 448.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 449.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 450.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 451.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 452.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 453.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 454.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 455.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 456.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 457.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 458.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 459.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 460.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 461.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 462.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 463.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 464.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 465.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 465.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 466.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 466.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 467.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 467.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 468.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 468.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 469.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 469.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 470.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 470.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 471.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 471.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 472.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 472.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 473.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 473.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 474.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 474.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 475.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 475.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 476.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 476.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 477.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 477.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 478.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 478.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 479.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 479.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 480.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 480.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 481.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 481.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 482.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 482.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 483.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 483.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 484.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 484.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 485.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 485.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 486.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 486.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 487.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 487.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 488.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 488.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 489.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 489.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 490.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 490.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 491.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 491.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 492.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 492.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 493.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 493.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 494.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 494.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 495.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 495.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 496.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 496.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 497.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 497.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 498.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 498.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 499.0,
+    "type": "BANKRUPTCY",
+    "agent": "conservative_0",
+    "message": "Agent conservative_0 has gone bankrupt and is suspended."
+  },
+  {
+    "timestamp": 499.0,
+    "type": "BANKRUPTCY",
+    "agent": "balanced_2",
+    "message": "Agent balanced_2 has gone bankrupt and is suspended."
   }
 ]

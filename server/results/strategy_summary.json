@@ -1,16 +1,16 @@
 {
   "survival": {
-    "conservative": 1,
+    "conservative": 0,
     "aggressive": 1,
-    "balanced": 1,
+    "balanced": 0,
     "adaptive": 1,
     "cheater": 1
   },
   "total_earned": {
-    "conservative": 0.705898315081791,
-    "aggressive": 0.14161483517841805,
-    "balanced": 1.916195101663651,
-    "adaptive": 0.3547694462441879,
+    "conservative": 0.0,
+    "aggressive": 0.0,
+    "balanced": 0.0,
+    "adaptive": 0.0,
     "cheater": 0.0
   },
   "final_tier": {

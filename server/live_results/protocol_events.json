@@ -1,99 +1,6 @@
 [
   {
-    "timestamp": 0.0,
-    "type": "CIRCUMVENTION_BLOCKED",
-    "agent": "Phi-4",
-    "message": "Phi-4 attempted tier bypass to T4; gate blocked acceptance.",
-    "required_tier": "T4",
-    "current_tier": "T3",
-    "contract_id": "contract_a772468ccfb2"
-  },
-  {
     "timestamp": 1.0,
-    "type": "DELEGATION_ALLOWED",
-    "agent": "gpt-5.4",
-    "message": "gpt-5.4 hired Llama-4-Maverick-17B-128E-Instruct-FP8 for t4_multi_step_analysis; principal retains liability.",
-    "contract_id": "contract_bb96ac0dc62a",
-    "delegate": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "required_tier": "T4",
-    "chain_tier": "T4"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "UPGRADE",
-    "agent": "gpt-5.4",
-    "message": "gpt-5.4 upgraded to T5 via scaling-gate audit.",
-    "requested_tier": "T5",
-    "path": "upgrade_audit"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "DELEGATION_ALLOWED",
-    "agent": "DeepSeek-V3.2",
-    "message": "DeepSeek-V3.2 hired grok-4-20-reasoning for t1_extract_entities; principal retains liability.",
-    "contract_id": "contract_afef815a364e",
-    "delegate": "grok-4-20-reasoning",
-    "required_tier": "T1",
-    "chain_tier": "T1"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "UPGRADE",
-    "agent": "DeepSeek-V3.2",
-    "message": "DeepSeek-V3.2 upgraded to T2 via scaling-gate audit.",
-    "requested_tier": "T2",
-    "path": "upgrade_audit"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "DELEGATION_ALLOWED",
-    "agent": "grok-4-20-reasoning",
-    "message": "grok-4-20-reasoning hired Phi-4 for t1_extract_entities; principal retains liability.",
-    "contract_id": "contract_73cd9419559b",
-    "delegate": "Phi-4",
-    "required_tier": "T1",
-    "chain_tier": "T1"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "CIRCUMVENTION_BLOCKED",
-    "agent": "Phi-4",
-    "message": "Phi-4 attempted delegation/laundering via grok-4-20-reasoning; blocked (chain_tier_insufficient).",
-    "contract_id": "contract_6d40ebdcbf1c",
-    "delegate": "grok-4-20-reasoning",
-    "required_tier": "T3",
-    "principal_tier": "T3",
-    "delegate_tier": "T1",
-    "chain_tier": "T1"
-  },
-  {
-    "timestamp": 1.0,
-    "type": "DELEGATION_ALLOWED",
-    "agent": "Llama-4-Maverick-17B-128E-Instruct-FP8",
-    "message": "Llama-4-Maverick-17B-128E-Instruct-FP8 hired gpt-5.4 for t4_multi_step_analysis; principal retains liability.",
-    "contract_id": "contract_fb570065ea12",
-    "delegate": "gpt-5.4",
-    "required_tier": "T4",
-    "chain_tier": "T4"
-  },
-  {
-    "timestamp": 2.0,
-    "type": "UPGRADE",
-    "agent": "DeepSeek-V3.2",
-    "message": "DeepSeek-V3.2 upgraded to T2 via scaling-gate audit.",
-    "requested_tier": "T2",
-    "path": "upgrade_audit"
-  },
-  {
-    "timestamp": 3.0,
-    "type": "UPGRADE",
-    "agent": "gpt-5.4",
-    "message": "gpt-5.4 invested in robustness \u2192 promoted T4 \u2192 T5",
-    "old_tier": "T4",
-    "new_tier": "T5"
-  },
-  {
-    "timestamp": 3.0,
     "type": "DEMOTION",
     "agent": "grok-4-20-reasoning",
     "message": "grok-4-20-reasoning demoted T1 \u2192 T0 after spot audit (temporal decay).",
@@ -101,42 +8,11 @@
     "new_tier": "T0"
   },
   {
-    "timestamp": 3.0,
+    "timestamp": 2.0,
     "type": "UPGRADE",
-    "agent": "DeepSeek-V3.2",
-    "message": "DeepSeek-V3.2 upgraded to T2 via scaling-gate audit.",
-    "requested_tier": "T2",
-    "path": "upgrade_audit"
-  },
-  {
-    "timestamp": 3.0,
-    "type": "CIRCUMVENTION_BLOCKED",
-    "agent": "Phi-4",
-    "message": "Phi-4 attempted tier bypass to T4; gate blocked acceptance.",
-    "required_tier": "T4",
-    "current_tier": "T3",
-    "contract_id": "contract_52ec2abf216c"
-  },
-  {
-    "timestamp": 3.0,
-    "type": "CIRCUMVENTION_BLOCKED",
-    "agent": "Phi-4",
-    "message": "Phi-4 attempted certification with modified architecture hash; blocked.",
-    "current_tier": "T3",
-    "attempt": "architecture_spoof"
-  },
-  {
-    "timestamp": 4.0,
-    "type": "TEST_SOL_TOPUP",
-    "agent": "Phi-4",
-    "message": "Reactivated Phi-4: topped up to 1.0032 SOL and re-certified."
-  },
-  {
-    "timestamp": 4.0,
-    "type": "UPGRADE",
-    "agent": "DeepSeek-V3.2",
-    "message": "DeepSeek-V3.2 upgraded to T2 via scaling-gate audit.",
-    "requested_tier": "T2",
-    "path": "upgrade_audit"
+    "agent": "gpt-5.4",
+    "message": "gpt-5.4 invested in robustness \u2192 promoted T4 \u2192 T5",
+    "old_tier": "T4",
+    "new_tier": "T5"
   }
 ]
