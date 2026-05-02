@@ -1,0 +1,5 @@
+{
+  "as": 0.7,
+  "model": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+  "dialogues_run": 2
+}

@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_d1f8fc535723",
+  "model_name": "gpt-5.1",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.7,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure OpenAI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdquaqjhni7vvjw5bkbluscstt5hj6gg2c667em7abq5nsa2rkdms2o4zs",
+  "filecoin_cid_real": true
+}

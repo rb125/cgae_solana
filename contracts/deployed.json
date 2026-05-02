@@ -1,0 +1,17 @@
+{
+  "network": "solana-devnet",
+  "cluster": "devnet",
+  "rpcUrl": "https://api.devnet.solana.com",
+  "explorer": "https://solscan.io",
+  "programs": {
+    "cgae": {
+      "programId": "Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a",
+      "programDataAddress": "G7Sfx3i6xCjCCcVY3fyAuCVWhay6sVic3Wv8YJ5JWU59",
+      "authority": "5VGdPCpthqfUFWqXjQpH7nhmJmeEM6hh4x3uk3o9qcLb",
+      "description": "CGAE Registry + Escrow (combined Anchor program)",
+      "explorerUrl": "https://solscan.io/account/Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a?cluster=devnet"
+    }
+  },
+  "deployedAt": "2026-04-28T00:30:00Z",
+  "idlMetadata": "HyBwa5VaBeU3HBhULPAH65YKCE6n9MVLz7HcRdNpuSW3"
+}

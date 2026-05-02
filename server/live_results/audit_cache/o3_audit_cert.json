@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_5306cd23a84e",
+  "model_name": "o3",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.7,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure OpenAI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdriaqigmovzuhmusqj3hmtocgwvew4bvdnvjip5ih6r7db4j7pnyk5maw",
+  "filecoin_cid_real": true
+}

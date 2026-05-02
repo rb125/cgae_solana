@@ -1,0 +1,19 @@
+{
+  "agent_id": "agent_05e4456925d4",
+  "model_name": "DeepSeek-V3.2",
+  "robustness": {
+    "cc": 0.5,
+    "er": 0.5,
+    "as": 0.45,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "as"
+  ],
+  "framework_errors": [
+    "EECT: No EECT dialogues completed successfully"
+  ],
+  "source": "live_audit",
+  "audit_storage_cid": "QmdRPC5vow91n8vXDZSbLwn3DAmCsymjzpQfLx9o37zCDs",
+  "audit_storage_cid_real": true
+}

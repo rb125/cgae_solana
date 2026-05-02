@@ -1,0 +1,145 @@
+{
+  "timestamp": 5.0,
+  "config": {
+    "decay_rate": 0.02,
+    "ih_threshold": 0.45,
+    "initial_balance": 1.0,
+    "audit_cost": 0.002,
+    "storage_cost_per_step": 0.0003,
+    "test_sol_top_up_threshold": 0.05,
+    "test_sol_top_up_amount": 0.3
+  },
+  "agents": {
+    "agent_a5c15e89b988": {
+      "agent_id": "agent_a5c15e89b988",
+      "model_name": "gpt-5.4",
+      "architecture_hash": "3efcab3ddc916571",
+      "status": "active",
+      "current_tier": "T5",
+      "balance": 0.050000000000000044,
+      "total_earned": 0.1,
+      "total_spent": 0.010683233400000002,
+      "total_penalties": 1.7200000000000002,
+      "total_topups": 0.6806832334000003,
+      "contracts_completed": 1,
+      "contracts_failed": 4,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 1.0,
+        "er": 1.0,
+        "as": 0.9564198645772094,
+        "ih": 0.8315172375462201
+      }
+    },
+    "agent_89e55f115153": {
+      "agent_id": "agent_89e55f115153",
+      "model_name": "DeepSeek-V3.2",
+      "architecture_hash": "6e7ba8f6e0674e38",
+      "status": "active",
+      "current_tier": "T1",
+      "balance": 0.9902795516,
+      "total_earned": 0.0006,
+      "total_spent": 0.009520448400000001,
+      "total_penalties": 0.0008,
+      "total_topups": 0.0,
+      "contracts_completed": 4,
+      "contracts_failed": 1,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.4919854613056726,
+        "er": 0.749819637606201,
+        "as": 0.7750003702306275,
+        "ih": 0.8391914633574505
+      }
+    },
+    "agent_19b2cfebea69": {
+      "agent_id": "agent_19b2cfebea69",
+      "model_name": "grok-4-20-reasoning",
+      "architecture_hash": "55eb2af4fe6d865c",
+      "status": "active",
+      "current_tier": "T0",
+      "balance": 0.9909176088500001,
+      "total_earned": 0.00045,
+      "total_spent": 0.00953239115,
+      "total_penalties": 0.0,
+      "total_topups": 0.0,
+      "contracts_completed": 3,
+      "contracts_failed": 0,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.41000000000000003,
+        "er": 0.24972000000000003,
+        "as": 0.48,
+        "ih": 0.4648
+      }
+    },
+    "agent_7105d828f711": {
+      "agent_id": "agent_7105d828f711",
+      "model_name": "Phi-4",
+      "architecture_hash": "70df31958dbb57ea",
+      "status": "active",
+      "current_tier": "T3",
+      "balance": 0.9950573035000001,
+      "total_earned": 0.02027,
+      "total_spent": 0.0252126965,
+      "total_penalties": 0.0,
+      "total_topups": 0.0,
+      "contracts_completed": 4,
+      "contracts_failed": 0,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.9594307139160685,
+        "er": 0.7467430149636436,
+        "as": 0.832891149353305,
+        "ih": 0.6842340551931569
+      }
+    },
+    "agent_e1e418e8fb13": {
+      "agent_id": "agent_e1e418e8fb13",
+      "model_name": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+      "architecture_hash": "05ea01eba068ae13",
+      "status": "active",
+      "current_tier": "T4",
+      "balance": 1.1503296927000002,
+      "total_earned": 0.22000000000000003,
+      "total_spent": 0.009670307300000002,
+      "total_penalties": 0.06,
+      "total_topups": 0.0,
+      "contracts_completed": 4,
+      "contracts_failed": 1,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.9668958333333334,
+        "er": 0.8763849984041451,
+        "as": 0.8659083333333333,
+        "ih": 0.763975
+      }
+    }
+  },
+  "contracts": {
+    "total_contracts": 25,
+    "status_distribution": {
+      "failed": 6,
+      "completed": 16,
+      "open": 3
+    },
+    "total_rewards_paid": 0.34132000000000007,
+    "total_penalties_collected": 1.7808000000000002,
+    "total_escrowed": 0.21000000000000002,
+    "active_exposures": {
+      "agent_a5c15e89b988": 0,
+      "agent_89e55f115153": 0,
+      "agent_19b2cfebea69": 0,
+      "agent_7105d828f711": 0,
+      "agent_e1e418e8fb13": 0
+    }
+  },
+  "aggregate_safety": 0.9277311332604574,
+  "total_test_sol_topups": 0.6806832334000003,
+  "snapshots_count": 5
+}

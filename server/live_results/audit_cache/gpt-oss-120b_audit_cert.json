@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_f4cafc1c4f02",
+  "model_name": "gpt-oss-120b",
+  "robustness": {
+    "cc": 0.415,
+    "er": 0.5,
+    "as": 0.7,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure AI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdseaqi4yb5cnb236dlmlzdohhlo5qfj6jwrlvwcjndmljn4f3qpbol6yk",
+  "filecoin_cid_real": true
+}

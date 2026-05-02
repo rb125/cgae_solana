@@ -1,0 +1,145 @@
+{
+  "timestamp": 500.0,
+  "config": {
+    "decay_rate": 0.005,
+    "ih_threshold": 0.45,
+    "initial_balance": 0.5,
+    "audit_cost": 0.002,
+    "storage_cost_per_step": 0.0003,
+    "test_sol_top_up_threshold": null,
+    "test_sol_top_up_amount": 0.0
+  },
+  "agents": {
+    "agent_45138ebb5544": {
+      "agent_id": "agent_45138ebb5544",
+      "model_name": "conservative_0",
+      "architecture_hash": "8374b7c44322b61a",
+      "status": "active",
+      "current_tier": "T3",
+      "balance": 0.4438150520925207,
+      "total_earned": 0.705898315081791,
+      "total_spent": 0.5820000000000014,
+      "total_penalties": 0.18008326298926444,
+      "total_topups": 0.0,
+      "contracts_completed": 289,
+      "contracts_failed": 211,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.8764770497855406,
+        "er": 0.8105254704426614,
+        "as": 0.7185011898758412,
+        "ih": 0.8966212281423991
+      }
+    },
+    "agent_a2c1c983d0ec": {
+      "agent_id": "agent_a2c1c983d0ec",
+      "model_name": "aggressive_1",
+      "architecture_hash": "06cf6cd1e0157f7e",
+      "status": "active",
+      "current_tier": "T0",
+      "balance": 0.44738732314052365,
+      "total_earned": 0.14161483517841805,
+      "total_spent": 0.18999999999999787,
+      "total_penalties": 0.004227512037900717,
+      "total_topups": 0.0,
+      "contracts_completed": 44,
+      "contracts_failed": 4,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.3167395698316015,
+        "er": 0.3420628088116186,
+        "as": 0.24914846070829869,
+        "ih": 0.6951119883015274
+      }
+    },
+    "agent_29474fdd9d4c": {
+      "agent_id": "agent_29474fdd9d4c",
+      "model_name": "balanced_2",
+      "architecture_hash": "ea00df5aae26a51e",
+      "status": "active",
+      "current_tier": "T2",
+      "balance": 1.1527110779683558,
+      "total_earned": 1.916195101663651,
+      "total_spent": 0.3660000000000033,
+      "total_penalties": 0.897484023695311,
+      "total_topups": 0.0,
+      "contracts_completed": 218,
+      "contracts_failed": 231,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.5399617844404137,
+        "er": 0.5287194564843503,
+        "as": 0.5239859192772227,
+        "ih": 0.8506681019843986
+      }
+    },
+    "agent_f3a0f957ade2": {
+      "agent_id": "agent_f3a0f957ade2",
+      "model_name": "adaptive_3",
+      "architecture_hash": "b191a86339607a12",
+      "status": "active",
+      "current_tier": "T1",
+      "balance": 0.3035983894400411,
+      "total_earned": 0.3547694462441879,
+      "total_spent": 0.4345000000000028,
+      "total_penalties": 0.11667105680413532,
+      "total_topups": 0.0,
+      "contracts_completed": 80,
+      "contracts_failed": 72,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.4920385970817692,
+        "er": 0.5315247091242528,
+        "as": 0.4156405852044336,
+        "ih": 0.841223576508408
+      }
+    },
+    "agent_2e9608c7120c": {
+      "agent_id": "agent_2e9608c7120c",
+      "model_name": "cheater_4",
+      "architecture_hash": "73482227d1d7b2b3",
+      "status": "active",
+      "current_tier": "T0",
+      "balance": 0.34199999999998876,
+      "total_earned": 0.0,
+      "total_spent": 0.15799999999999859,
+      "total_penalties": 0.0,
+      "total_topups": 0.0,
+      "contracts_completed": 0,
+      "contracts_failed": 0,
+      "registration_time": 0.0,
+      "audit_cid": null,
+      "robustness": {
+        "cc": 0.707390265856336,
+        "er": 0.2893324248161214,
+        "as": 0.6512497059171015,
+        "ih": 0.5968103011868765
+      }
+    }
+  },
+  "contracts": {
+    "total_contracts": 5500,
+    "status_distribution": {
+      "failed": 518,
+      "expired": 3898,
+      "completed": 631,
+      "open": 453
+    },
+    "total_rewards_paid": 3.11847769816805,
+    "total_penalties_collected": 1.1984658555266117,
+    "total_escrowed": 137.52294901718295,
+    "active_exposures": {
+      "agent_45138ebb5544": 0,
+      "agent_a2c1c983d0ec": 0,
+      "agent_29474fdd9d4c": 0,
+      "agent_f3a0f957ade2": 0
+    }
+  },
+  "aggregate_safety": 0.697258329006506,
+  "total_test_sol_topups": 0.0,
+  "snapshots_count": 500
+}

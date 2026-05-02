@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGAE Protocol Dashboard</title>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<style>
+  :root{--teal:#0f766e;--amber:#f59e0b;--blue:#2563eb;--red:#dc2626;--sky:#0ea5e9;--bg:#f8fafc;--card:#fff;--border:rgba(15,118,110,.18);--text:#0f172a;--muted:#475569}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  header{background:linear-gradient(135deg,rgba(15,118,110,.08),rgba(245,158,11,.06));border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+  header h1{font-size:1.25rem;font-weight:700;color:var(--teal)}
+  header p{font-size:.75rem;color:var(--muted)}
+  #status-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;display:inline-block;margin-right:6px}
+  #status-dot.running{background:#22c55e;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .container{max-width:1200px;margin:0 auto;padding:1rem 1.5rem}
+  .tabs{display:flex;gap:.25rem;border-bottom:2px solid var(--border);margin-bottom:1.25rem;flex-wrap:wrap}
+  .tab{padding:.5rem 1rem;cursor:pointer;border-radius:6px 6px 0 0;font-size:.875rem;font-weight:500;color:var(--muted);border:1px solid transparent;border-bottom:none;transition:all .15s}
+  .tab.active{color:var(--teal);border-color:var(--border);background:var(--card);margin-bottom:-2px}
+  .tab-panel{display:none}.tab-panel.active{display:block}
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.25rem}
+  .metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem}
+  .metric-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.25rem}
+  .metric-value{font-size:1.4rem;font-weight:700;color:var(--text)}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+  .card h3{font-size:.875rem;font-weight:600;margin-bottom:.75rem;color:var(--text)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  .event{padding:.5rem .75rem;border-radius:8px;font-size:.8rem;margin-bottom:.4rem;line-height:1.4}
+  .event.error{background:#fef2f2;border-left:3px solid var(--red);color:#991b1b}
+  .event.warn{background:#fffbeb;border-left:3px solid var(--amber);color:#92400e}
+  .event.success{background:#f0fdf4;border-left:3px solid #22c55e;color:#166534}
+  .event.info{background:#eff6ff;border-left:3px solid var(--blue);color:#1e40af}
+  .task-item{border:1px solid var(--border);border-radius:8px;margin-bottom:.5rem;overflow:hidden}
+  .task-header{padding:.5rem .75rem;cursor:pointer;display:flex;align-items:center;gap:.5rem;font-size:.8rem;background:var(--bg)}
+  .task-header:hover{background:#f1f5f9}
+  .task-body{display:none;padding:.75rem;font-size:.78rem;border-top:1px solid var(--border);background:var(--card)}
+  .task-body.open{display:block}
+  .task-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.5rem}
+  .task-meta span{color:var(--muted)}
+  .cid{background:#f1f5f9;border-radius:4px;padding:.3rem .5rem;font-family:monospace;font-size:.72rem;word-break:break-all;margin-bottom:.5rem}
+  pre{background:#f8fafc;border:1px solid var(--border);border-radius:6px;padding:.5rem;font-size:.72rem;overflow-x:auto;white-space:pre-wrap;max-height:120px;overflow-y:auto}
+  table{width:100%;border-collapse:collapse;font-size:.8rem}
+  th{text-align:left;padding:.4rem .6rem;border-bottom:2px solid var(--border);color:var(--muted);font-weight:600;font-size:.7rem;text-transform:uppercase}
+  td{padding:.4rem .6rem;border-bottom:1px solid #f1f5f9}
+  .badge{display:inline-block;padding:.1rem .4rem;border-radius:4px;font-size:.7rem;font-weight:600}
+  .badge-t0{background:#f1f5f9;color:#64748b}
+  .badge-t1{background:#eff6ff;color:var(--blue)}
+  .badge-t2{background:#f0fdf4;color:#16a34a}
+  .badge-t3{background:#fefce8;color:#ca8a04}
+  .badge-t4{background:#fff7ed;color:#ea580c}
+  .badge-t5{background:#fdf4ff;color:#9333ea}
+  #init-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:1rem;text-align:center}
+  #init-screen .icon{font-size:3rem}
+  #init-screen h2{color:var(--teal);font-size:1.3rem}
+  #init-screen p{color:var(--muted);max-width:380px}
+  .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>⚖️ Comprehension-Gated Agent Economy</h1>
+    <p>RFS-4 Autonomous Agent Economy Monitor · Filecoin / IPC Proof-of-Safety</p>
+  </div>
+  <div style="font-size:.8rem;color:var(--muted)">
+    <span id="status-dot"></span><span id="status-text">Connecting…</span>
+    &nbsp;·&nbsp; Auto-refresh: <span id="refresh-countdown">5</span>s
+  </div>
+</header>
+
+<div class="container">
+  <div id="init-screen" style="display:none">
+    <div class="icon">⚙️</div>
+    <div class="spinner"></div>
+    <h2>Economy initializing…</h2>
+    <p>The backend is spinning up agents and running the first round. Usually takes 30–60 seconds.</p>
+    <p id="init-status" style="color:var(--teal);font-size:.8rem"></p>
+  </div>
+
+  <div id="main" style="display:none">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('overview')">📈 Economy Overview</div>
+      <div class="tab" onclick="switchTab('trade')">🤝 Trade Activity</div>
+      <div class="tab" onclick="switchTab('tiers')">🛡️ Protocol Tiers</div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <div id="tab-overview" class="tab-panel active">
+      <div id="events-feed"></div>
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">Aggregate Safety</div><div class="metric-value" id="m-safety">—</div></div>
+        <div class="metric"><div class="metric-label">Active Agents</div><div class="metric-value" id="m-agents">—</div></div>
+        <div class="metric"><div class="metric-label">Total Balance</div><div class="metric-value" id="m-balance">—</div></div>
+        <div class="metric"><div class="metric-label">Contracts Done</div><div class="metric-value" id="m-contracts">—</div></div>
+      </div>
+      <div class="card">
+        <h3>Protocol Goal: Safety Stabilization (Theorem 3)</h3>
+        <div id="chart-safety" style="height:280px"></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Theorem 2: Incentive Compatibility — Accumulated FIL by Agent</h3>
+          <div id="chart-earned" style="height:240px"></div>
+        </div>
+        <div class="card">
+          <h3>Economy Solvency — Total Circulating FIL</h3>
+          <div id="chart-balance" style="height:240px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRADE -->
+    <div id="tab-trade" class="tab-panel">
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">Total Tasks</div><div class="metric-value" id="m-tasks">—</div></div>
+        <div class="metric"><div class="metric-label">Passes</div><div class="metric-value" id="m-passes" style="color:#16a34a">—</div></div>
+        <div class="metric"><div class="metric-label">Fails</div><div class="metric-value" id="m-fails" style="color:var(--red)">—</div></div>
+      </div>
+      <div id="task-list"></div>
+    </div>
+
+    <!-- TIERS -->
+    <div id="tab-tiers" class="tab-panel">
+      <div class="card" style="margin-bottom:.75rem">
+        <p style="font-size:.8rem;color:var(--muted)">Robustness dimensions: <strong>CC</strong> (Constraint Compliance) · <strong>ER</strong> (Epistemic Robustness) · <strong>AS</strong> (Behavioral Alignment)</p>
+      </div>
+      <div class="card">
+        <table id="tiers-table">
+          <thead><tr><th>Agent</th><th>Tier</th><th>CC</th><th>ER</th><th>AS</th><th>Balance (FIL)</th></tr></thead>
+          <tbody id="tiers-body"></tbody>
+        </table>
+      </div>
+      <div class="grid2">
+        <div class="card"><h3>Population by Tier</h3><div id="chart-tier-pie" style="height:260px"></div></div>
+        <div class="card"><h3>Robustness Profile by Agent</h3><div id="chart-robustness" style="height:260px"></div></div>
+      </div>
+    </div>
+
+    <!-- ONCHAIN (removed) -->
+  </div>
+</div>
+
+<script>
+const COLORS = ['#0f766e','#f59e0b','#2563eb','#dc2626','#0ea5e9','#14b8a6'];
+const LAYOUT = {paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(255,255,255,0.7)',
+  font:{family:'Segoe UI,system-ui,sans-serif',color:'#0f172a'},
+  margin:{l:40,r:16,t:16,b:40},legend:{orientation:'h',y:1.1},
+  xaxis:{showgrid:true,gridcolor:'rgba(15,23,42,.07)',zeroline:false},
+  yaxis:{showgrid:true,gridcolor:'rgba(15,23,42,.07)',zeroline:false}};
+
+let state = {summary:null, details:null, tasks:[], events:[], onchain:null};
+let countdown = 5;
+
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i)=>{
+    const names=['overview','trade','tiers'];
+    t.classList.toggle('active', names[i]===name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+async function fetchJSON(path) {
+  try {
+    const r = await fetch(path);
+    return r.ok ? r.json() : null;
+  } catch { return null; }
+}
+
+async function refresh() {
+  const [summary, details, tasks, events] = await Promise.all([
+    fetchJSON('/results/final_summary.json'),
+    fetchJSON('/results/agent_details.json'),
+    fetchJSON('/results/task_results.json'),
+    fetchJSON('/results/protocol_events.json'),
+  ]);
+
+  const health = await fetchJSON('/health');
+  updateStatus(health);
+
+  const hasData = summary && (summary.agents||[]).length > 0;
+  document.getElementById('init-screen').style.display = hasData ? 'none' : 'flex';
+  document.getElementById('main').style.display = hasData ? 'block' : 'none';
+  if (!hasData) {
+    document.getElementById('init-status').textContent =
+      'Backend status: ' + (health?.status || 'unknown');
+    return;
+  }
+
+  state = {summary, details: details||{}, tasks: Array.isArray(tasks)?tasks:[], events: Array.isArray(events)?events:[]};
+  renderOverview();
+  renderTrade();
+  renderTiers();
+}
+
+function updateStatus(health) {
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  const s = health?.status || 'unknown';
+  dot.className = 'status-dot' + (s==='running'?' running':'');
+  txt.textContent = s==='running' ? 'Live' : s==='starting' ? 'Starting…' : s;
+}
+
+function renderOverview() {
+  const {summary, events} = state;
+  const traj = summary.safety_trajectory || [];
+  const safety = traj.map(t=>t.safety);
+  const balance = traj.map(t=>t.total_balance);
+  const active = traj.map(t=>t.active_agents);
+
+  const econ = summary.economy || {};
+  const agents = summary.agents || [];
+  const totalCompleted = agents.reduce((s,a)=>s+(a.contracts_completed||0),0);
+
+  document.getElementById('m-safety').textContent = safety.length ? safety[safety.length-1].toFixed(4) : '—';
+  document.getElementById('m-agents').textContent = active.length ? active[active.length-1] : '—';
+  document.getElementById('m-balance').textContent = balance.length ? balance[balance.length-1].toFixed(4)+' FIL' : '—';
+  document.getElementById('m-contracts').textContent = totalCompleted;
+
+  // Events feed
+  const feed = document.getElementById('events-feed');
+  const recent = events.slice(-5).reverse();
+  if (recent.length) {
+    feed.innerHTML = '<div style="margin-bottom:.75rem"><strong style="font-size:.8rem">Live Protocol Interventions</strong></div>' +
+      recent.map(e=>{
+        const t = (e.type||'').toUpperCase();
+        const cls = ['BANKRUPTCY','CIRCUMVENTION_BLOCKED'].includes(t)?'error':
+                    ['DEMOTION','EXPIRATION'].includes(t)?'warn':
+                    t==='UPGRADE'?'success':'info';
+        return `<div class="event ${cls}"><strong>${t}</strong>: ${e.message||''}</div>`;
+      }).join('');
+  } else { feed.innerHTML=''; }
+
+  // Safety chart
+  if (safety.length) {
+    const n = safety.length;
+    const shapes = n>10 ? [
+      {type:'rect',xref:'x',yref:'paper',x0:0,x1:Math.min(20,Math.floor(n/3)),y0:0,y1:1,fillcolor:'rgba(30,41,59,.08)',line:{width:0},layer:'below'},
+      {type:'rect',xref:'x',yref:'paper',x0:Math.max(n-20,Math.floor(2*n/3)),x1:n-1,y0:0,y1:1,fillcolor:'rgba(15,118,110,.1)',line:{width:0},layer:'below'},
+    ] : [];
+    Plotly.react('chart-safety',[{y:safety,mode:'lines+markers',name:'Aggregate Safety',
+      line:{color:'#0f766e',width:2.5},marker:{size:4,color:'#0f766e'}}],
+      {...LAYOUT,shapes,yaxis:{...LAYOUT.yaxis,title:'Safety Score'},height:280},{responsive:true});
+  }
+
+  // Earned bar
+  const earned = {};
+  (summary.agents||[]).forEach(a=>{ earned[a.model_name]=a.total_earned||0; });
+  if (Object.keys(earned).length) {
+    Plotly.react('chart-earned',[{x:Object.keys(earned),y:Object.values(earned),type:'bar',
+      marker:{color:COLORS,opacity:.9}}],
+      {...LAYOUT,yaxis:{...LAYOUT.yaxis,title:'FIL Earned'},height:240},{responsive:true});
+  }
+
+  // Balance area
+  if (balance.length) {
+    Plotly.react('chart-balance',[{y:balance,fill:'tozeroy',name:'Total FIL',
+      line:{color:'#0ea5e9',width:2.5},fillcolor:'rgba(14,165,233,.12)'}],
+      {...LAYOUT,yaxis:{...LAYOUT.yaxis,title:'FIL'},height:240},{responsive:true});
+  }
+}
+
+function renderTrade() {
+  const {tasks} = state;
+  const passed = tasks.filter(t=>t.verification?.overall_pass).length;
+  document.getElementById('m-tasks').textContent = tasks.length;
+  document.getElementById('m-passes').textContent = passed;
+  document.getElementById('m-fails').textContent = tasks.length - passed;
+
+  const recent = tasks.slice(-15).reverse();
+  document.getElementById('task-list').innerHTML = recent.map((t,i)=>{
+    const ok = t.verification?.overall_pass;
+    const icon = ok ? '✅' : '❌';
+    const tier = t.tier||'T0';
+    const agent = t.agent||'unknown';
+    const tid = t.task_id||'n/a';
+    const reward = (t.settlement?.reward||0).toFixed(4);
+    const penalty = (t.settlement?.penalty||0).toFixed(4);
+    const cid = t.proof_cid||'';
+    const preview = t.output_preview||'No output';
+    return `<div class="task-item">
+      <div class="task-header" onclick="toggleTask(${i})">
+        <span>${icon}</span>
+        <span style="background:${ok?'#f0fdf4':'#fef2f2'};padding:.1rem .4rem;border-radius:4px;font-size:.72rem">${tier}</span>
+        <span style="font-weight:600">${agent}</span>
+        <span style="color:var(--muted)">→ ${tid}</span>
+      </div>
+      <div class="task-body" id="task-body-${i}">
+        <div class="task-meta">
+          <div><span>Domain: </span>${t.domain||'n/a'}</div>
+          <div><span>Reward: </span>${reward} FIL</div>
+          <div><span>Penalty: </span>${penalty} FIL</div>
+        </div>
+        ${cid?`<div class="cid">📦 Filecoin CID: ${cid}</div>`:''}
+        <pre>${preview}</pre>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleTask(i) {
+  const b = document.getElementById('task-body-'+i);
+  if (b) b.classList.toggle('open');
+}
+
+function tierBadge(t) {
+  const k = (t||'T0').toUpperCase();
+  return `<span class="badge badge-${k.toLowerCase()}">${k}</span>`;
+}
+
+function renderTiers() {
+  const {details, events} = state;
+  const rows = Object.entries(details).map(([name,d])=>{
+    const r = d.robustness||{};
+    return {name, tier:d.current_tier||'T0', cc:r.cc||0, er:r.er||0, as:r.as||0, bal:d.balance||0};
+  }).sort((a,b)=>b.tier.localeCompare(a.tier));
+
+  document.getElementById('tiers-body').innerHTML = rows.map(r=>`
+    <tr>
+      <td>${r.name}</td>
+      <td>${tierBadge(r.tier)}</td>
+      <td>${r.cc.toFixed(2)}</td>
+      <td>${r.er.toFixed(2)}</td>
+      <td>${r.as.toFixed(2)}</td>
+      <td>${r.bal.toFixed(4)}</td>
+    </tr>`).join('');
+
+  // Tier pie
+  const tierCounts = {};
+  rows.forEach(r=>{ tierCounts[r.tier]=(tierCounts[r.tier]||0)+1; });
+  Plotly.react('chart-tier-pie',[{labels:Object.keys(tierCounts),values:Object.values(tierCounts),
+    type:'pie',marker:{colors:COLORS},hole:.35}],
+    {...LAYOUT,height:260,margin:{l:16,r:16,t:16,b:16}},{responsive:true});
+
+  // Robustness grouped bar
+  const agents = rows.map(r=>r.name);
+  Plotly.react('chart-robustness',[
+    {name:'CC',x:agents,y:rows.map(r=>r.cc),type:'bar',marker:{color:'#0f766e',opacity:.9}},
+    {name:'ER',x:agents,y:rows.map(r=>r.er),type:'bar',marker:{color:'#f59e0b',opacity:.9}},
+    {name:'AS',x:agents,y:rows.map(r=>r.as),type:'bar',marker:{color:'#2563eb',opacity:.9}},
+  ],{...LAYOUT,barmode:'group',yaxis:{...LAYOUT.yaxis,title:'Score',range:[0,1]},height:260},{responsive:true});
+
+  // Upgrade event
+  const upgrades = events.filter(e=>e.type==='UPGRADE');
+  if (upgrades.length) {
+    const last = upgrades[upgrades.length-1];
+    const el = document.getElementById('tab-tiers');
+    let ub = el.querySelector('.upgrade-banner');
+    if (!ub) { ub=document.createElement('div'); ub.className='event success upgrade-banner'; el.appendChild(ub); }
+    ub.textContent = '✅ ' + (last.message||'');
+  }
+}
+
+// Countdown + auto-refresh
+setInterval(()=>{
+  countdown--;
+  document.getElementById('refresh-countdown').textContent = countdown;
+  if (countdown <= 0) { countdown=5; refresh(); }
+}, 1000);
+
+// Initial load
+document.getElementById('init-screen').style.display = 'flex';
+refresh();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "agent_id": "agent_646cd4131c51",
+  "model_name": "Llama-4-Maverick-17B-128E-Instruct-FP8",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.7,
+    "ih": 0.7
+  },
+  "defaults_used": [],
+  "framework_errors": [],
+  "source": "live_audit",
+  "audit_storage_cid": "QmbaYAAW3Ni9h7EcYVkzEbBeztafvioNL7HRMR4i6RHd2S",
+  "audit_storage_cid_real": true
+}

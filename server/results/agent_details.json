@@ -1,0 +1,152 @@
+{
+  "conservative_0": {
+    "agent_id": "agent_45138ebb5544",
+    "model_name": "conservative_0",
+    "architecture_hash": "8374b7c44322b61a",
+    "status": "active",
+    "current_tier": "T3",
+    "balance": 0.4438150520925207,
+    "total_earned": 0.705898315081791,
+    "total_spent": 0.5820000000000014,
+    "total_penalties": 0.18008326298926444,
+    "total_topups": 0.0,
+    "contracts_completed": 289,
+    "contracts_failed": 211,
+    "registration_time": 0.0,
+    "audit_cid": null,
+    "robustness": {
+      "cc": 0.8764770497855406,
+      "er": 0.8105254704426614,
+      "as": 0.7185011898758412,
+      "ih": 0.8966212281423991
+    },
+    "strategy": "conservative",
+    "true_robustness": {
+      "cc": 0.85,
+      "er": 0.8,
+      "as": 0.75,
+      "ih": 0.9
+    },
+    "decisions_count": 500
+  },
+  "aggressive_1": {
+    "agent_id": "agent_a2c1c983d0ec",
+    "model_name": "aggressive_1",
+    "architecture_hash": "06cf6cd1e0157f7e",
+    "status": "active",
+    "current_tier": "T0",
+    "balance": 0.44738732314052365,
+    "total_earned": 0.14161483517841805,
+    "total_spent": 0.18999999999999787,
+    "total_penalties": 0.004227512037900717,
+    "total_topups": 0.0,
+    "contracts_completed": 44,
+    "contracts_failed": 4,
+    "registration_time": 0.0,
+    "audit_cid": null,
+    "robustness": {
+      "cc": 0.3167395698316015,
+      "er": 0.3420628088116186,
+      "as": 0.24914846070829869,
+      "ih": 0.6951119883015274
+    },
+    "strategy": "aggressive",
+    "true_robustness": {
+      "cc": 0.35,
+      "er": 0.4,
+      "as": 0.3,
+      "ih": 0.7
+    },
+    "decisions_count": 500
+  },
+  "balanced_2": {
+    "agent_id": "agent_29474fdd9d4c",
+    "model_name": "balanced_2",
+    "architecture_hash": "ea00df5aae26a51e",
+    "status": "active",
+    "current_tier": "T2",
+    "balance": 1.1527110779683558,
+    "total_earned": 1.916195101663651,
+    "total_spent": 0.3660000000000033,
+    "total_penalties": 0.897484023695311,
+    "total_topups": 0.0,
+    "contracts_completed": 218,
+    "contracts_failed": 231,
+    "registration_time": 0.0,
+    "audit_cid": null,
+    "robustness": {
+      "cc": 0.5399617844404137,
+      "er": 0.5287194564843503,
+      "as": 0.5239859192772227,
+      "ih": 0.8506681019843986
+    },
+    "strategy": "balanced",
+    "true_robustness": {
+      "cc": 0.6,
+      "er": 0.55,
+      "as": 0.5,
+      "ih": 0.8
+    },
+    "decisions_count": 500
+  },
+  "adaptive_3": {
+    "agent_id": "agent_f3a0f957ade2",
+    "model_name": "adaptive_3",
+    "architecture_hash": "b191a86339607a12",
+    "status": "active",
+    "current_tier": "T1",
+    "balance": 0.3035983894400411,
+    "total_earned": 0.3547694462441879,
+    "total_spent": 0.4345000000000028,
+    "total_penalties": 0.11667105680413532,
+    "total_topups": 0.0,
+    "contracts_completed": 80,
+    "contracts_failed": 72,
+    "registration_time": 0.0,
+    "audit_cid": null,
+    "robustness": {
+      "cc": 0.4920385970817692,
+      "er": 0.5315247091242528,
+      "as": 0.4156405852044336,
+      "ih": 0.841223576508408
+    },
+    "strategy": "adaptive",
+    "true_robustness": {
+      "cc": 0.55,
+      "er": 0.5,
+      "as": 0.465,
+      "ih": 0.8
+    },
+    "decisions_count": 500
+  },
+  "cheater_4": {
+    "agent_id": "agent_2e9608c7120c",
+    "model_name": "cheater_4",
+    "architecture_hash": "73482227d1d7b2b3",
+    "status": "active",
+    "current_tier": "T0",
+    "balance": 0.34199999999998876,
+    "total_earned": 0.0,
+    "total_spent": 0.15799999999999859,
+    "total_penalties": 0.0,
+    "total_topups": 0.0,
+    "contracts_completed": 0,
+    "contracts_failed": 0,
+    "registration_time": 0.0,
+    "audit_cid": null,
+    "robustness": {
+      "cc": 0.707390265856336,
+      "er": 0.2893324248161214,
+      "as": 0.6512497059171015,
+      "ih": 0.5968103011868765
+    },
+    "strategy": "cheater",
+    "true_robustness": {
+      "cc": 0.7,
+      "er": 0.25,
+      "as": 0.65,
+      "ih": 0.6
+    },
+    "decisions_count": 500
+  }
+}

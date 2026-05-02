@@ -1,0 +1,15 @@
+{
+  "agent_id": "agent_a2a687326308",
+  "model_name": "Phi-4",
+  "robustness": {
+    "cc": 0.3,
+    "er": 0.5,
+    "as": 0.55,
+    "ih": 0.7
+  },
+  "defaults_used": [],
+  "framework_errors": [],
+  "source": "live_audit",
+  "audit_storage_cid": "QmYDRX4N3cDbWRL2vx8RYtAsbRxeAA9v4Rd1dHpV3NXEg9",
+  "audit_storage_cid_real": true
+}

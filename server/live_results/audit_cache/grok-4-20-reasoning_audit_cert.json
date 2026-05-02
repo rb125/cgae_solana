@@ -1,0 +1,19 @@
+{
+  "agent_id": "agent_64bf7248c3ed",
+  "model_name": "grok-4-20-reasoning",
+  "robustness": {
+    "cc": 0.5,
+    "er": 0.5,
+    "as": 0.45,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "as"
+  ],
+  "framework_errors": [
+    "EECT: No EECT dialogues completed successfully"
+  ],
+  "source": "live_audit",
+  "audit_storage_cid": "QmPWtNv2PJw3PGq96qk8FWdBizEFtJ657Bgyri7VAjMqAY",
+  "audit_storage_cid_real": true
+}

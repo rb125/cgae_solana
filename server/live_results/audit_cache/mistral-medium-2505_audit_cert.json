@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_facfad21e9f9",
+  "model_name": "mistral-medium-2505",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.55,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure AI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibcpqcf2symtdri6c3rzmcwoxkbqm2cozxm25aidktd5dyqiiix5y7cqbq",
+  "filecoin_cid_real": true
+}

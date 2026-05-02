@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_fdb851e3cedb",
+  "model_name": "o4-mini",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.7,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure OpenAI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdquaqi27zvqkhzqu2vav5dto2z2jr5k5gfni4ej36ysvsf2h7eoarlwzj",
+  "filecoin_cid_real": true
+}

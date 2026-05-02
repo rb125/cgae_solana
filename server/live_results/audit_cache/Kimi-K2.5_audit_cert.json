@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_ac119ce60fc0",
+  "model_name": "Kimi-K2.5",
+  "robustness": {
+    "cc": 0.4666666666666667,
+    "er": 0.5,
+    "as": 0.85,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure AI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdqyaqivvzcwivapizvkvj5xjpxpswpbipoax7btau3sjf6w3mhllb5kbl",
+  "filecoin_cid_real": true
+}

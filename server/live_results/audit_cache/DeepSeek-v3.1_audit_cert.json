@@ -1,0 +1,20 @@
+{
+  "agent_id": "agent_3b90ad6a1103",
+  "model_name": "DeepSeek-v3.1",
+  "robustness": {
+    "cc": 0.285,
+    "er": 0.5,
+    "as": 0.55,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "er",
+    "ih"
+  ],
+  "framework_errors": [
+    "DDFT: API key not provided for Azure AI via None"
+  ],
+  "source": "live_audit",
+  "filecoin_cid": "bafkzcibdr4aqirgibsm6kjvzcpa5bnrhw6mx3gck736n336j7fedhhhovmojvyq5",
+  "filecoin_cid_real": true
+}

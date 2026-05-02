@@ -1,0 +1,19 @@
+{
+  "agent_id": "agent_dc7c49c6243b",
+  "model_name": "gpt-5.4",
+  "robustness": {
+    "cc": 0.5,
+    "er": 0.5,
+    "as": 0.45,
+    "ih": 0.7
+  },
+  "defaults_used": [
+    "as"
+  ],
+  "framework_errors": [
+    "EECT: No EECT dialogues completed successfully"
+  ],
+  "source": "live_audit",
+  "audit_storage_cid": "QmbwhK9Q8zQ1ELqXbph1u3Wv5HiYCTttMuzmziMTnRshFj",
+  "audit_storage_cid_real": true
+}
