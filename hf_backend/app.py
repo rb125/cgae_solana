@@ -73,7 +73,123 @@ def startup():
     t.start()
 
 
+@app.get("/api/state")
+def get_api_state():
+    """Endpoint for dashboard-ui state."""
+    path = RESULTS_DIR / "economy_state.json"
+    if not path.exists():
+        return {"status": "starting", "round": 0, "total_rounds": 0, "economy": None}
+    
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return {
+            "status": "running",
+            "round": data.get("current_time", 0),
+            "total_rounds": -1,
+            "economy": data
+        }
+    except Exception:
+        return {"status": "error", "round": 0, "total_rounds": 0, "economy": None}
+
+
+@app.get("/api/agents")
+def get_api_agents():
+    """Endpoint for dashboard-ui agents."""
+    path = RESULTS_DIR / "agent_details.json"
+    if not path.exists():
+        return {"agents": []}
+    
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        agents = []
+        for model_name, details in data.items():
+            agents.append({
+                "agent_id": details.get("agent_id", "unknown"),
+                "model_name": model_name,
+                "strategy": details.get("strategy", "unknown"),
+                "current_tier": details.get("current_tier", 0),
+                "balance": details.get("balance", 0.0),
+                "total_earned": details.get("total_earned", 0.0),
+                "total_penalties": details.get("total_penalties", 0.0),
+                "contracts_completed": details.get("contracts_completed", 0),
+                "contracts_failed": details.get("contracts_failed", 0),
+                "status": details.get("status", "active"),
+                "robustness": details.get("robustness"),
+            })
+        return {"agents": agents}
+    except Exception:
+        return {"agents": []}
+
+
+@app.get("/api/trades")
+def get_api_trades(limit: int = 100):
+    """Endpoint for dashboard-ui trades."""
+    path = RESULTS_DIR / "task_results.json"
+    if not path.exists():
+        return {"trades": []}
+    
+    try:
+        results = json.loads(path.read_text(encoding="utf-8"))
+        trades = []
+        for r in results[-limit:]:
+            v = r.get("verification", {})
+            s = r.get("settlement", {})
+            trades.append({
+                "round": r.get("round", 0),
+                "agent": r.get("agent", "unknown"),
+                "task_id": r.get("task_id", "unknown"),
+                "task_prompt": r.get("task_prompt", ""),
+                "tier": r.get("tier", "T0"),
+                "domain": r.get("domain", "unknown"),
+                "passed": v.get("overall_pass", False),
+                "reward": s.get("reward", 0.0),
+                "penalty": s.get("penalty", 0.0),
+                "token_cost": r.get("token_cost_sol", 0.0),
+                "latency_ms": r.get("latency_ms", 0.0),
+                "output_preview": r.get("output_preview", ""),
+                "constraints_passed": v.get("constraints_passed", []),
+                "constraints_failed": v.get("constraints_failed", []),
+            })
+        return {"trades": trades[::-1]}
+    except Exception:
+        return {"trades": []}
+
+
+@app.get("/api/events")
+def get_api_events(limit: int = 100):
+    """Endpoint for dashboard-ui events."""
+    path = RESULTS_DIR / "protocol_events.json"
+    if not path.exists():
+        return {"events": []}
+    
+    try:
+        events = json.loads(path.read_text(encoding="utf-8"))
+        return {"events": events[-limit:]}
+    except Exception:
+        return {"events": []}
+
+
+@app.get("/api/timeseries")
+def get_api_timeseries():
+    """Endpoint for dashboard-ui timeseries."""
+    path = RESULTS_DIR / "final_summary.json"
+    if not path.exists():
+        return {"safety": [], "balance": [], "rewards": [], "penalties": []}
+    
+    try:
+        summary = json.loads(path.read_text(encoding="utf-8"))
+        return {
+            "safety": summary.get("safety_trajectory", []),
+            "balance": [],
+            "rewards": [],
+            "penalties": []
+        }
+    except Exception:
+        return {"safety": [], "balance": [], "rewards": [], "penalties": []}
+
+
 @app.get("/")
+
 def dashboard():
     html = (Path(__file__).parent / "dashboard.html").read_text()
     return HTMLResponse(html)

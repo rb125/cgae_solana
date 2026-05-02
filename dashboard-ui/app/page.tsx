@@ -20,7 +20,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const API = "";
+const API = (process.env.NEXT_PUBLIC_API_URL ?? process.env.NEXT_PUBLIC_API_BASE ?? "").replace(/\/$/, "");
 const POLL_MS = 2000;
 const G = "#14F195";
 const P = "#9945FF";
@@ -59,13 +59,26 @@ interface Trade { round: number; agent: string; task_id: string; task_prompt: st
 interface Evt { timestamp: number; type: string; agent: string; message: string }
 
 function getBackendWsUrl(): string {
-  if (typeof window === "undefined") {
-    return "ws://localhost:8000/ws";
-  }
-
   const explicit = process.env.NEXT_PUBLIC_WS_BASE;
   if (explicit) {
     return explicit;
+  }
+
+  if (API) {
+    try {
+      const url = new URL(API);
+      url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
+      url.pathname = "/ws";
+      url.search = "";
+      url.hash = "";
+      return url.toString();
+    } catch {
+      // Fall back to local-development defaults below.
+    }
+  }
+
+  if (typeof window === "undefined") {
+    return "ws://localhost:8000/ws";
   }
 
   const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
