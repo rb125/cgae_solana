@@ -26,18 +26,38 @@ from solders.system_program import ID as SYSTEM_PROGRAM_ID
 from solders.instruction import Instruction, AccountMeta
 from solders.transaction import Transaction
 from solders.message import Message
-
+import os
+import json
 logger = logging.getLogger(__name__)
 
 PROGRAM_ID = Pubkey.from_string("Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a")
 RPC_URL = "https://api.devnet.solana.com"
 
-
 def _load_keypair(path: str = None) -> Keypair:
-    path = path or str(Path.home() / ".config/solana/id.json")
-    data = json.loads(Path(path).read_text())
-    return Keypair.from_bytes(bytes(data))
+    # 1. Try environment variable (HF / production)
+    key_env = os.getenv("SOLANA_PRIVATE_KEY")
+    if key_env:
+        try:
+            data = json.loads(key_env)
+            return Keypair.from_bytes(bytes(data))
+        except Exception as e:
+            raise RuntimeError(f"Invalid SOLANA_PRIVATE_KEY: {e}")
 
+    # 2. Optional explicit path override
+    if path:
+        p = Path(path)
+        if p.exists():
+            return Keypair.from_bytes(bytes(json.loads(p.read_text())))
+
+    # 3. Local dev fallback (your current setup)
+    default_path = Path.home() / ".config/solana/id.json"
+    if default_path.exists():
+        return Keypair.from_bytes(bytes(json.loads(default_path.read_text())))
+
+    # 4. Fail clearly
+    raise RuntimeError(
+        "No Solana keypair found. Set SOLANA_PRIVATE_KEY or provide a valid path."
+    )
 
 def _discriminator(name: str) -> bytes:
     """Anchor 8-byte instruction discriminator: sha256("global:<name>")[:8]"""
