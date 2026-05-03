@@ -58,7 +58,11 @@ interface Agent { agent_id: string; model_name: string; strategy: string; curren
 interface Trade { round: number; agent: string; task_id: string; task_prompt: string; tier: string; domain: string; passed: boolean; reward: number; penalty: number; token_cost: number; latency_ms: number; output_preview: string; constraints_passed: string[]; constraints_failed: string[] }
 interface Evt { timestamp: number; type: string; agent: string; message: string }
 
-function getBackendWsUrl(): string {
+function getBackendWsUrl(): string | null {
+  if (typeof window === "undefined") {
+    return null; // No WebSocket in server context
+  }
+
   const explicit = process.env.NEXT_PUBLIC_WS_BASE;
   if (explicit) {
     return explicit;
@@ -77,13 +81,15 @@ function getBackendWsUrl(): string {
     }
   }
 
-  if (typeof window === "undefined") {
-    return "ws://localhost:8000/ws";
+  // Only default to localhost if we are actually on localhost and no API base is set
+  if (window.location.hostname === "localhost") {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    return `${protocol}//localhost:8000/ws`;
   }
 
-  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  return `${protocol}//${window.location.hostname}:8000/ws`;
+  return null; // Return null if neither explicit, API-derived, nor localhost
 }
+
 
 /* ---- Hooks ---- */
 function usePoll<T>(url: string, ms: number): T | null {
@@ -96,7 +102,10 @@ function usePoll<T>(url: string, ms: number): T | null {
 
     const connectWs = () => {
       if (!a) return;
-      ws = new WebSocket(getBackendWsUrl());
+      const wsUrl = getBackendWsUrl(); // Get the WebSocket URL
+      if (!wsUrl) return; // Only create WebSocket if URL is valid
+
+      ws = new WebSocket(wsUrl);
 
       ws.onmessage = (e) => {
         try {

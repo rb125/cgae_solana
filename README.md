@@ -1,3 +1,12 @@
+---
+title: CGAE Backend
+emoji: 🚀
+colorFrom: purple
+colorTo: indigo
+sdk: docker
+app_file: hf_backend/app.py
+pinned: false
+---
 # Comprehension-Gated Agent Economy (CGAE)
 
 * **arXiv Paper:** [The Comprehension-Gated Agent Economy (CGAE): A Robustness-First Architecture](https://arxiv.org/abs/2603.15639)
