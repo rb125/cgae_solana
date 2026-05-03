@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 export default function Page() {
-  return <h1>Vercel sanity check</h1>;
+  return <div>CGAE live</div>;
 }
