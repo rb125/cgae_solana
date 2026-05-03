@@ -22,10 +22,14 @@ function cn(...inputs: ClassValue[]) {
 
 /* ---- Configuration ---- */
 
-// In production, we default to empty string to use relative paths (handled by Next.js rewrites)
-// In development, we use the env var or fallback to localhost:8000
 const IS_PROD = process.env.NODE_ENV === "production";
-const API = (process.env.NEXT_PUBLIC_API_URL ?? process.env.NEXT_PUBLIC_API_BASE ?? (IS_PROD ? "" : "http://localhost:8000")).replace(/\/$/, "");
+const IS_VERCEL = !!process.env.VERCEL;
+
+// On Vercel or in production, we use relative paths to leverage Next.js rewrites.
+// This prevents CORS issues and ensures the backend is reached via the Vercel proxy.
+const API = (IS_VERCEL || IS_PROD) 
+  ? "" 
+  : (process.env.NEXT_PUBLIC_API_URL ?? process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000").replace(/\/$/, "");
 
 const POLL_MS = 2000;
 const G = "#14F195";
