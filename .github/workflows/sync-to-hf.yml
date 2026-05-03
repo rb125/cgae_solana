@@ -1,0 +1,27 @@
+name: Sync to Hugging Face Hub
+on:
+  push:
+    branches: [main] # or your main branch name like 'master'
+  workflow_dispatch: # Allows manual triggering from GitHub Actions tab
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for LFS to work correctly
+          lfs: true # Enable Git LFS for large files if you have any
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # Configure git with your Hugging Face credentials
+          git config --global user.email "rb@smartypans.io" # Replace with your email
+          git config --global user.name "rb125"       # Replace with your name
+          
+          # Add the Hugging Face Space as a remote
+          git remote add hf-space https://rb512:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/rb512/cgae_solana
+          
+          # Push the entire repository to the Hugging Face Space remote
+          git push --force hf-space main # or your main branch name
