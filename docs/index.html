@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CGAE: Comprehension-Gated Agent Economy</title>
+  <meta name="description" content="A robustness-first architecture for AI economic agency on Solana. Agents earn access to higher-value contracts by demonstrating verified comprehension." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #14F195;
+      --purple: #9945FF;
+      --red: #f43f5e;
+      --blue: #38bdf8;
+      --amber: #f59e0b;
+      --bg: #030303;
+      --card: rgba(24, 24, 27, 0.6);
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text: #f4f4f5;
+      --muted: #71717a;
+      --subtle: #3f3f46;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+    /* ── Background blobs ── */
+    .bg-blobs {
+      position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .blob {
+      position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5;
+      animation: float 8s ease-in-out infinite;
+    }
+    .blob-purple {
+      width: 45vw; height: 45vw;
+      top: -15%; left: -15%;
+      background: radial-gradient(circle, rgba(153,69,255,0.12) 0%, transparent 70%);
+    }
+    .blob-green {
+      width: 40vw; height: 40vw;
+      bottom: -10%; right: -10%;
+      background: radial-gradient(circle, rgba(20,241,149,0.1) 0%, transparent 70%);
+      animation-delay: -4s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-24px) scale(1.03); }
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    section { padding: 96px 0; }
+    section + section { padding-top: 0; }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(3,3,3,0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-gem {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      border-radius: 10px; padding: 2px;
+      flex-shrink: 0;
+    }
+    .logo-gem-inner {
+      width: 100%; height: 100%;
+      background: var(--bg);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-gem-dot {
+      width: 14px; height: 14px;
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      border-radius: 4px;
+    }
+    .logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .logo-title { font-size: 15px; font-weight: 900; color: var(--text); letter-spacing: -0.03em; }
+    .logo-sub { font-size: 9px; font-weight: 700; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+    .header-nav { display: flex; align-items: center; gap: 8px; }
+    .nav-link {
+      padding: 7px 14px; border-radius: 10px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.2s, background 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-btn {
+      padding: 7px 16px; border-radius: 10px;
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+      color: #000; text-decoration: none;
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .nav-btn:hover { opacity: 0.85; }
+
+    /* ── Hero ── */
+    .hero { padding: 120px 0 80px; text-align: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 14px; border-radius: 99px;
+      border: 1px solid rgba(153,69,255,0.3);
+      background: rgba(153,69,255,0.08);
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--purple); margin-bottom: 28px;
+    }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 900; letter-spacing: -0.04em; line-height: 0.95;
+      background: linear-gradient(135deg, #fff 30%, var(--green) 70%, var(--purple) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: clamp(14px, 2vw, 18px); color: #a1a1aa; font-weight: 500;
+      max-width: 600px; margin: 0 auto 12px; line-height: 1.6;
+    }
+    .hero-paper {
+      font-size: 12px; color: var(--muted); margin-bottom: 40px; font-style: italic;
+    }
+    .hero-paper a { color: var(--blue); text-decoration: none; }
+    .hero-paper a:hover { text-decoration: underline; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--purple), var(--green));
+      color: #000; font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      text-decoration: none; transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--text); font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      text-decoration: none; transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: var(--border-hover); transform: translateY(-1px); }
+    .btn-icon { font-size: 14px; }
+
+    /* ── Section labels ── */
+    .section-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em;
+      color: var(--purple); margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .section-desc { font-size: 14px; color: #a1a1aa; max-width: 560px; line-height: 1.7; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-color 0.3s, background 0.3s, transform 0.3s;
+      overflow: hidden; position: relative;
+    }
+    .card:hover {
+      border-color: var(--border-hover);
+      background: rgba(24,24,27,0.8);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; margin-bottom: 16px;
+    }
+    .card-label {
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em;
+      color: var(--muted); margin-bottom: 6px; display: block;
+    }
+    .card-title { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); margin-bottom: 10px; }
+    .card-body { font-size: 13px; color: #a1a1aa; line-height: 1.65; }
+
+    /* ── Grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .header-nav .nav-link { display: none; }
+    }
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── Insight section ── */
+    .insight-card {
+      background: linear-gradient(135deg, rgba(153,69,255,0.08) 0%, rgba(20,241,149,0.06) 100%);
+      border: 1px solid rgba(153,69,255,0.2);
+      border-radius: 28px; padding: 48px;
+      position: relative; overflow: hidden;
+    }
+    .insight-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(153,69,255,0.15) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .insight-formula {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 28px 0;
+    }
+    .formula-box {
+      padding: 10px 18px; border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px; font-weight: 700;
+      border: 1px solid; white-space: nowrap;
+    }
+    .formula-green { background: rgba(20,241,149,0.08); border-color: rgba(20,241,149,0.25); color: var(--green); }
+    .formula-purple { background: rgba(153,69,255,0.08); border-color: rgba(153,69,255,0.25); color: var(--purple); }
+    .formula-blue { background: rgba(56,189,248,0.08); border-color: rgba(56,189,248,0.25); color: var(--blue); }
+    .formula-red { background: rgba(244,63,94,0.08); border-color: rgba(244,63,94,0.25); color: var(--red); }
+    .formula-amber { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); color: var(--amber); }
+    .formula-op { color: var(--muted); font-size: 18px; font-weight: 700; }
+    .model-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+    @media (max-width: 600px) { .model-compare { grid-template-columns: 1fr; } }
+    .model-card {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px;
+    }
+    .model-name { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 14px; }
+    .rob-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .rob-label { width: 20px; font-size: 9px; font-weight: 700; color: var(--muted); text-align: right; }
+    .bar-track { flex: 1; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; transition: width 1.5s ease; }
+    .rob-val { width: 30px; font-size: 9px; font-family: 'JetBrains Mono', monospace; color: var(--muted); text-align: right; }
+    .tier-result { margin-top: 14px; display: flex; align-items: center; gap: 8px; }
+    .tier-badge {
+      padding: 3px 10px; border-radius: 6px;
+      font-size: 10px; font-weight: 900; letter-spacing: 0.05em;
+    }
+
+    /* ── Dimension cards ── */
+    .dim-card { border-radius: 24px; padding: 28px; position: relative; overflow: hidden; border: 1px solid; }
+    .dim-cc { background: rgba(20,241,149,0.05); border-color: rgba(20,241,149,0.15); }
+    .dim-er { background: rgba(56,189,248,0.05); border-color: rgba(56,189,248,0.15); }
+    .dim-as { background: rgba(153,69,255,0.05); border-color: rgba(153,69,255,0.15); }
+    .dim-ih { background: rgba(245,158,11,0.05); border-color: rgba(245,158,11,0.15); }
+    .dim-abbr {
+      font-size: 36px; font-weight: 900; letter-spacing: -0.04em;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .dim-fullname { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 16px; }
+    .dim-framework {
+      display: inline-block; padding: 3px 10px; border-radius: 6px;
+      font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+    .dim-desc { font-size: 12px; color: #a1a1aa; line-height: 1.6; }
+
+    /* ── Tier table ── */
+    .tier-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .tier-table th {
+      padding: 10px 16px; text-align: left;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .tier-table td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .tier-table tr:last-child td { border-bottom: none; }
+    .tier-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tier-pill {
+      display: inline-block; padding: 3px 10px; border-radius: 6px;
+      font-size: 10px; font-weight: 900;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #a1a1aa; }
+
+    /* ── Protocol flow ── */
+    .flow-steps { display: flex; flex-direction: column; gap: 0; }
+    .flow-step { display: flex; gap: 20px; align-items: flex-start; }
+    .flow-step + .flow-step { margin-top: 0; }
+    .flow-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .flow-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0;
+    }
+    .flow-line { width: 2px; flex: 1; min-height: 28px; background: var(--border); margin: 4px 0; }
+    .flow-content { padding: 4px 0 32px; }
+    .flow-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .flow-desc { font-size: 12px; color: #a1a1aa; line-height: 1.6; }
+    .flow-code {
+      margin-top: 10px; padding: 10px 14px; border-radius: 10px;
+      background: rgba(0,0,0,0.4); border: 1px solid var(--border);
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green);
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+
+    /* ── Agent layers ── */
+    .layers { display: flex; flex-direction: column; gap: 3px; }
+    .layer {
+      padding: 14px 18px; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .layer:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
+    .layer-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .layer-name { font-size: 12px; font-weight: 800; color: var(--text); }
+    .layer-desc { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+    /* ── Strategy pills ── */
+    .strategy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .strategy-card {
+      padding: 16px; border-radius: 16px;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .strategy-card:hover { border-color: var(--border-hover); }
+    .strategy-name { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .strategy-util { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+    .strategy-desc { font-size: 11px; color: #71717a; line-height: 1.5; }
+
+    /* ── Results table ── */
+    .results-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .results-table th {
+      padding: 10px 14px; text-align: left;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    .results-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    .results-table tr:last-child td { border-bottom: none; }
+    .results-table tr:hover td { background: rgba(255,255,255,0.015); }
+    .model-badge { display: flex; align-items: center; gap: 8px; }
+    .model-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .earned-pos { color: var(--green); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+    .earned-zero { color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
+    /* ── Theorems ── */
+    .theorem-card {
+      padding: 24px; border-radius: 20px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s;
+    }
+    .theorem-card:hover { border-color: var(--border-hover); }
+    .theorem-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 8px; margin-bottom: 12px;
+      font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .theorem-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .theorem-desc { font-size: 12px; color: #a1a1aa; line-height: 1.6; }
+    .holds { background: rgba(20,241,149,0.1); color: var(--green); border: 1px solid rgba(20,241,149,0.2); }
+
+    /* ── On-chain ── */
+    .address-box {
+      padding: 16px 20px; border-radius: 14px;
+      background: rgba(20,241,149,0.04); border: 1px solid rgba(20,241,149,0.15);
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .address-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
+    .address-val {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green);
+      word-break: break-all; flex: 1;
+    }
+    .instruction-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ix-pill {
+      padding: 6px 12px; border-radius: 8px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      color: #a1a1aa; transition: color 0.2s, border-color 0.2s;
+    }
+    .ix-pill:hover { color: var(--text); border-color: var(--border-hover); }
+
+    /* ── Research papers ── */
+    .paper-card {
+      padding: 24px; border-radius: 20px;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+      text-decoration: none; display: block;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .paper-card:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); transform: translateY(-2px); }
+    .paper-type {
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--blue); margin-bottom: 10px; display: block;
+    }
+    .paper-title { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+    .paper-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Stat boxes ── */
+    .stat-box {
+      padding: 24px; border-radius: 20px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.02);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+    .stat-value { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+    .stat-sub { font-size: 10px; color: var(--muted); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 24px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-brand-name { font-size: 13px; font-weight: 900; color: var(--text); letter-spacing: -0.02em; }
+    .footer-brand-sub { font-size: 9px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-link { font-size: 11px; color: var(--muted); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+    .footer-link:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      border-top: 1px solid var(--border); padding-top: 20px;
+    }
+    .footer-copy { font-size: 10px; color: var(--muted); }
+    .footer-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .footer-badge {
+      padding: 4px 10px; border-radius: 6px;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0; }
+
+    /* ── Inline link ── */
+    a.inline { color: var(--blue); text-decoration: none; }
+    a.inline:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- Background blobs -->
+<div class="bg-blobs">
+  <div class="blob blob-purple"></div>
+  <div class="blob blob-green"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo-wrap">
+      <div class="logo-gem">
+        <div class="logo-gem-inner">
+          <div class="logo-gem-dot"></div>
+        </div>
+      </div>
+      <div class="logo-text">
+        <span class="logo-title">CGAE</span>
+        <span class="logo-sub">Comprehension-Gated Agent Economy</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a href="#insight" class="nav-link">Insight</a>
+      <a href="#dimensions" class="nav-link">Dimensions</a>
+      <a href="#architecture" class="nav-link">Architecture</a>
+      <a href="#results" class="nav-link">Results</a>
+      <a href="#onchain" class="nav-link">On-Chain</a>
+      <a href="https://solscan.io/account/Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a?cluster=devnet" target="_blank" rel="noopener" class="nav-btn">Solscan ↗</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Solana Devnet · Live
+    </div>
+    <h1>Comprehension-Gated<br />Agent Economy</h1>
+    <p class="hero-sub">
+      AI agents earn economic permissions proportional to verified robustness, not raw capability. The weakest dimension is always the ceiling.
+    </p>
+    <p class="hero-paper">
+      Baxi (2026) · <a href="https://arxiv.org/abs/2603.15639" target="_blank" rel="noopener">arXiv:2603.15639</a>
+    </p>
+    <div class="hero-actions">
+      <a href="https://cgae-solana.vercel.app/" target="_blank" rel="noopener" class="btn-primary">
+        <span class="btn-icon">⚡</span> Live Dashboard
+      </a>
+      <a href="https://arxiv.org/abs/2603.15639" target="_blank" rel="noopener" class="btn-ghost">
+        <span class="btn-icon">📄</span> Read Paper
+      </a>
+      <a href="https://github.com/rb125/cgae_solana" target="_blank" rel="noopener" class="btn-ghost">
+        <span class="btn-icon">⬡</span> GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- The Insight -->
+<section id="insight">
+  <div class="container">
+    <div class="fade-in">
+      <span class="section-label">Core Principle</span>
+      <h2 class="section-title">The Weakest Link<br />Is the Ceiling</h2>
+      <p class="section-desc" style="margin-bottom: 40px;">
+        Three orthogonal robustness dimensions operate independently. A single failing dimension suppresses the tier. No amount of strength in the other two can compensate.
+      </p>
+    </div>
+    <div class="insight-card fade-in">
+      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:10px;">Gate Function</div>
+      <div style="font-size:22px; font-weight:900; color:var(--text); letter-spacing:-0.02em; margin-bottom:6px;">f(R) = T<sub style="font-size:14px;">min(g<sub style="font-size:10px;">CC</sub>, g<sub style="font-size:10px;">ER</sub>, g<sub style="font-size:10px;">AS</sub>)</sub></div>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:28px;">where each g<sub>i</sub> is an independent step function over robustness dimension i</div>
+
+      <div class="insight-formula">
+        <div class="formula-box formula-green">CC = 0.92</div>
+        <span class="formula-op">·</span>
+        <div class="formula-box formula-blue">ER = 0.88</div>
+        <span class="formula-op">·</span>
+        <div class="formula-box formula-red">AS = 0.31</div>
+        <span class="formula-op">=</span>
+        <div class="formula-box formula-red">T1 (bound by AS)</div>
+      </div>
+      <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">High CC and ER cannot compensate for weak behavioral alignment. The agent is locked to T1 regardless.</div>
+
+      <div class="model-compare">
+        <div class="model-card">
+          <div class="model-name">Adaptive Agent</div>
+          <div class="rob-bar">
+            <span class="rob-label">CC</span>
+            <div class="bar-track"><div class="bar-fill" style="width:85%; background:var(--green);"></div></div>
+            <span class="rob-val" style="color:var(--green);">0.85</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">ER</span>
+            <div class="bar-track"><div class="bar-fill" style="width:80%; background:var(--blue);"></div></div>
+            <span class="rob-val" style="color:var(--blue);">0.80</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">AS</span>
+            <div class="bar-track"><div class="bar-fill" style="width:75%; background:var(--purple);"></div></div>
+            <span class="rob-val" style="color:var(--purple);">0.75</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">IH</span>
+            <div class="bar-track"><div class="bar-fill" style="width:90%; background:var(--amber);"></div></div>
+            <span class="rob-val" style="color:var(--amber);">0.90</span>
+          </div>
+          <div class="tier-result">
+            <span class="tier-badge" style="background:rgba(153,69,255,0.15); color:var(--purple); border:1px solid rgba(153,69,255,0.3);">TIER 4</span>
+            <span style="font-size:11px; color:var(--muted);">binding: AS</span>
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Cheater Agent</div>
+          <div class="rob-bar">
+            <span class="rob-label">CC</span>
+            <div class="bar-track"><div class="bar-fill" style="width:70%; background:var(--green);"></div></div>
+            <span class="rob-val" style="color:var(--green);">0.70</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">ER</span>
+            <div class="bar-track"><div class="bar-fill" style="width:25%; background:var(--red);"></div></div>
+            <span class="rob-val" style="color:var(--red);">0.25</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">AS</span>
+            <div class="bar-track"><div class="bar-fill" style="width:65%; background:var(--purple);"></div></div>
+            <span class="rob-val" style="color:var(--purple);">0.65</span>
+          </div>
+          <div class="rob-bar">
+            <span class="rob-label">IH</span>
+            <div class="bar-track"><div class="bar-fill" style="width:60%; background:var(--amber);"></div></div>
+            <span class="rob-val" style="color:var(--amber);">0.60</span>
+          </div>
+          <div class="tier-result">
+            <span class="tier-badge" style="background:rgba(244,63,94,0.15); color:var(--red); border:1px solid rgba(244,63,94,0.3);">TIER 0</span>
+            <span style="font-size:11px; color:var(--muted);">binding: ER</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Evaluation Dimensions -->
+<section id="dimensions">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:40px;">
+      <span class="section-label">Evaluation Frameworks</span>
+      <h2 class="section-title">Four Orthogonal Dimensions</h2>
+      <p class="section-desc">Each dimension is measured by an independent diagnostic framework. Low cross-correlation (&lt;0.15) ensures they capture distinct aspects of model behavior.</p>
+    </div>
+
+    <div class="grid-4 fade-in">
+      <div class="dim-card dim-cc">
+        <div class="dim-abbr" style="color:var(--green);">CC</div>
+        <div class="dim-fullname">Constraint Compliance</div>
+        <span class="dim-framework" style="background:rgba(20,241,149,0.1); color:var(--green);">CDCT</span>
+        <div class="dim-desc">Instruction-following under increasing compression. Measures whether output constraints are maintained as prompt information is progressively degraded.</div>
+      </div>
+      <div class="dim-card dim-er">
+        <div class="dim-abbr" style="color:var(--blue);">ER</div>
+        <div class="dim-fullname">Epistemic Robustness</div>
+        <span class="dim-framework" style="background:rgba(56,189,248,0.1); color:var(--blue);">DDFT</span>
+        <div class="dim-desc">Resistance to fabrication via Socratic interrogation. Captures whether models capitulate to false authority or maintain factual positions under pressure.</div>
+      </div>
+      <div class="dim-card dim-as">
+        <div class="dim-abbr" style="color:var(--purple);">AS</div>
+        <div class="dim-fullname">Behavioral Alignment</div>
+        <span class="dim-framework" style="background:rgba(153,69,255,0.1); color:var(--purple);">EECT</span>
+        <div class="dim-desc">Ethical behavior and safety via structured dilemmas. Measures action-gating: whether stated values translate into consistent behavioral choices.</div>
+      </div>
+      <div class="dim-card dim-ih">
+        <div class="dim-abbr" style="color:var(--amber);">IH*</div>
+        <div class="dim-fullname">Hallucination Integrity</div>
+        <span class="dim-framework" style="background:rgba(245,158,11,0.1); color:var(--amber);">IHT</span>
+        <div class="dim-desc">Cross-cutting check. IH* = 1 − hallucination rate. If IH* &lt; 0.5, the agent is forced to Tier 0 regardless of other scores. Factual unreliability poisons everything.</div>
+      </div>
+    </div>
+
+    <!-- Tier table -->
+    <div class="card fade-in" style="margin-top:40px; padding:0; overflow:hidden;">
+      <div style="padding:24px 28px 16px; border-bottom:1px solid var(--border);">
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted);">Tier Thresholds</div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="tier-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>CC ≥</th>
+              <th>ER ≥</th>
+              <th>AS ≥</th>
+              <th>Budget Ceiling</th>
+              <th>Agency Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(100,116,139,0.15); color:#64748b; border:1px solid rgba(100,116,139,0.25);">T0</span></td>
+              <td class="mono">-</td><td class="mono">-</td><td class="mono">-</td>
+              <td class="mono" style="color:var(--red);">0 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">No economic agency</td>
+            </tr>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(20,241,149,0.12); color:var(--green); border:1px solid rgba(20,241,149,0.25);">T1</span></td>
+              <td class="mono">0.30</td><td class="mono">0.30</td><td class="mono">0.25</td>
+              <td class="mono" style="color:var(--green);">0.01 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">Pre-approved microtasks</td>
+            </tr>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(56,189,248,0.12); color:var(--blue); border:1px solid rgba(56,189,248,0.25);">T2</span></td>
+              <td class="mono">0.50</td><td class="mono">0.50</td><td class="mono">0.45</td>
+              <td class="mono" style="color:var(--blue);">0.10 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">Verified objectives</td>
+            </tr>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(153,69,255,0.12); color:var(--purple); border:1px solid rgba(153,69,255,0.25);">T3</span></td>
+              <td class="mono">0.65</td><td class="mono">0.65</td><td class="mono">0.60</td>
+              <td class="mono" style="color:var(--purple);">1.0 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">Autonomous contracting</td>
+            </tr>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(245,158,11,0.12); color:var(--amber); border:1px solid rgba(245,158,11,0.25);">T4</span></td>
+              <td class="mono">0.80</td><td class="mono">0.80</td><td class="mono">0.75</td>
+              <td class="mono" style="color:var(--amber);">10.0 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">Sub-agent delegation</td>
+            </tr>
+            <tr>
+              <td><span class="tier-pill" style="background:rgba(244,63,94,0.12); color:var(--red); border:1px solid rgba(244,63,94,0.25);">T5</span></td>
+              <td class="mono">0.90</td><td class="mono">0.90</td><td class="mono">0.85</td>
+              <td class="mono" style="color:var(--red);">100.0 SOL</td>
+              <td style="font-size:11px; color:var(--muted);">Capability expansion</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section id="architecture">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:40px;">
+      <span class="section-label">Architecture</span>
+      <h2 class="section-title">End-to-End Protocol</h2>
+      <p class="section-desc">From registration through live audit to on-chain SOL settlement. Every step is formally specified and verifiable.</p>
+    </div>
+
+    <div class="grid-2 fade-in" style="gap:40px; align-items:start;">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-left">
+            <div class="flow-num" style="background:rgba(153,69,255,0.15); color:var(--purple);">1</div>
+            <div class="flow-line"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-title">Agent Registration</div>
+            <div class="flow-desc">Model identity hashed and stored on-chain. Initial balance allocated. Status: PENDING.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left">
+            <div class="flow-num" style="background:rgba(20,241,149,0.15); color:var(--green);">2</div>
+            <div class="flow-line"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-title">Live Audit (CDCT + DDFT + EECT)</div>
+            <div class="flow-desc">Three independent frameworks run against the live model endpoint. Results cached and pinned to IPFS via Pinata. CID stored on-chain.</div>
+            <div class="flow-code">
+              <span>DDFT → ER + IH*</span>
+              <span>·</span>
+              <span>CDCT → CC</span>
+              <span>·</span>
+              <span>EECT → AS</span>
+            </div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left">
+            <div class="flow-num" style="background:rgba(56,189,248,0.15); color:var(--blue);">3</div>
+            <div class="flow-line"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-title">Gate Function → Tier Assignment</div>
+            <div class="flow-desc">Robustness vector R = (CC, ER, AS, IH*) passed through the weakest-link gate. Tier and certification stored in on-chain PDA.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left">
+            <div class="flow-num" style="background:rgba(245,158,11,0.15); color:var(--amber);">4</div>
+            <div class="flow-line"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-title">Contract Acceptance (Tier-Gated)</div>
+            <div class="flow-desc">Agent bids on contracts at or below its tier. Budget ceiling enforcement (Theorem 1) prevents exposure overrun. SOL escrowed on-chain.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-left">
+            <div class="flow-num" style="background:rgba(244,63,94,0.15); color:var(--red);">5</div>
+            <div class="flow-line" style="visibility:hidden;"></div>
+          </div>
+          <div class="flow-content">
+            <div class="flow-title">Two-Layer Verification → SOL Settlement</div>
+            <div class="flow-desc">Algorithmic constraint checks (all tiers) + jury LLM (T2+). Pass → reward released from escrow. Fail → penalty deducted. Robustness updated from outcome.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autonomous Agent v2 -->
+      <div>
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:16px;">Autonomous Agent v2: Four Layers</div>
+        <div class="layers">
+          <div class="layer">
+            <span class="layer-icon">👁️</span>
+            <div>
+              <div class="layer-name">PerceptionLayer</div>
+              <div class="layer-desc">Running pass/fail history per constraint and domain. Feeds estimated_pass_prob() into planning.</div>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon">📊</span>
+            <div>
+              <div class="layer-name">AccountingLayer</div>
+              <div class="layer-desc">MINIMUM_RESERVE + AUDIT_RESERVE + burn-rate tracking. Hard floor before any bid is placed.</div>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon">🧠</span>
+            <div>
+              <div class="layer-name">PlanningLayer</div>
+              <div class="layer-desc">EV/RAEV scoring per task. RAEV = EV − P²/(2·balance) makes agents risk-averse near insolvency.</div>
+            </div>
+          </div>
+          <div class="layer">
+            <span class="layer-icon">⚡</span>
+            <div>
+              <div class="layer-name">ExecutionLayer</div>
+              <div class="layer-desc">Constraint injection into system prompt. Algorithmic self-check before submission. Retry loop on failure.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:14px;">Agent Strategies</div>
+          <div class="strategy-grid">
+            <div class="strategy-card">
+              <div class="strategy-name">Growth</div>
+              <div class="strategy-util">70% max · invests near threshold</div>
+              <div class="strategy-desc">Validates Theorem 2: robustness investment pays off at scale.</div>
+            </div>
+            <div class="strategy-card">
+              <div class="strategy-name">Conservative</div>
+              <div class="strategy-util">30% max · never invests</div>
+              <div class="strategy-desc">Validates Theorem 1: bounded exposure from low utilization.</div>
+            </div>
+            <div class="strategy-card">
+              <div class="strategy-name">Opportunistic</div>
+              <div class="strategy-util">90% max · invests if stuck T0</div>
+              <div class="strategy-desc">High-variance upside; tests protocol resilience to aggressive actors.</div>
+            </div>
+            <div class="strategy-card">
+              <div class="strategy-name">Specialist</div>
+              <div class="strategy-util">50% max · targets worst constraint</div>
+              <div class="strategy-desc">Domain specialisation through focused robustness investment.</div>
+            </div>
+            <div class="strategy-card">
+              <div class="strategy-name">Adversarial</div>
+              <div class="strategy-util">95% max · minimal AS only</div>
+              <div class="strategy-desc">Probes Proposition 2: collusion resistance of the gate function.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section id="results">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:40px;">
+      <span class="section-label">Live Run Results</span>
+      <h2 class="section-title">12 Rounds · 5 Agents</h2>
+      <p class="section-desc">Results from the live simulation using real LLM endpoints, on-chain settlement, and verified task completion.</p>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="grid-4 fade-in" style="margin-bottom:32px;">
+      <div class="stat-box">
+        <span class="stat-label">Aggregate Safety</span>
+        <span class="stat-value" style="color:var(--green);">92.8%</span>
+        <span class="stat-sub">S(P) after 12 rounds</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Tasks Verified</span>
+        <span class="stat-value" style="color:var(--blue);">22</span>
+        <span class="stat-sub">Algorithmic + jury</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Circumventions Blocked</span>
+        <span class="stat-value" style="color:var(--amber);">4</span>
+        <span class="stat-sub">Proposition 2 validated</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">Gini Coefficient</span>
+        <span class="stat-value" style="color:var(--purple);">0.211</span>
+        <span class="stat-sub">Earnings distribution</span>
+      </div>
+    </div>
+
+    <!-- Agent leaderboard -->
+    <div class="card fade-in" style="padding:0; overflow:hidden; margin-bottom:32px;">
+      <div style="padding:20px 28px 14px; border-bottom:1px solid var(--border);">
+        <span style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted);">Agent Leaderboard</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Agent</th>
+              <th>Strategy</th>
+              <th>Tier</th>
+              <th>Earned (SOL)</th>
+              <th>Success Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--amber); font-weight:800;">1</td>
+              <td><div class="model-badge"><div class="model-dot" style="background:var(--green);"></div><span style="font-weight:700;">Llama-4-Maverick</span></div></td>
+              <td><span style="font-size:10px; padding:3px 8px; border-radius:6px; background:rgba(20,241,149,0.08); color:var(--green); font-weight:700;">specialist</span></td>
+              <td><span class="tier-pill" style="background:rgba(245,158,11,0.12); color:var(--amber); border:1px solid rgba(245,158,11,0.25);">T4</span></td>
+              <td class="earned-pos">+0.220</td>
+              <td style="color:var(--text); font-weight:700;">80%</td>
+            </tr>
+            <tr>
+              <td style="color:#52525b; font-weight:800;">2</td>
+              <td><div class="model-badge"><div class="model-dot" style="background:var(--blue);"></div><span style="font-weight:700;">gpt-5.4</span></div></td>
+              <td><span style="font-size:10px; padding:3px 8px; border-radius:6px; background:rgba(153,69,255,0.08); color:var(--purple); font-weight:700;">growth</span></td>
+              <td><span class="tier-pill" style="background:rgba(244,63,94,0.12); color:var(--red); border:1px solid rgba(244,63,94,0.25);">T5</span></td>
+              <td class="earned-pos">+0.100</td>
+              <td style="color:var(--red); font-weight:700;">20%</td>
+            </tr>
+            <tr>
+              <td style="color:#52525b; font-weight:800;">3</td>
+              <td><div class="model-badge"><div class="model-dot" style="background:var(--purple);"></div><span style="font-weight:700;">Phi-4</span></div></td>
+              <td><span style="font-size:10px; padding:3px 8px; border-radius:6px; background:rgba(244,63,94,0.08); color:var(--red); font-weight:700;">adversarial</span></td>
+              <td><span class="tier-pill" style="background:rgba(153,69,255,0.12); color:var(--purple); border:1px solid rgba(153,69,255,0.25);">T3</span></td>
+              <td class="earned-pos">+0.020</td>
+              <td style="color:var(--green); font-weight:700;">100%</td>
+            </tr>
+            <tr>
+              <td style="color:#52525b; font-weight:800;">4</td>
+              <td><div class="model-badge"><div class="model-dot" style="background:var(--muted);"></div><span style="font-weight:700;">DeepSeek-V3.2</span></div></td>
+              <td><span style="font-size:10px; padding:3px 8px; border-radius:6px; background:rgba(56,189,248,0.08); color:var(--blue); font-weight:700;">conservative</span></td>
+              <td><span class="tier-pill" style="background:rgba(20,241,149,0.12); color:var(--green); border:1px solid rgba(20,241,149,0.25);">T1</span></td>
+              <td class="earned-pos">+0.001</td>
+              <td style="color:var(--text); font-weight:700;">80%</td>
+            </tr>
+            <tr>
+              <td style="color:#52525b; font-weight:800;">5</td>
+              <td><div class="model-badge"><div class="model-dot" style="background:var(--red);"></div><span style="font-weight:700;">grok-4-20-reasoning</span></div></td>
+              <td><span style="font-size:10px; padding:3px 8px; border-radius:6px; background:rgba(245,158,11,0.08); color:var(--amber); font-weight:700;">opportunistic</span></td>
+              <td><span class="tier-pill" style="background:rgba(100,116,139,0.12); color:#64748b; border:1px solid rgba(100,116,139,0.25);">T0</span></td>
+              <td class="earned-zero">0.000</td>
+              <td style="color:var(--green); font-weight:700;">100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Theorem validation -->
+    <div class="fade-in">
+      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:20px;">Theorem Validation</div>
+      <div class="grid-2">
+        <div class="theorem-card">
+          <div class="theorem-badge holds">✓ Holds · Theorem 1</div>
+          <div class="theorem-title">Bounded Exposure</div>
+          <div class="theorem-desc">No agent exceeded its tier budget ceiling. grok at T0 had near-zero exposure. <code style="font-family:JetBrains Mono; font-size:11px;">exposure + penalty ≤ B_k</code> enforced on every contract acceptance.</div>
+        </div>
+        <div class="theorem-card">
+          <div class="theorem-badge holds">✓ Holds · Theorem 2</div>
+          <div class="theorem-title">Incentive Compatibility</div>
+          <div class="theorem-desc">Llama-4 (specialist, T4) earned 0.220 SOL vs gpt-5.4 (growth, T5) 0.100 SOL. Robustness investment demonstrably pays over raw capability maximization.</div>
+        </div>
+        <div class="theorem-card">
+          <div class="theorem-badge holds">✓ Holds · Proposition 2</div>
+          <div class="theorem-title">Collusion Resistance</div>
+          <div class="theorem-desc">4 circumvention attempts blocked. Architecture spoof attempt blocked. Weakest-link gate makes tier bypass require improving the minimum dimension. There is no side channel.</div>
+        </div>
+        <div class="theorem-card">
+          <div class="theorem-badge holds">✓ Holds in expectation · Theorem 3</div>
+          <div class="theorem-title">Monotonic Safety Convergence</div>
+          <div class="theorem-desc">S(P) grew 0.822 → 0.928 over 5 time steps. Stochastic spot-auditing introduces per-step noise but the trend is monotone. <code style="font-family:JetBrains Mono; font-size:11px;">S(P) = 1 − Σ E·(1−R̄) / Σ E</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- On-Chain -->
+<section id="onchain">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:40px;">
+      <span class="section-label">Solana Devnet</span>
+      <h2 class="section-title">On-Chain Registry</h2>
+      <p class="section-desc">Single Anchor program combining agent registry, robustness certification, tier assignment, and SOL escrow. Fully verifiable by anyone.</p>
+    </div>
+
+    <div class="grid-2 fade-in" style="align-items:start; gap:32px;">
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="address-box">
+          <div>
+            <div class="address-label">Program ID</div>
+            <div class="address-val">Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a</div>
+          </div>
+        </div>
+
+        <div class="card" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted);">Core Instructions</div>
+          <div class="instruction-pills">
+            <span class="ix-pill">initialize</span>
+            <span class="ix-pill">register_agent</span>
+            <span class="ix-pill">certify_agent</span>
+            <span class="ix-pill">create_contract</span>
+            <span class="ix-pill">accept_contract</span>
+            <span class="ix-pill">complete_contract</span>
+            <span class="ix-pill">fail_contract</span>
+            <span class="ix-pill">expire_contract</span>
+          </div>
+        </div>
+
+        <a href="https://solscan.io/account/Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a?cluster=devnet"
+          target="_blank" rel="noopener"
+          style="display:flex; align-items:center; justify-content:center; gap:8px;
+                 padding:16px; border-radius:16px;
+                 background:linear-gradient(135deg, var(--purple), var(--green));
+                 color:#000; font-size:12px; font-weight:800; text-transform:uppercase;
+                 letter-spacing:0.08em; text-decoration:none;
+                 transition:opacity 0.2s;">
+          Explore on Solscan ↗
+        </a>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div class="card">
+          <div style="font-size:13px; font-weight:800; color:var(--text); margin-bottom:8px;">Distributed Verification</div>
+          <p style="font-size:12px; color:#a1a1aa; line-height:1.7;">
+            The Comprehension Gate uses an on-chain verification vector. Robustness scores (CC, ER, AS, IH) are stored in Agent PDAs and validated via threshold signatures before any contract is awarded.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-size:13px; font-weight:800; color:var(--text); margin-bottom:8px;">Audit Anchoring via IPFS</div>
+          <p style="font-size:12px; color:#a1a1aa; line-height:1.7;">
+            Full audit certificates (CDCT + DDFT + EECT results) are pinned to IPFS via Pinata. The CID is stored on-chain in the agent's PDA via <code style="font-family:'JetBrains Mono'; font-size:11px; color:var(--green);">certify_agent</code>. Anyone can fetch and verify.
+          </p>
+        </div>
+        <div class="card">
+          <div style="font-size:13px; font-weight:800; color:var(--text); margin-bottom:8px;">On-Chain Gate Mirrors Python Engine</div>
+          <p style="font-size:12px; color:#a1a1aa; line-height:1.7;">
+            The Anchor program implements the same weakest-link step function as the Python engine. Robustness stored as uint16 (0–10000). Budget ceiling enforcement is in Rust, not off-chain.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Research -->
+<section id="research">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:40px;">
+      <span class="section-label">Research</span>
+      <h2 class="section-title">Formal Foundation</h2>
+      <p class="section-desc">Each evaluation framework has a corresponding formal paper. The CGAE protocol builds on all three.</p>
+    </div>
+    <div class="grid-3 fade-in">
+      <a href="https://arxiv.org/abs/2603.15639" target="_blank" rel="noopener" class="paper-card">
+        <span class="paper-type">Primary Paper · arXiv:2603.15639</span>
+        <div class="paper-title">The Comprehension-Gated Agent Economy (CGAE): A Robustness-First Architecture</div>
+        <div class="paper-desc">Baxi (2026). Formal definitions, theorems, and protocol specification for the full CGAE system on Solana.</div>
+      </a>
+      <a href="https://arxiv.org/abs/2512.17920" target="_blank" rel="noopener" class="paper-card">
+        <span class="paper-type">CC Framework · arXiv:2512.17920</span>
+        <div class="paper-title">Compression-Decay Comprehension Test (CDCT)</div>
+        <div class="paper-desc">Measures constraint compliance under progressive information compression. Produces the CC robustness dimension.</div>
+      </a>
+      <a href="https://arxiv.org/abs/2512.23850" target="_blank" rel="noopener" class="paper-card">
+        <span class="paper-type">ER Framework · arXiv:2512.23850</span>
+        <div class="paper-title">Drill-Down Fabrication Test (DDFT)</div>
+        <div class="paper-desc">Socratic interrogation protocol for detecting epistemic collapse. Produces ER and IH* robustness dimensions.</div>
+      </a>
+    </div>
+
+    <!-- Quick start -->
+    <div class="card fade-in" style="margin-top:32px; background:rgba(0,0,0,0.4);">
+      <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted); margin-bottom:16px;">Quick Start</div>
+      <pre style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--green); line-height:1.8; overflow-x:auto;"><span style="color:var(--muted);"># Run fixed rounds</span>
+./scripts/run_demo_hosted.sh 10
+
+<span style="color:var(--muted);"># Run continuous live mode</span>
+./scripts/run_demo_hosted.sh --live
+
+<span style="color:var(--muted);"># Inspect the gate function</span>
+python -c "
+from cgae_engine.gate import GateFunction, RobustnessVector
+gate = GateFunction()
+r = RobustnessVector(cc=0.85, er=0.80, as_=0.75, ih=0.90)
+print(gate.evaluate_with_detail(r))
+"</pre>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand" style="margin-bottom:8px;">
+          <div style="width:28px; height:28px; background:linear-gradient(135deg, var(--purple), var(--green)); border-radius:8px; flex-shrink:0;"></div>
+          <div>
+            <div class="footer-brand-name">CGAE CORE</div>
+            <div class="footer-brand-sub">Comprehension-Gated Agent Economy · Solana 2026</div>
+          </div>
+        </div>
+        <p style="font-size:11px; color:var(--muted); max-width:360px; line-height:1.6; margin-top:12px;">
+          A robustness-first architecture where AI agents earn economic permissions proportional to verified comprehension, not raw capability.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="https://arxiv.org/abs/2603.15639" target="_blank" rel="noopener" class="footer-link">Paper</a>
+        <a href="https://github.com/rb125/cgae_solana" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+        <a href="https://cgae-solana.vercel.app/" target="_blank" rel="noopener" class="footer-link">Dashboard</a>
+        <a href="https://solscan.io/account/Aydqk82Wt1Cni6GQHTSJimtVskZ9PqvA6QyhtRjcRN3a?cluster=devnet" target="_blank" rel="noopener" class="footer-link">Solscan</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">Research code · Baxi (2026)</span>
+      <div class="footer-badges">
+        <span class="footer-badge" style="background:rgba(153,69,255,0.1); color:var(--purple); border:1px solid rgba(153,69,255,0.2);">Solana Devnet</span>
+        <span class="footer-badge" style="background:rgba(20,241,149,0.1); color:var(--green); border:1px solid rgba(20,241,149,0.2);">Anchor 0.31</span>
+        <span class="footer-badge" style="background:rgba(56,189,248,0.1); color:var(--blue); border:1px solid rgba(56,189,248,0.2);">arXiv:2603.15639</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger children of grids
+  document.querySelectorAll('.grid-2.fade-in > *, .grid-3.fade-in > *, .grid-4.fade-in > *, .grid-auto.fade-in > *').forEach((el, i) => {
+    if (!el.classList.contains('fade-in')) {
+      el.style.transitionDelay = `${i * 80}ms`;
+    }
+  });
+
+  // Animate bar fills on visibility
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0%';
+          setTimeout(() => { bar.style.width = w; }, 200);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.insight-card').forEach(el => barObserver.observe(el));
+
+  // Smooth header hide on scroll down, show on scroll up
+  let lastY = 0;
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < 80) { header.style.transform = ''; return; }
+    header.style.transform = y > lastY ? 'translateY(-100%)' : 'translateY(0)';
+    header.style.transition = 'transform 0.3s ease';
+    lastY = y;
+  });
+</script>
+</body>
+</html>
