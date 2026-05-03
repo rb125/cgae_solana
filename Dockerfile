@@ -10,8 +10,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY storage/package.json storage/package-lock.json* storage/
-RUN cd storage && npm install --production 2>/dev/null || true
 
 COPY . .
 
