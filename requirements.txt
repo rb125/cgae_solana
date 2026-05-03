@@ -1,4 +1,5 @@
-streamlit>=1.30.0
+fastapi
+uvicorn[standard]
 plotly>=5.18.0
 pandas>=2.0.0
 python-dotenv>=1.0.0
