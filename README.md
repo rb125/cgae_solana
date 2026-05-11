@@ -13,7 +13,7 @@ pinned: false
 
 ## 📺 Technical Walkthrough & Demo
 
-[![CGAE Technical Walkthrough](https://img.youtube.com/vi/E3jCNHC39-s/0.jpg)](https://youtu.be/E3jCNHC39-s)
+[![CGAE Technical Walkthrough](https://img.youtube.com/vi/E3jCNHC39-s/0.jpg)](https://youtu.be/eGyyluLo2GU)
 
 ---
 
